@@ -34,18 +34,16 @@
   .logo img{width:100%;height:100%;object-fit:contain;}
 
   .badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:800;color:#7fb4e0;margin-bottom:16px;}
-  .badge .dot{width:8px;height:8px;border-radius:50%;background:#f0a830;box-shadow:0 0 0 0 rgba(240,168,48,.6);animation:ping 2.2s ease-out infinite;}
+  .badge .dot{width:14px;height:14px;border-radius:50%;background:#f0a830;box-shadow:0 0 0 0 rgba(240,168,48,.6);animation:ping 2.2s ease-out infinite;}
   @keyframes ping{0%{box-shadow:0 0 0 0 rgba(240,168,48,.55);}70%{box-shadow:0 0 0 11px rgba(240,168,48,0);}100%{box-shadow:0 0 0 0 rgba(240,168,48,0);}}
 
   h1{font-size:clamp(26px,5vw,38px);font-weight:800;letter-spacing:-.6px;line-height:1.1;margin-bottom:14px;}
   p{font-size:15.5px;line-height:1.6;color:#c9d6e8;max-width:42ch;margin:0 auto;}
   .sub{margin-top:18px;font-size:13px;color:#8fb0d4;}
+  .bar{margin:28px auto 0;width:240px;max-width:80%;height:7px;border-radius:999px;background:rgba(127,180,224,.15);overflow:hidden;position:relative;}
+  .bar>span{position:absolute;top:0;left:0;height:100%;width:45%;border-radius:999px;background:linear-gradient(90deg,transparent,var(--brand),#7fd0ff,transparent);animation:slide 1.7s ease-in-out infinite;}
+  @keyframes slide{0%{left:-45%;}100%{left:100%;}}
 
-  .bar{margin:28px auto 10px;width:280px;max-width:80%;height:9px;border-radius:999px;background:rgba(127,180,224,.15);overflow:hidden;}
-  .bar>span{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--brand),#7fd0ff);
-    box-shadow:0 0 14px rgba(43,143,215,.6);transition:width .8s ease;}
-  .bar-meta{display:flex;justify-content:space-between;width:280px;max-width:80%;margin:0 auto;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;color:#8fb0d4;}
-  .bar-meta .rem{color:#cfe6fa;}
 
   .foot{position:absolute;bottom:18px;left:0;right:0;text-align:center;z-index:2;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:700;}
 
@@ -58,29 +56,9 @@
     <div class="badge"><span class="dot"></span>Scheduled maintenance</div>
     <h1>We&rsquo;ll be right back</h1>
     <p>The Envision team portal is temporarily down for updates. Nothing is broken &mdash; we&rsquo;re making improvements and will be back online shortly.</p>
-    <div class="bar"><span id="fill"></span></div>
-    <div class="bar-meta"><span>Maintenance window</span><span class="rem" id="rem">3h 00m left</span></div>
+    <div class="bar"><span></span></div>
     <div class="sub">Please check back in a little while.</div>
   </div>
   <div class="foot">Envision Painting &amp; Roofing</div>
-  <script>
-    (function(){
-      var WINDOW_MS = 3*60*60*1000;       // 3-hour maintenance window
-      var start = Date.now();             // begins when the page loads
-      var fill = document.getElementById('fill');
-      var rem  = document.getElementById('rem');
-      function tick(){
-        var elapsed = Date.now() - start;
-        var pct = Math.min(100, (elapsed/WINDOW_MS)*100);
-        fill.style.width = pct.toFixed(2) + '%';
-        var left = Math.max(0, WINDOW_MS - elapsed);
-        var h = Math.floor(left/3600000);
-        var m = Math.floor((left%3600000)/60000);
-        rem.textContent = pct>=100 ? 'Wrapping up…' : (h+'h '+(m<10?'0':'')+m+'m left');
-        if(pct < 100) requestAnimationFrame(function(){ setTimeout(tick, 1000); });
-      }
-      requestAnimationFrame(tick);
-    })();
-  </script>
 </body>
 </html>
