@@ -101,6 +101,15 @@
   .gate select,.gate input{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit;margin-bottom:12px;color:var(--ink-deep);}
   .gate select:focus,.gate input:focus{outline:none;border-color:var(--brand);}
   .gate .err{color:var(--red);font-size:13px;font-weight:700;min-height:18px;margin-bottom:6px;}
+  /* password show/hide + lock warnings */
+  .pw-wrap{position:relative;}
+  .pw-wrap input{margin-bottom:0 !important;padding-right:44px !important;}
+  .pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:17px;line-height:1;padding:6px 8px;border-radius:8px;opacity:.55;transition:opacity .12s;}
+  .pw-eye:hover{opacity:1;}
+  .pw-eye.on{opacity:1;}
+  .lock-warn{min-height:0;font-size:12px;font-weight:700;color:#c98a13;margin:6px 0 8px;display:none;}
+  .lock-warn.show{display:block;}
+  .lock-warn::before{content:"⚠ ";}
   .gate .btn-primary{width:100%;justify-content:center;}
   .gate .hint{font-size:11.5px;color:var(--muted);margin-top:14px;}
 
@@ -279,6 +288,33 @@
   .prof-toggle{font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:999px;cursor:pointer;font-family:inherit;border:1.5px solid transparent;transition:all .15s;}
   .prof-toggle.on{background:var(--green-bg);color:var(--green);border-color:#bfe6cf;}
   .prof-toggle.off{background:#eef2f8;color:var(--muted);border-color:var(--line);}
+  .imp-mode{font-size:12px;font-weight:700;padding:8px 12px;border-radius:9px;cursor:pointer;font-family:inherit;border:1.5px solid var(--line);background:var(--paper);color:var(--muted);transition:all .15s;}
+  .imp-mode:hover{color:var(--ink);}
+  .imp-mode.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  /* review steppers */
+  .rv-total{font-size:13px;color:var(--ink);background:var(--paper-tint);border:1px solid var(--line);border-radius:9px;padding:8px 12px;margin-bottom:14px;display:inline-block;}
+  .rv-steppers{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;}
+  .rv-step{display:flex;align-items:center;gap:10px;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;position:relative;}
+  .rv-step-name{flex:1;font-weight:700;font-size:13.5px;color:var(--ink);line-height:1.2;}
+  .rv-step-ctl{display:flex;align-items:center;gap:8px;}
+  .rv-btn{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);font-size:20px;font-weight:800;line-height:1;cursor:pointer;font-family:inherit;color:var(--ink);display:grid;place-items:center;transition:all .12s;}
+  .rv-btn:hover{transform:scale(1.08);}
+  .rv-plus{background:var(--brand);border-color:var(--brand);color:#fff;}
+  .rv-plus:hover{background:var(--ink-bright);}
+  .rv-minus:hover{border-color:var(--red);color:var(--red);}
+  .rv-count{min-width:30px;text-align:center;font-size:19px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .rv-count.has{color:var(--green);}
+  .rv-x{position:absolute;top:4px;right:6px;border:none;background:none;color:var(--line);font-size:15px;cursor:pointer;line-height:1;padding:2px;}
+  .rv-x:hover{color:var(--red);}
+  .rv-add-wrap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px;}
+  .rv-add-lbl{font-size:12px;font-weight:700;color:var(--muted);margin-right:4px;}
+  .rv-chip{font-size:12px;font-weight:700;color:var(--ink);background:var(--paper-tint);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer;font-family:inherit;transition:all .12s;}
+  .rv-chip:hover{border-color:var(--brand);color:var(--brand);}
+  /* commission */
+  .comm-rule{font-size:13px;color:var(--ink);background:#fdf6e6;border:1px solid #f0d99a;border-left:4px solid #f0a830;border-radius:8px;padding:11px 14px;margin-bottom:6px;}
+  .comm-inherit{font-size:12.5px;color:var(--muted);background:var(--paper-tint);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px;}
+  .comm-rate{font-weight:800;color:var(--brand);}
+  .comm-note{font-size:11.5px;color:var(--muted);font-style:italic;}
   .res{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid var(--line);border-radius:11px;background:var(--paper);margin-bottom:9px;transition:all .12s;}
   .res:hover{border-color:var(--brand);}
   .res .rico{width:34px;height:34px;border-radius:8px;background:var(--ink-soft);display:grid;place-items:center;font-size:16px;flex:none;}
@@ -407,6 +443,66 @@
   .ah-table .ah-t{font-weight:800;color:var(--ink);white-space:nowrap;}
   .ah-table .ah-p{font-weight:700;color:var(--brand);white-space:nowrap;}
   .ah-foot{margin-top:14px;text-align:center;font-size:12px;font-weight:700;color:var(--ink);background:var(--paper-tint);border-radius:8px;padding:9px;}
+
+  /* ===== Under construction ===== */
+  .uc-card{text-align:center;padding:54px 24px;border:2px dashed var(--line);background:var(--paper-tint);}
+  .uc-ico{font-size:52px;line-height:1;margin-bottom:14px;}
+  .uc-title{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+  .uc-sub{font-size:14px;color:var(--muted);margin:8px auto 22px;max-width:46ch;line-height:1.55;}
+  .uc-bar{height:8px;width:240px;max-width:80%;margin:0 auto;background:#e6edf7;border-radius:999px;overflow:hidden;}
+  .uc-bar span{display:block;height:100%;width:42%;background:linear-gradient(90deg,#f0a830,#f5c163);border-radius:999px;animation:ucMove 1.8s ease-in-out infinite;}
+  @keyframes ucMove{0%{margin-left:-42%;}100%{margin-left:100%;}}
+  @media (prefers-reduced-motion: reduce){ .uc-bar span{animation:none;margin-left:29%;} }
+
+  /* ===== Project Schedules (Gantt) ===== */
+  .sch-card{background:var(--paper);border:1.5px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);}
+  .sch-head{border-bottom:2px solid var(--line);padding-bottom:14px;margin-bottom:14px;}
+  .sch-title{font-size:19px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+  .sch-job{font-size:12px;font-weight:700;color:var(--muted);background:var(--paper-tint);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-left:6px;vertical-align:middle;}
+  .sch-meta{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:8px;font-size:12.5px;color:var(--muted);}
+  .sch-meta b{color:var(--ink);font-weight:700;}
+  .sch-scroll{overflow-x:auto;padding-bottom:6px;}
+  .sch-grid{display:grid;grid-template-columns:170px repeat(var(--cols),minmax(30px,1fr));min-width:760px;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .sch-cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:11px;}
+  .sch-corner{background:var(--ink);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;padding:0 10px;letter-spacing:.3px;}
+  .sch-week{background:var(--ink-deep);color:#fff;font-weight:800;font-size:11px;text-align:center;padding:7px 4px;letter-spacing:.2px;}
+  .sch-day{background:var(--paper-tint);color:var(--muted);font-weight:700;text-align:center;padding:5px 2px;font-size:9.5px;}
+  .sch-rowlabel{display:flex;align-items:center;gap:6px;padding:0 10px;font-size:12px;font-weight:600;color:var(--ink);background:#fff;min-height:30px;}
+  .sch-rowlabel.ext{background:#f4f9f4;}
+  .sch-phase{font-size:8.5px;font-weight:800;letter-spacing:.5px;color:var(--brand);background:var(--ink-soft);border-radius:4px;padding:1px 5px;margin-right:2px;}
+  .sch-rowlabel.ext .sch-phase{color:#3a8a3a;background:#e3f2e3;}
+  .sch-slot{background:#fff;min-height:30px;}
+  .sch-slot.fill-int{background:linear-gradient(135deg,#2b6fb0,#1a4f8f);}
+  .sch-slot.fill-ext{background:linear-gradient(135deg,#3a9a5a,#2e7d47);}
+  .sch-legend{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin-top:14px;font-size:12px;color:var(--muted);}
+  .sch-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sch-key{width:16px;height:12px;border-radius:3px;display:inline-block;}
+  .sch-note{font-style:italic;margin-left:auto;font-size:11.5px;}
+
+  /* ===== Weekly Numbers Report ===== */
+  .wk-card{border-top:4px solid var(--ink);}
+  .wk-card.wk-friday{border:2px solid #f0a830;box-shadow:0 6px 28px rgba(240,168,48,.22);}
+  .wk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:6px;}
+  .wk-kicker{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;color:var(--muted);}
+  .wk-title{font-size:22px;font-weight:800;color:var(--ink);letter-spacing:-.4px;line-height:1.1;margin-top:2px;}
+  .wk-week{font-size:12.5px;color:var(--muted);margin-top:4px;}
+  .wk-live{color:#c98a13;font-weight:800;}
+  .wk-badge{text-align:center;background:linear-gradient(135deg,#0e2150,#1a3a8f);color:#fff;border-radius:13px;padding:12px 18px;min-width:96px;}
+  .wk-friday .wk-badge{background:linear-gradient(135deg,#c9881a,#f0a830);}
+  .wk-badge-v{font-size:26px;font-weight:800;line-height:1;}
+  .wk-badge-l{font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;margin-top:3px;opacity:.9;}
+  .wk-sec-h{font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;font-weight:800;color:var(--brand);margin:18px 0 8px;}
+  .wk-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  .wk-table th{text-align:left;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);font-weight:800;padding:6px 10px;border-bottom:2px solid var(--line);}
+  .wk-table td{padding:8px 10px;border-bottom:1px solid var(--line);}
+  .wk-table .wk-r{text-align:right;}
+  .wk-pl{font-weight:700;color:var(--ink);}
+  .wk-pv{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .wk-pn{font-size:12px;color:var(--muted);}
+  .wk-total td{border-top:2px solid var(--ink);border-bottom:none;font-weight:800;color:var(--ink);background:var(--paper-tint);}
+  .wk-pos{color:var(--green);font-weight:800;}
+  .wk-neg{color:var(--red);font-weight:800;}
+  .wk-foot{font-size:11.5px;color:var(--muted);margin-top:14px;background:var(--paper-tint);border-radius:8px;padding:10px 12px;}
 
   /* ===== Safety section ===== */
   .safety-card{border-left:5px solid #f0a830;}
@@ -551,8 +647,9 @@
       <button class="nav-link" data-sec="performance">Performance</button>
       <button class="nav-link" data-sec="resources">Resources</button>
       <button class="nav-link" data-sec="directory">Directory</button>
+      <button class="nav-link" data-sec="schedules">Schedules</button>
       <button class="nav-link" data-sec="training">Training</button>
-      <button class="nav-link nav-ext" id="foremenTab">Foremen ↗</button>
+      <button class="nav-link" data-sec="foremen">Foremen</button>
       <button class="nav-link locked" data-sec="kpi">My KPIs</button>
       <button class="nav-link locked" data-sec="admin">Admin</button>
     </div>
@@ -578,12 +675,15 @@
     <div class="grid g4">
       <button class="card qlink" onclick="go('performance')"><div class="ico">📊</div><h3>Performance</h3><p>Team roll-up, leaderboard, and revenue trends across the year.</p></button>
       <button class="card qlink" onclick="go('kpi')"><div class="ico">🎯</div><h3>My KPIs</h3><p>Your personal scorecard. Password protected per person.</p></button>
-      <button class="card qlink" onclick="window.open(FOREMEN_URL,'_blank','noopener')"><div class="ico">👷</div><h3>Foremen ↗</h3><p>Crew tools and resources for foremen — opens in a new tab.</p></button>
+      <button class="card qlink" onclick="go('foremen')"><div class="ico">👷</div><h3>Foremen</h3><p>Crew tools and resources for foremen.</p></button>
       <button class="card qlink" onclick="go('resources')"><div class="ico">🗂️</div><h3>Folders &amp; Resources</h3><p>Shared folders, documents, supplier lists, and company resources.</p></button>
     </div>
 
     <div class="sect-head"><div class="lead">This month</div><div class="h2">Top performers</div></div>
     <div class="card" id="homeLeaders"></div>
+
+    <div class="sect-head" id="weeklyHead"><div class="lead">End of week</div><div class="h2">Weekly numbers report</div></div>
+    <div class="card" id="weeklyReport"></div>
 
     <div class="sect-head"><div class="lead">Mark your calendar</div><div class="h2">Next all-hands meeting</div></div>
     <div class="card" id="allHandsCard"></div>
@@ -673,11 +773,29 @@
     <div id="dirList"></div>
   </section>
 
+  <!-- ============ SCHEDULES ============ -->
+  <section class="section" id="sec-schedules">
+    <div class="sect-head"><div class="lead">How we plan work</div><div class="h2">Project schedules</div></div>
+    <p style="color:var(--muted);font-size:13.5px;margin:-8px 0 18px;max-width:66ch;">This is our standard project-schedule format for bigger jobs \u2014 a week-by-week plan showing which areas get worked each day. Use this Carriage Manor build as the template when scheduling large projects.</p>
+    <div id="scheduleWrap"></div>
+  </section>
+
   <!-- ============ TRAINING (public watch, admin edits) ============ -->
   <section class="section" id="sec-training">
     <div class="sect-head"><div class="lead">Learn &amp; grow</div><div class="h2">Training videos</div></div>
     <p style="color:var(--muted);font-size:13.5px;margin:-8px 0 20px;max-width:60ch;">Watch anytime. New videos get added by an admin in the Admin area.</p>
     <div id="trainList"></div>
+  </section>
+
+  <!-- ============ FOREMEN (under construction) ============ -->
+  <section class="section" id="sec-foremen">
+    <div class="sect-head"><div class="lead">For the crews</div><div class="h2">Foremen</div></div>
+    <div class="card uc-card">
+      <div class="uc-ico">🚧</div>
+      <div class="uc-title">Under construction</div>
+      <div class="uc-sub">The foremen area is being built. Crew tools and resources are coming soon — check back shortly.</div>
+      <div class="uc-bar"><span></span></div>
+    </div>
   </section>
 
   <!-- ============ KPI (gated) ============ -->
@@ -687,7 +805,8 @@
       <h2>My KPIs</h2>
       <p>Select your name and enter your passcode. You'll see only your own scorecard.</p>
       <select id="kpiWho"></select>
-      <input type="password" id="kpiPass" placeholder="Passcode" autocomplete="off">
+      <div class="pw-wrap"><input type="password" id="kpiPass" placeholder="Passcode" autocomplete="off"><button type="button" class="pw-eye" data-eye="kpiPass" aria-label="Show passcode">👁</button></div>
+      <div class="lock-warn" id="kpiLockWarn"></div>
       <div class="err" id="kpiErr"></div>
       <button class="btn btn-primary" id="kpiLoginBtn">Open my scorecard</button>
       <div class="hint">Trouble getting in? Ask Brian to reset your passcode.</div>
@@ -701,7 +820,8 @@
       <div class="lock">🔐</div>
       <h2>Admin</h2>
       <p>This area holds internal company resources. Enter the admin passcode to continue.</p>
-      <input type="password" id="adminPass" placeholder="Admin passcode" autocomplete="off">
+      <div class="pw-wrap"><input type="password" id="adminPass" placeholder="Admin passcode" autocomplete="off"><button type="button" class="pw-eye" data-eye="adminPass" aria-label="Show passcode">👁</button></div>
+      <div class="lock-warn" id="adminLockWarn"></div>
       <div class="err" id="adminErr"></div>
       <button class="btn btn-primary" id="adminLoginBtn">Unlock admin</button>
     </div>
@@ -729,13 +849,30 @@ const LOGO_DATA = "iVBORw0KGgoAAAANSUhEUgAAANgAAADICAIAAAAFlLghAAABCGlDQ1BJQ0MgU
 // Leave URL blank to run in file-only mode (no live sync).
 var SHEET_API_URL = "";        // e.g. https://script.google.com/macros/s/AKfy.../exec
 var SHEET_API_SECRET = "";     // must match SHARED_SECRET in the Apps Script
-let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Residential Estimator", "pass": "6944", "updated": "2026-06-22", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 10, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 8, "leadsWon": 2}}}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-06-22", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 41, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Residential Estimator", "pass": "15487", "updated": "2026-06-22", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "material": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "material": 0, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 0, "revenue": 0, "readiness": 0, "customer": 5, "leadsBrought": 2, "leadsWon": 0}}}, {"id": "brian", "name": "Brian Brown", "role": "Residential Estimator", "pass": "1986", "updated": "2026-06-22", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "material": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 47, "revenue": 19643, "customer": 5, "leadsBrought": 5, "leadsWon": 5}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "4925", "updated": "2026-06-24", "data": {}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "2026", "updated": "2026-06-24", "data": {}, "briefingOnly": true}];
+let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Residential Estimator", "pass": "6944", "updated": "2026-06-27", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 10, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 2}}}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-06-27", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 41, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Residential Estimator", "pass": "15487", "updated": "2026-06-27", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 0, "revenue": 0, "readiness": 0, "customer": 5, "leadsBrought": 2, "leadsWon": 0}}}, {"id": "brian", "name": "Brian Brown", "role": "Residential Estimator", "pass": "1986", "updated": "2026-06-27", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 47, "revenue": 19643, "customer": 5, "leadsBrought": 2, "leadsWon": 5}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "4925", "updated": "2026-06-27", "data": {}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "2026", "updated": "2026-06-27", "data": {}, "briefingOnly": true}];
 let OTHER_REVENUE = 81000;
 let GOALS = { yearly: 2000000, monthly: 175000 };
 // Next all-hands meeting (also the due date for briefings).
 var NEXT_MEETING = { date: "Friday, July 31, 2026", time: "9:00 AM \u2013 10:30 AM", place: "Dunn Edwards \u2014 Tempe" };
 // === EDIT ME: where the "Foremen" nav tab sends people (opens in a new tab) ===
 var FOREMEN_URL = "https://example.com";
+// 5-star reviews captured this week (shown on the Weekly Numbers Report; managed in Admin -> Reviews)
+var WEEKLY_REVIEWS = [];
+// Sales commission structure (editable in Admin -> People -> Commission). The DEFAULT applies to
+// any PM unless they have their own override in COMMISSION_BY[personId].
+var COMMISSION_DEFAULT = {
+  offTopPct: 10,               // % deducted off gross before commission (Adjusted = Gross x (100-offTop)%)
+  tiers: [
+    {min:0,  max:4,   rate:45, label:"Base Rate", note:"Starting rate for all new representatives"},
+    {min:5,  max:9,   rate:50, label:"Tier 2",    note:"Unlocked after 5 jobs sold"},
+    {min:10, max:19,  rate:55, label:"Tier 3",    note:"Unlocked after 10 jobs sold"},
+    {min:20, max:29,  rate:60, label:"Tier 4",    note:"Unlocked after 20 jobs sold"},
+    {min:30, max:null,rate:65, label:"Max Rate",  note:"Commission cap — maximum rate achievable"}
+  ],
+  notes:"Rates apply to cumulative jobs sold (not per-period). Tiers are permanent — once reached, the rate never drops."
+};
+// Per-person commission overrides, keyed by person id. Empty = everyone uses COMMISSION_DEFAULT.
+var COMMISSION_BY = {};
 // Company directory. Replace/extend from the spreadsheet you provide.
 // Fields: name, role, dept, email, phone
 let DIRECTORY = [{"name": "Brian Brown", "role": "General Manager", "dept": "Leadership", "email": "brian@envisionservicegroup.com", "phone": "623-210-7216"}, {"name": "Kevin Barnes", "role": "Director of Sales", "dept": "Leadership", "email": "kevin@envisionservicegroup.com", "phone": "480-255-2598"}, {"name": "Remone Hattar", "role": "PM \u2013 Painting & Roofing \u00b7 Estimator", "dept": "Estimating", "email": "remone@envisionpainting.com", "phone": "602-802-3639"}, {"name": "Miranda Griego", "role": "Office Manager", "dept": "Operations", "email": "miranda@envisionpainting.com", "phone": "480-798-6936"}, {"name": "Regina McDonald", "role": "Admin Assistant", "dept": "Operations", "email": "regina@envisionservicegroup.com", "phone": "708-768-4850"}, {"name": "Teresa Phillips", "role": "Bookkeeping", "dept": "Operations", "email": "teresa@keepbooksforyou.com", "phone": ""}, {"name": "Jose Vargas", "role": "PM \u2013 Roofing", "dept": "Roofing", "email": "snoopyjosedogg@hotmail.com", "phone": "480-667-9710"}, {"name": "Ebert Vargas Lizarraga", "role": "Foreman (Paint)", "dept": "Painting", "email": "ebert.lizarraga@gmail.com", "phone": "602-691-8394"}, {"name": "Mario Perez", "role": "Foreman (Paint) \u00b7 New Image", "dept": "Painting", "email": "anthony.rivers2069@gmail.com", "phone": "623-340-2800"}, {"name": "Gilberto Alvarez", "role": "Foreman (Paint) \u00b7 Gil Painting", "dept": "Painting", "email": "gilbertoar2028@gmail.com", "phone": "602-488-0645"}, {"name": "Juan Carlos Contreras", "role": "Foreman (Paint) \u00b7 Roll & Gun Painting Solutions", "dept": "Painting", "email": "rollandgunpaint@gmail.com", "phone": "480-427-1044"}];
@@ -1037,15 +1174,16 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     $$(".section").forEach(s=>s.classList.remove("active"));
     $("#sec-"+sec).classList.add("active");
     if(sec==="performance"){ renderPerformance(); }
+    if(sec==="home"){ renderHomeLeaders(); renderWeeklyReport(); }
     if(sec==="resources"){ renderResources(); }
     if(sec==="directory"){ renderDirectory(); }
+    if(sec==="schedules"){ renderSchedules(); }
     if(sec==="training"){ renderTraining(); }
     requestAnimationFrame(()=>{ document.querySelectorAll("#sec-"+sec+" .reveal:not(.in)").forEach((el,i)=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight){ el.classList.add("in"); } }); });
     window.scrollTo({top:0,behavior:"smooth"});
   }
   window.go=go;
-  $$(".nav-link").forEach(b=>{ if(b.id!=="foremenTab") b.onclick=()=>go(b.dataset.sec); });
-  (function(){ const f=$("#foremenTab"); if(f) f.onclick=()=>{ window.open(FOREMEN_URL, "_blank", "noopener"); }; })();
+  $$(".nav-link").forEach(b=>{ b.onclick=()=>go(b.dataset.sec); });
 
   // ---------------- Home stats (roll-up) ----------------
   function teamRollup(){
@@ -1072,8 +1210,101 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       stat(r.team,"Estimators");
     runCountUps("#homeStats .hv");
     renderHomeLeaders();
+    renderWeeklyReport();
     renderAllHands();
     renderOrgChart();
+  }
+
+  // ===== Weekly Numbers Report (auto-computed from KPI/Jobber data) =====
+  function weeklyReportData(){
+    const ANNUAL_GOAL = (GOALS && GOALS.yearly) ? GOALS.yearly : 1500000;
+    // find the latest month that has any revenue data across the team
+    let curIdx=-1;
+    PEOPLE.forEach(p=>{ const d=normData(p.data); MONTHS.forEach((m,i)=>{ if(typeof d[m].revenue==="number" && d[m].revenue>0 && i>curIdx) curIdx=i; }); });
+    if(curIdx<0) curIdx=new Date().getMonth();
+    const curMonth=MONTHS[curIdx];
+    const qStart=Math.floor(curIdx/3)*3;            // first month index of current quarter
+    // per-producer current-month revenue (active people only)
+    const producers=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly).map(p=>{
+      const d=normData(p.data);
+      return { name:p.name, role:p.role||"", week:(typeof d[curMonth].revenue==="number"?d[curMonth].revenue:0) };
+    }).sort((a,b)=>b.week-a.week);
+    const weekTotal=producers.reduce((a,b)=>a+b.week,0);
+    // cumulative totals across ALL people (incl. inactive, so history stays whole)
+    let mtd=0,qtd=0,ytd=0;
+    PEOPLE.forEach(p=>{ const d=normData(p.data);
+      MONTHS.forEach((m,i)=>{ const r=d[m].revenue; if(typeof r!=="number") return;
+        if(i===curIdx) mtd+=r;
+        if(i>=qStart && i<=curIdx) qtd+=r;
+        if(i<=curIdx) ytd+=r;
+      });
+    });
+    const other=(typeof OTHER_REVENUE==="number")?OTHER_REVENUE:0;
+    ytd+=other;
+    // prorated goal pace through current month (goal * monthsElapsed/12)
+    const monthsElapsed=curIdx+1;
+    const pace=ANNUAL_GOAL*(monthsElapsed/12);
+    const varToPace=ytd-pace;
+    return {curMonth, producers, weekTotal, mtd, qtd, ytd, other, annualGoal:ANNUAL_GOAL, pace, varToPace, monthsElapsed};
+  }
+
+  function renderWeeklyReport(){
+    const box=$("#weeklyReport"); if(!box) return;
+    const w=weeklyReportData();
+    const today=new Date();
+    const isFriday=today.getDay()===5;
+    const friendlyDate=today.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
+    const vClass=w.varToPace>=0?"wk-pos":"wk-neg";
+    const vTxt=(w.varToPace>=0?"+":"\u2212")+fmtMoney(Math.abs(w.varToPace));
+    const row=(label,val,note)=>'<tr><td class="wk-pl">'+label+'</td><td class="wk-pv">'+fmtMoney(val)+'</td><td class="wk-pn">'+(note||"")+'</td></tr>';
+    const pctOfGoal=Math.round(w.ytd/w.annualGoal*100);
+    box.className="card wk-card"+(isFriday?" wk-friday":"");
+    box.innerHTML=
+      '<div class="wk-top">'+
+        '<div><div class="wk-kicker">Envision Painting &amp; Roofing \u00b7 Ashton Holdings, LLC</div>'+
+          '<div class="wk-title">Weekly Numbers Report</div>'+
+          '<div class="wk-week">Week ending '+friendlyDate+(isFriday?' \u00b7 <span class="wk-live">Updated for Friday</span>':'')+'</div></div>'+
+        '<div class="wk-badge"><div class="wk-badge-v">'+pctOfGoal+'%</div><div class="wk-badge-l">of annual goal</div></div>'+
+      '</div>'+
+      // by producer
+      '<div class="wk-sec-h">This period\u2019s revenue \u2014 by producer ('+w.curMonth+')</div>'+
+      '<table class="wk-table"><thead><tr><th>Producer</th><th>Role</th><th class="wk-r">Revenue</th></tr></thead><tbody>'+
+        (w.producers.length?w.producers.map(p=>'<tr><td class="wk-pl">'+esc(p.name)+'</td><td class="wk-pn">'+esc(p.role)+'</td><td class="wk-pv wk-r">'+fmtMoney(p.week)+'</td></tr>').join(''):'<tr><td colspan="3" class="wk-pn">No revenue recorded yet this period.</td></tr>')+
+        '<tr class="wk-total"><td>Total this period</td><td></td><td class="wk-r">'+fmtMoney(w.weekTotal)+'</td></tr>'+
+      '</tbody></table>'+
+      // cumulative
+      '<div class="wk-sec-h">Cumulative totals</div>'+
+      '<table class="wk-table"><thead><tr><th>Period</th><th class="wk-r">Approved revenue</th><th>Variance to pace</th></tr></thead><tbody>'+
+        '<tr><td class="wk-pl">Month to date</td><td class="wk-pv wk-r">'+fmtMoney(w.mtd)+'</td><td class="wk-pn">'+w.curMonth+'</td></tr>'+
+        '<tr><td class="wk-pl">Quarter to date</td><td class="wk-pv wk-r">'+fmtMoney(w.qtd)+'</td><td class="wk-pn">current quarter</td></tr>'+
+        '<tr><td class="wk-pl">Year to date (2026)</td><td class="wk-pv wk-r">'+fmtMoney(w.ytd)+'</td><td class="wk-pn '+vClass+'">'+vTxt+' vs pace</td></tr>'+
+        '<tr class="wk-total"><td>Annual goal (2026)</td><td class="wk-r">'+fmtMoney(w.annualGoal)+'</td><td class="wk-pn">'+pctOfGoal+'% reached</td></tr>'+
+      '</tbody></table>'+
+      // 5-star reviews this week
+      (function(){
+        const list=(typeof WEEKLY_REVIEWS!=="undefined"&&Array.isArray(WEEKLY_REVIEWS))?WEEKLY_REVIEWS:[];
+        const total=list.reduce((a,r)=>a+(typeof r.count==="number"?r.count:(parseInt(r.count)||0)),0);
+        let h='<div class="wk-sec-h">5-star reviews this week</div>';
+        if(!list.length){
+          h+='<div class="wk-pn" style="padding:4px 10px 8px;">No reviews logged yet this week. Add them in Admin \u2192 Reviews.</div>';
+          return h;
+        }
+        h+='<table class="wk-table"><thead><tr><th>Crew lead / foreman</th><th class="wk-r">Reviews</th><th>Platform</th><th>Notes</th></tr></thead><tbody>'+
+          list.map(r=>'<tr><td class="wk-pl">'+esc(r.name||"\u2014")+'</td><td class="wk-pv wk-r">'+esc(String(r.count!=null?r.count:0))+'</td><td class="wk-pn">'+esc(r.platform||"Google")+'</td><td class="wk-pn">'+esc(r.notes||"")+'</td></tr>').join('')+
+          '<tr class="wk-total"><td>Total reviews this week</td><td class="wk-r">'+total+'</td><td></td><td></td></tr>'+
+        '</tbody></table>'+
+        '<div class="wk-pn" style="padding:2px 10px;">\u25a0 Review goal: every completed job should generate a 5-star Google review. If a crew lead has 0 \u2014 follow up.</div>';
+        return h;
+      })()+
+      '<div class="wk-foot">Auto-generated from the team\u2019s KPI data \u2014 numbers update as Jobber reports are imported. Reviews are entered in Admin. Goal pace = annual goal \u00d7 months elapsed \u00f7 12.</div>';
+
+    // On Fridays, move the report (and its header) to the very top of the home section.
+    const head=$("#weeklyHead"), hero=$("#sec-home .hero"), sec=$("#sec-home");
+    if(isFriday && head && hero && sec){
+      sec.insertBefore(box, hero.nextSibling);
+      sec.insertBefore(head, box);
+      head.querySelector(".lead").textContent="It\u2019s Friday";
+    }
   }
   function renderAllHands(){
     const box=$("#allHandsCard"); if(!box) return;
@@ -1433,15 +1664,33 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     return {matched,unmatched,otherRev};
   }
   let lastImport=null, lastImportMonth=null;
+  let impMode="replace"; // "replace" = full month-to-date report; "add" = a single week to add on
+  // For SPM people (Nico, Kevin), mirror their YTD revenue from data[] into the
+  // Senior PM scorecard's "Personal Revenue Closed" actual, so Jobber imports flow through.
+  function syncSpmRevenue(personId){
+    const sd = SPM_DATA[personId]; if(!sd || !Array.isArray(sd.individual)) return;
+    const person = PEOPLE.find(x=>x.id===personId); if(!person) return;
+    const d = normData(person.data);
+    let ytd=0;
+    MONTHS.forEach(m=>{ const r=d[m].revenue; if(typeof r==="number") ytd+=r; });
+    const metric = sd.individual.find(x=>x.k==="Personal Revenue Closed");
+    if(metric) metric.actual = ytd;
+  }
   function applyTeamImport(res,month){
     let n=0;
+    const adding = (impMode==="add");
     res.matched.forEach(m=>{
       const p=m.person; if(!p.data) p.data={};
       if(!p.data[month]) p.data[month]={};
       if(m.closing!==null){p.data[month].closing=clampVal("closing",m.closing);}
-      if(m.revenue!==null){p.data[month].revenue=m.revenue;}
+      if(m.revenue!==null){
+        const cur=(typeof p.data[month].revenue==="number")?p.data[month].revenue:0;
+        p.data[month].revenue = adding ? (cur + m.revenue) : m.revenue;
+      }
       if(!p.data[month].auto) p.data[month].auto={};
       p.data[month].auto.closing=true; p.data[month].auto.revenue=true;
+      // If this person has a Senior PM scorecard, push their YTD revenue into it.
+      if(SPM_DATA[p.id]) syncSpmRevenue(p.id);
       n++;
     });
     // (unmatched revenue is handled by the dedicated "no longer with us" uploader)
@@ -1482,7 +1731,13 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   }
   function applyLeadsImport(res,month){
     let n=0;
-    res.matched.forEach(m=>{const p=m.person;if(!p.data)p.data={};if(!p.data[month])p.data[month]={};p.data[month].leadsBrought=m.leads;if(res.hasJobs)p.data[month].leadsWon=m.won;n++;});
+    const adding=(impMode==="add");
+    res.matched.forEach(m=>{const p=m.person;if(!p.data)p.data={};if(!p.data[month])p.data[month]={};
+      const curB=(typeof p.data[month].leadsBrought==="number")?p.data[month].leadsBrought:0;
+      const curW=(typeof p.data[month].leadsWon==="number")?p.data[month].leadsWon:0;
+      p.data[month].leadsBrought = adding ? (curB+m.leads) : m.leads;
+      if(res.hasJobs) p.data[month].leadsWon = adding ? (curW+m.won) : m.won;
+      n++;});
     lastImport=lastImport||true;
     return n;
   }
@@ -1493,11 +1748,20 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     let html=adminToolbar===undefined?"":""; // imports tab doesn't use the edit toolbar
     html='<div class="card" style="margin-bottom:14px;">'+
       '<h3 style="margin:0 0 4px;">📥 Upload Jobber data</h3>'+
-      '<p style="margin:0 0 14px;color:var(--muted);font-size:13px;">Pick the month, then upload your Jobber reports. Numbers fill in for everyone automatically, matched by name. Review the preview, apply, then copy for publishing.</p>'+
-      '<label style="font-size:12px;font-weight:700;color:var(--ink);">Apply to month'+
-        '<select id="impMonth" class="kpi-input" style="display:block;margin-top:4px;font-size:14px;padding:8px 10px;min-width:160px;">'+
-          MONTHS.map(m=>'<option'+(m===impMonth?" selected":"")+'>'+m+'</option>').join('')+
-        '</select></label>'+
+      '<p style="margin:0 0 14px;color:var(--muted);font-size:13px;">Pick the month and import type, then upload your Jobber reports. Numbers fill in for everyone automatically, matched by name. Review the preview, apply, then copy for publishing.</p>'+
+      '<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start;">'+
+        '<label style="font-size:12px;font-weight:700;color:var(--ink);">Apply to month'+
+          '<select id="impMonth" class="kpi-input" style="display:block;margin-top:4px;font-size:14px;padding:8px 10px;min-width:160px;">'+
+            MONTHS.map(m=>'<option'+(m===impMonth?" selected":"")+'>'+m+'</option>').join('')+
+          '</select></label>'+
+        '<div style="font-size:12px;font-weight:700;color:var(--ink);">Import type'+
+          '<div id="impModeWrap" style="display:flex;gap:6px;margin-top:6px;">'+
+            '<button class="imp-mode'+(impMode==="replace"?" active":"")+'" data-mode="replace">Full month (replace)</button>'+
+            '<button class="imp-mode'+(impMode==="add"?" active":"")+'" data-mode="add">This week (add on)</button>'+
+          '</div>'+
+          '<div id="impModeHint" style="font-size:11.5px;color:var(--muted);margin-top:6px;max-width:46ch;"></div>'+
+        '</div>'+
+      '</div>'+
       '</div>';
 
     // 1) Salesperson Performance
@@ -1537,6 +1801,21 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     panel.innerHTML=html;
 
     const msel=$("#impMonth"); if(msel) msel.onchange=e=>{impMonth=e.target.value;};
+    function updateModeHint(){
+      const h=$("#impModeHint"); if(!h) return;
+      h.innerHTML = impMode==="add"
+        ? "Use for a <b>single week\u2019s</b> report \u2014 the revenue (and leads) will be <b>added</b> to whatever is already in "+esc(impMonth)+". Closing % and margin take the newest value."
+        : "Use for a <b>full month-to-date</b> report \u2014 it <b>replaces</b> "+esc(impMonth)+"\u2019s revenue with the file\u2019s total.";
+    }
+    function wireModeButtons(){
+      panel.querySelectorAll(".imp-mode").forEach(b=>b.onclick=()=>{
+        impMode=b.dataset.mode;
+        panel.querySelectorAll(".imp-mode").forEach(x=>x.classList.toggle("active",x.dataset.mode===impMode));
+        updateModeHint();
+      });
+      updateModeHint();
+    }
+    wireModeButtons();
     setupDrop("perfDrop","perfFile",(txt)=>renderPerfResults(ingestTeamCSV(txt)));
     setupDrop("leadsDrop","leadsFile",(txt)=>renderLeadsResults(ingestLeadsCSV(txt)));
 
@@ -1611,7 +1890,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       });
       out.data=data; return out;
     });
-    const snippet="/* Team data updated "+stamp+" \u2014 replace these lines near the top of the script, then commit */\nconst PEOPLE = "+JSON.stringify(clean)+";\nlet OTHER_REVENUE = "+JSON.stringify(OTHER_REVENUE)+";\nlet GOALS = "+JSON.stringify(GOALS)+";\nlet NICO_SPM = "+JSON.stringify(NICO_SPM)+";\nlet SPM_DATA = "+JSON.stringify(SPM_DATA)+";\nlet DIRECTORY = "+JSON.stringify(DIRECTORY)+";";
+    const snippet="/* Team data updated "+stamp+" \u2014 replace these lines near the top of the script, then commit */\nconst PEOPLE = "+JSON.stringify(clean)+";\nlet OTHER_REVENUE = "+JSON.stringify(OTHER_REVENUE)+";\nlet GOALS = "+JSON.stringify(GOALS)+";\nlet NICO_SPM = "+JSON.stringify(NICO_SPM)+";\nlet SPM_DATA = "+JSON.stringify(SPM_DATA)+";\nlet DIRECTORY = "+JSON.stringify(DIRECTORY)+";\nvar WEEKLY_REVIEWS = "+JSON.stringify(WEEKLY_REVIEWS)+";\nvar COMMISSION_DEFAULT = "+JSON.stringify(COMMISSION_DEFAULT)+";\nvar COMMISSION_BY = "+JSON.stringify(COMMISSION_BY)+";";
     showCopyBox(snippet);
   }
 
@@ -1704,6 +1983,44 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     if(BRIEFING_FOR[person.id]) mountBriefing(person, $("#kpiApp"));
   };
   $("#kpiPass").addEventListener("keydown",e=>{if(e.key==="Enter")$("#kpiLoginBtn").click();});
+
+  // Password show/hide eyes
+  $$(".pw-eye").forEach(btn=>{
+    btn.onclick=()=>{
+      const inp=document.getElementById(btn.dataset.eye); if(!inp) return;
+      const show=inp.type==="password";
+      inp.type=show?"text":"password";
+      btn.textContent=show?"🙈":"👁";
+      btn.classList.toggle("on",show);
+      btn.setAttribute("aria-label",(show?"Hide":"Show")+" passcode");
+      inp.focus();
+    };
+  });
+  // Caps Lock / Num Lock warnings on the two login fields
+  function setupLockWarn(inputId, warnId){
+    const inp=document.getElementById(inputId), warn=document.getElementById(warnId);
+    if(!inp||!warn) return;
+    const check=(e,typing)=>{
+      let caps=false, num=null;
+      try{
+        caps=e.getModifierState&&e.getModifierState("CapsLock");
+        const n=e.getModifierState&&e.getModifierState("NumLock");
+        if(typeof n==="boolean") num=n;
+      }catch(_){}
+      const msgs=[];
+      if(caps) msgs.push("Caps Lock is ON");
+      // Only warn about Num Lock while actually typing, and only if reliably reported as off
+      if(typing && num===false) msgs.push("Num Lock is OFF");
+      if(msgs.length){ warn.textContent=msgs.join(" \u00b7 ")+" \u2014 double-check your passcode"; warn.classList.add("show"); }
+      else { warn.classList.remove("show"); warn.textContent=""; }
+    };
+    inp.addEventListener("keydown",e=>check(e,true));
+    inp.addEventListener("keyup",e=>check(e,true));
+    inp.addEventListener("focus",e=>check(e,false));
+    inp.addEventListener("blur",()=>{ warn.classList.remove("show"); });
+  }
+  setupLockWarn("kpiPass","kpiLockWarn");
+  setupLockWarn("adminPass","adminLockWarn");
 
   // ---------------- KPI app (per person) ----------------
     // ============ Senior PM scorecard (Nico) ============
@@ -2180,6 +2497,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     {id:"people",label:"People",icon:"\ud83d\udc65"},
     {id:"goals",label:"Goals",icon:"\ud83d\udcc8"},
     {id:"imports",label:"Imports",icon:"\u2b07\ufe0f"},
+    {id:"reviews",label:"Reviews",icon:"\u2b50"},
     {id:"content",label:"Content",icon:"\ud83d\udcda"},
   ];
   // sub-tabs inside the Content group
@@ -2197,6 +2515,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     {id:"profiles",label:"Profiles",icon:"\ud83d\udc64"},
     {id:"kpis",label:"KPI data",icon:"\ud83c\udfaf"},
     {id:"passwords",label:"Passcodes",icon:"\ud83d\udd11"},
+    {id:"commission",label:"Commission",icon:"\ud83d\udcb0"},
   ];
   let peopleSub="profiles";
 
@@ -2229,12 +2548,15 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       if(peopleSub==="profiles"){ renderProfiles(sub); }
       else if(peopleSub==="kpis"){ renderAdminKpis(sub); }
       else if(peopleSub==="passwords"){ renderPasswords(sub); }
+      else if(peopleSub==="commission"){ renderCommission(sub); }
       return;
     }
     // ----- GOALS -----
     if(adminCur==="goals"){ renderAdminGoals(panel); return; }
     // ----- IMPORTS -----
     if(adminCur==="imports"){ renderImports(panel); return; }
+    // ----- REVIEWS -----
+    if(adminCur==="reviews"){ renderAdminReviews(panel); return; }
     // ----- CONTENT group (Training / Directory / Resources / Folders / Documents) -----
     if(adminCur==="content"){
       panel.appendChild(subBar(CONTENT_SUBS, contentSub, id=>{contentSub=id;renderAdmin();}));
@@ -2488,6 +2810,95 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     } else { lwrap.innerHTML=''; }
   }
 
+  // ===== Project Schedules (standard Gantt template) =====
+  // Standard example: Carriage Manor, Job #6332. Days are weekdays only (Mon-Fri), 5 weeks.
+  const SCHEDULE_EXAMPLE = {
+    project:"Carriage Manor", job:"#6332", start:"July 27, 2026", duration:"5 Weeks",
+    scope:"Interior & Exterior Painting", by:"Envision Painting & Roofing",
+    weeks:[
+      {label:"Wk 1", range:"Jul 27–Jul 31", days:["7/27","7/28","7/29","7/30","7/31"]},
+      {label:"Wk 2", range:"Aug 03–Aug 07", days:["8/3","8/4","8/5","8/6","8/7"]},
+      {label:"Wk 3", range:"Aug 10–Aug 14", days:["8/10","8/11","8/12","8/13","8/14"]},
+      {label:"Wk 4", range:"Aug 17–Aug 21", days:["8/17","8/18","8/19","8/20","8/21"]},
+      {label:"Wk 5", range:"Aug 24–Aug 28", days:["8/24","8/25","8/26","8/27","8/28"]}
+    ],
+    // start/end are 0-based weekday indices (0 = 7/27 ... 24 = 8/28)
+    tasks:[
+      {phase:"INTERIOR", name:"Library",              start:0,  end:1},
+      {phase:"INTERIOR", name:"Billiards",            start:1,  end:3},
+      {phase:"INTERIOR", name:"Card / Poker",         start:2,  end:4},
+      {phase:"INTERIOR", name:"Pool Room",            start:3,  end:5},
+      {phase:"INTERIOR", name:"Hallway",              start:4,  end:6},
+      {phase:"INTERIOR", name:"Small Hallway",        start:5,  end:6},
+      {phase:"INTERIOR", name:"Restrooms",            start:6,  end:7},
+      {phase:"INTERIOR", name:"Admin / Reception",    start:7,  end:8},
+      {phase:"INTERIOR", name:"Lobby",                start:8,  end:12},
+      {phase:"INTERIOR", name:"Fitness",              start:9,  end:10},
+      {phase:"INTERIOR", name:"Fitness Restrooms",    start:10, end:10},
+      {phase:"INTERIOR", name:"Activities Room",      start:11, end:12},
+      {phase:"INTERIOR", name:"Closets (BR & Social)",start:12, end:13},
+      {phase:"INTERIOR", name:"Social Hall",          start:13, end:15},
+      {phase:"INTERIOR", name:"Ballroom",             start:15, end:20},
+      {phase:"INTERIOR", name:"Security Room",        start:15, end:16},
+      {phase:"INTERIOR", name:"Craft Buildings",      start:16, end:21},
+      {phase:"EXTERIOR", name:"Pool Fence",           start:10, end:11},
+      {phase:"EXTERIOR", name:"79th Ave Wall",        start:12, end:13},
+      {phase:"EXTERIOR", name:"Sunset Terrace",       start:15, end:16}
+    ]
+  };
+  function renderSchedules(){
+    const wrap=$("#scheduleWrap"); if(!wrap) return;
+    const S=SCHEDULE_EXAMPLE;
+    const allDays=[]; S.weeks.forEach(w=>w.days.forEach(d=>allDays.push(d)));
+    const nDays=allDays.length;
+
+    // meta header
+    let html='<div class="sch-card"><div class="sch-head">'+
+      '<div class="sch-title">Project Schedule \u2014 '+esc(S.project)+' <span class="sch-job">Job '+esc(S.job)+'</span></div>'+
+      '<div class="sch-meta">'+
+        '<span><b>Start:</b> '+esc(S.start)+'</span>'+
+        '<span><b>Duration:</b> '+esc(S.duration)+'</span>'+
+        '<span><b>Scope:</b> '+esc(S.scope)+'</span>'+
+        '<span><b>Prepared by:</b> '+esc(S.by)+'</span>'+
+      '</div></div>';
+
+    html+='<div class="sch-scroll"><div class="sch-grid" style="--cols:'+nDays+';">';
+    // header row 1: week bands
+    html+='<div class="sch-cell sch-corner" style="grid-row:1 / span 2;">Phase / Area</div>';
+    let col=2;
+    S.weeks.forEach(w=>{
+      html+='<div class="sch-cell sch-week" style="grid-column:'+col+' / span '+w.days.length+';">'+w.label+' \u00b7 '+esc(w.range)+'</div>';
+      col+=w.days.length;
+    });
+    // header row 2: day labels
+    allDays.forEach(d=>{ html+='<div class="sch-cell sch-day">'+esc(d)+'</div>'; });
+
+    // task rows
+    let phaseSeen={};
+    S.tasks.forEach((t,ri)=>{
+      const rowNum=ri+3; // rows 1&2 are headers
+      const isExt=(t.phase==="EXTERIOR");
+      // phase label (only on first row of each phase — but simpler: show name cell w/ phase tag)
+      html+='<div class="sch-cell sch-rowlabel'+(isExt?' ext':'')+'" style="grid-column:1;grid-row:'+rowNum+';">'+
+        (phaseSeen[t.phase]?'':'<span class="sch-phase">'+esc(t.phase)+'</span>')+esc(t.name)+'</div>';
+      phaseSeen[t.phase]=true;
+      // day cells background grid
+      for(let dcol=0;dcol<nDays;dcol++){
+        const filled=(dcol>=t.start && dcol<=t.end);
+        html+='<div class="sch-cell sch-slot'+(filled?(isExt?' fill-ext':' fill-int'):'')+'" style="grid-column:'+(dcol+2)+';grid-row:'+rowNum+';"></div>';
+      }
+    });
+    html+='</div></div>'; // grid, scroll
+
+    html+='<div class="sch-legend">'+
+      '<span><span class="sch-key fill-int"></span> Interior</span>'+
+      '<span><span class="sch-key fill-ext"></span> Exterior</span>'+
+      '<span class="sch-note">Schedule subject to adjustment based on site conditions.</span>'+
+    '</div></div>';
+
+    wrap.innerHTML=html;
+  }
+
   function renderDirectory(){
     const list=$("#dirList"), search=$("#dirSearch"); if(!list) return;
     function draw(q){
@@ -2510,6 +2921,171 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     }
     draw("");
     if(search) search.oninput=()=>draw(search.value);
+  }
+
+  // ---- Commission structure: editable, assignable per-PM ----
+  let commPerson="__default__";
+  function commStructFor(id){
+    if(id==="__default__") return COMMISSION_DEFAULT;
+    return COMMISSION_BY[id] || COMMISSION_DEFAULT;
+  }
+  function renderCommission(panel){
+    // people who can have a structure = everyone active (PMs/estimators/sales)
+    const people=PEOPLE.filter(p=>!p.hidden);
+    const isDefault = commPerson==="__default__";
+    const hasOwn = !isDefault && !!COMMISSION_BY[commPerson];
+    const S = commStructFor(commPerson);
+    const who = isDefault ? "Company default" : (PEOPLE.find(p=>p.id===commPerson)||{}).name;
+
+    let html=adminToolbar()+
+      '<div class="card"><h3 style="margin:0 0 4px;">\ud83d\udcb0 Sales commission structure</h3>'+
+      '<p style="margin:0 0 14px;color:var(--muted);font-size:12.5px;">Set the tier schedule and the off-the-top deduction. Edit the <b>Company default</b>, or pick a person to give them their own structure. '+(adminEdit?'':'Turn on <b>Edit</b> (top) to make changes.')+'</p>';
+
+    // person selector
+    html+='<div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px;">'+
+      '<label style="font-size:12px;font-weight:700;color:var(--ink);">Structure for'+
+        '<select id="commPick" class="kpi-input" style="display:block;margin-top:4px;font-size:14px;padding:8px 10px;min-width:200px;">'+
+          '<option value="__default__"'+(isDefault?" selected":"")+'>Company default (all PMs)</option>'+
+          people.map(p=>'<option value="'+p.id+'"'+(p.id===commPerson?" selected":"")+'>'+esc(p.name)+(COMMISSION_BY[p.id]?" \u2605 custom":"")+'</option>').join('')+
+        '</select></label>';
+    if(!isDefault && adminEdit){
+      html+= hasOwn
+        ? '<button class="ev-btn subtle" id="commReset">Reset to company default</button>'
+        : '<button class="ev-btn ghost" id="commCustomize">Give '+esc((who||"").split(" ")[0])+' a custom structure</button>';
+    }
+    html+='</div>';
+
+    if(!isDefault && !hasOwn){
+      html+='<div class="comm-inherit">'+esc(who)+' currently uses the <b>Company default</b> structure'+(adminEdit?' \u2014 click \u201cGive \u2026 a custom structure\u201d to override it.':'.')+'</div>';
+    }
+
+    // off-the-top rule
+    html+='<div class="comm-rule">All commission rates apply <b>after</b> a '+
+      (adminEdit&&(isDefault||hasOwn)?'<input id="commOffTop" type="number" min="0" max="100" value="'+esc(String(S.offTopPct))+'" style="width:56px;font-size:13px;padding:3px 6px;text-align:center;">':'<b>'+esc(String(S.offTopPct))+'%</b>')+
+      ' deduction off the top of gross revenue. &nbsp;<span style="color:var(--muted);">Adjusted Revenue = Gross \u00d7 '+(100-S.offTopPct)+'%</span></div>';
+
+    // tier table
+    html+='<table class="ev-table" style="width:100%;margin-top:8px;"><thead><tr><th>Jobs completed</th><th>Rate (of adjusted rev.)</th><th>Tier label</th><th>Notes</th>'+((adminEdit&&(isDefault||hasOwn))?'<th></th>':'')+'</tr></thead><tbody>';
+    S.tiers.forEach((t,i)=>{
+      const range=(t.max===null||t.max===undefined)?(t.min+"+"):(t.min+" \u2013 "+t.max);
+      if(adminEdit&&(isDefault||hasOwn)){
+        html+='<tr>'+
+          '<td style="white-space:nowrap;"><input data-ct="'+i+'" data-f="min" type="number" value="'+esc(String(t.min))+'" style="width:52px;font-size:12.5px;padding:4px 6px;"> \u2013 <input data-ct="'+i+'" data-f="max" type="number" value="'+esc(t.max==null?"":String(t.max))+'" placeholder="\u221e" style="width:52px;font-size:12.5px;padding:4px 6px;"></td>'+
+          '<td><input data-ct="'+i+'" data-f="rate" type="number" value="'+esc(String(t.rate))+'" style="width:60px;font-size:12.5px;padding:4px 6px;">%</td>'+
+          '<td><input data-ct="'+i+'" data-f="label" value="'+esc(t.label||"")+'" style="width:100px;font-size:12.5px;padding:4px 6px;"></td>'+
+          '<td><input data-ct="'+i+'" data-f="note" value="'+esc(t.note||"")+'" style="width:210px;font-size:12.5px;padding:4px 6px;"></td>'+
+          '<td><button class="copy-btn" data-ctdel="'+i+'" style="color:var(--red);border-color:#f3c6c6;">Del</button></td>'+
+        '</tr>';
+      } else {
+        html+='<tr><td><b>'+esc(range)+'</b></td><td class="comm-rate">'+esc(String(t.rate))+'%</td><td>'+esc(t.label||"")+'</td><td class="comm-note">'+esc(t.note||"")+'</td></tr>';
+      }
+    });
+    html+='</tbody></table>';
+    if(adminEdit&&(isDefault||hasOwn)){
+      html+='<button class="ev-btn ghost" id="commAdd" style="margin-top:10px;">+ Add tier</button>';
+      html+='<div style="margin-top:12px;"><label style="font-size:12px;font-weight:700;color:var(--ink);">How it works / notes<textarea id="commNotes" style="display:block;width:100%;margin-top:5px;min-height:60px;font-size:12.5px;padding:8px;border:1.5px solid var(--line);border-radius:8px;font-family:inherit;">'+esc(S.notes||"")+'</textarea></label></div>';
+    } else if(S.notes){
+      html+='<p style="font-size:12px;color:var(--muted);margin-top:12px;">'+esc(S.notes)+'</p>';
+    }
+    html+='<div style="margin-top:14px;"><button class="ev-btn primary" id="commCopy">Copy all updates for publishing</button></div>';
+    html+='</div>';
+
+    panel.innerHTML=html;
+    wireAdminTop();
+    const pick=panel.querySelector("#commPick"); if(pick) pick.onchange=e=>{commPerson=e.target.value;renderAdmin();};
+    const cp=panel.querySelector("#commCopy"); if(cp) cp.onclick=copyAllPeople;
+    if(adminEdit){
+      const cust=panel.querySelector("#commCustomize");
+      if(cust) cust.onclick=()=>{ COMMISSION_BY[commPerson]=JSON.parse(JSON.stringify(commStructFor(commPerson))); window.__esgSave&&window.__esgSave(); renderAdmin(); };
+      const rst=panel.querySelector("#commReset");
+      if(rst) rst.onclick=()=>{ if(confirm("Remove "+ (who||"this person") +"\u2019s custom structure and use the company default?")){ delete COMMISSION_BY[commPerson]; window.__esgSave&&window.__esgSave(); renderAdmin(); } };
+      if(isDefault||hasOwn){
+        const ot=panel.querySelector("#commOffTop"); if(ot) ot.onchange=e=>{ S.offTopPct=Math.max(0,Math.min(100,parseFloat(e.target.value)||0)); window.__esgSave&&window.__esgSave(); renderAdmin(); };
+        panel.querySelectorAll("input[data-ct]").forEach(inp=>inp.onchange=e=>{
+          const i=+e.target.dataset.ct,f=e.target.dataset.f;
+          if(f==="max"){ S.tiers[i].max = e.target.value===""?null:(parseInt(e.target.value)||0); }
+          else if(f==="min"||f==="rate"){ S.tiers[i][f]=parseFloat(e.target.value)||0; }
+          else { S.tiers[i][f]=e.target.value; }
+          window.__esgSave&&window.__esgSave();
+        });
+        panel.querySelectorAll("[data-ctdel]").forEach(b=>b.onclick=()=>{S.tiers.splice(+b.dataset.ctdel,1);window.__esgSave&&window.__esgSave();renderAdmin();});
+        const add=panel.querySelector("#commAdd"); if(add) add.onclick=()=>{const last=S.tiers[S.tiers.length-1]||{max:0};S.tiers.push({min:(last.max!=null?last.max+1:0),max:null,rate:0,label:"New tier",note:""});window.__esgSave&&window.__esgSave();renderAdmin();};
+        const nt=panel.querySelector("#commNotes"); if(nt) nt.onchange=e=>{ S.notes=e.target.value; window.__esgSave&&window.__esgSave(); };
+      }
+    }
+  }
+
+  // ---- Reviews: 5-star reviews captured this week (feeds the Weekly Numbers Report) ----
+  function reviewRoster(){
+    // Crew leads / foremen pulled from the directory (Roofing + Painting), so names stay in sync.
+    const names=DIRECTORY.filter(d=>d.dept==="Roofing"||d.dept==="Painting").map(d=>d.name);
+    // de-dupe and keep order
+    return names.filter((n,i)=>names.indexOf(n)===i);
+  }
+  function reviewRow(name){
+    let r=WEEKLY_REVIEWS.find(x=>x.name===name);
+    if(!r){ r={name:name,count:0,platform:"Google",notes:""}; WEEKLY_REVIEWS.push(r); }
+    return r;
+  }
+  function renderAdminReviews(panel){
+    const roster=reviewRoster();
+    // make sure every roster person has a row (count 0) so steppers are ready
+    if(adminEdit) roster.forEach(n=>reviewRow(n));
+    const total=WEEKLY_REVIEWS.reduce((a,r)=>a+(parseInt(r.count)||0),0);
+    let html=adminToolbar()+
+      '<div class="card"><h3 style="margin:0 0 4px;">\u2b50 5-star reviews this week</h3>'+
+      '<p style="margin:0 0 14px;color:var(--muted);font-size:12.5px;">Tap <b>+</b> when a crew lead lands a 5-star review (\u2212 to undo). Totals flow straight to the <b>Weekly Numbers Report</b>. Start each week with <b>Reset week</b>. '+(adminEdit?'':'Turn on <b>Edit</b> (top) to log reviews.')+'</p>';
+
+    if(adminEdit){
+      html+='<div class="rv-total">This week: <b>'+total+'</b> review'+(total===1?'':'s')+'</div>';
+      html+='<div class="rv-steppers">';
+      WEEKLY_REVIEWS.forEach((r,i)=>{
+        html+='<div class="rv-step">'+
+          '<div class="rv-step-name">'+esc(r.name||"(unnamed)")+'</div>'+
+          '<div class="rv-step-ctl">'+
+            '<button class="rv-btn rv-minus" data-rvstep="'+i+'" data-dir="-1" aria-label="minus">\u2212</button>'+
+            '<div class="rv-count'+((parseInt(r.count)||0)>0?' has':'')+'">'+(parseInt(r.count)||0)+'</div>'+
+            '<button class="rv-btn rv-plus" data-rvstep="'+i+'" data-dir="1" aria-label="plus">+</button>'+
+          '</div>'+
+          '<button class="rv-x" data-rvdel="'+i+'" title="Remove from list">\u00d7</button>'+
+        '</div>';
+      });
+      html+='</div>';
+      // quick add anyone not already listed
+      const present=WEEKLY_REVIEWS.map(r=>r.name);
+      const extra=DIRECTORY.map(d=>d.name).filter(n=>present.indexOf(n)===-1);
+      if(extra.length){
+        html+='<div class="rv-add-wrap"><span class="rv-add-lbl">Add someone:</span>'+
+          extra.map(n=>'<button class="rv-chip" data-rvaddname="'+esc(n)+'">+ '+esc(n)+'</button>').join('')+
+          '</div>';
+      }
+      html+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">'+
+        '<button class="ev-btn subtle" id="rvClear">Reset week (set all to 0)</button>'+
+        '<button class="ev-btn primary" id="rvCopy">Copy all updates for publishing</button>'+
+        '</div>';
+    } else {
+      const shown=WEEKLY_REVIEWS.filter(r=>(parseInt(r.count)||0)>0);
+      html+=(shown.length?'<table class="ev-table" style="width:100%;"><thead><tr><th>Crew lead</th><th>Reviews</th><th>Platform</th></tr></thead><tbody>'+
+        shown.map(r=>'<tr><td>'+esc(r.name||"\u2014")+'</td><td>'+esc(String(r.count))+'</td><td>'+esc(r.platform||"Google")+'</td></tr>').join('')+
+        '<tr style="font-weight:800;"><td>Total</td><td>'+total+'</td><td></td></tr></tbody></table>'
+        :'<p style="color:var(--muted);font-size:13px;">No reviews logged yet. Turn on Edit to start tapping +.</p>');
+    }
+    html+='</div>';
+    panel.innerHTML=html;
+    wireAdminTop();
+    if(adminEdit){
+      panel.querySelectorAll("[data-rvstep]").forEach(b=>b.onclick=()=>{
+        const i=+b.dataset.rvstep, dir=+b.dataset.dir;
+        const cur=parseInt(WEEKLY_REVIEWS[i].count)||0;
+        WEEKLY_REVIEWS[i].count=Math.max(0,cur+dir);
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+      });
+      panel.querySelectorAll("[data-rvdel]").forEach(b=>b.onclick=()=>{WEEKLY_REVIEWS.splice(+b.dataset.rvdel,1);window.__esgSave&&window.__esgSave();renderAdmin();});
+      panel.querySelectorAll("[data-rvaddname]").forEach(b=>b.onclick=()=>{reviewRow(b.dataset.rvaddname);window.__esgSave&&window.__esgSave();renderAdmin();});
+      const cp=panel.querySelector("#rvCopy"); if(cp) cp.onclick=copyAllPeople;
+      const clr=panel.querySelector("#rvClear"); if(clr) clr.onclick=()=>{ if(confirm("Reset all review counts to 0 for a new week?")){WEEKLY_REVIEWS.forEach(r=>r.count=0);window.__esgSave&&window.__esgSave();renderAdmin();} };
+    }
   }
 
   function renderFolders(panel){
@@ -2683,7 +3259,10 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       TRAINING: TRAINING,
       NICO_SPM: NICO_SPM,
       SPM_DATA: SPM_DATA,
-      DIRECTORY: DIRECTORY
+      DIRECTORY: DIRECTORY,
+      WEEKLY_REVIEWS: WEEKLY_REVIEWS,
+      COMMISSION_DEFAULT: COMMISSION_DEFAULT,
+      COMMISSION_BY: COMMISSION_BY
     };
   }
   // Apply a loaded blob into the live variables (mutate in place where needed).
@@ -2700,6 +3279,9 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     if(s.NICO_SPM&&typeof s.NICO_SPM==="object") NICO_SPM=s.NICO_SPM;
     if(s.SPM_DATA&&typeof s.SPM_DATA==="object"){ SPM_DATA=s.SPM_DATA; if(!SPM_DATA.nico) SPM_DATA.nico=NICO_SPM; }
     if(Array.isArray(s.DIRECTORY)){ DIRECTORY.length=0; s.DIRECTORY.forEach(x=>DIRECTORY.push(x)); }
+    if(Array.isArray(s.WEEKLY_REVIEWS)){ WEEKLY_REVIEWS.length=0; s.WEEKLY_REVIEWS.forEach(x=>WEEKLY_REVIEWS.push(x)); }
+    if(s.COMMISSION_DEFAULT&&typeof s.COMMISSION_DEFAULT==="object"){ COMMISSION_DEFAULT.offTopPct=s.COMMISSION_DEFAULT.offTopPct; COMMISSION_DEFAULT.tiers=s.COMMISSION_DEFAULT.tiers; COMMISSION_DEFAULT.notes=s.COMMISSION_DEFAULT.notes; }
+    if(s.COMMISSION_BY&&typeof s.COMMISSION_BY==="object"){ Object.keys(COMMISSION_BY).forEach(k=>delete COMMISSION_BY[k]); Object.keys(s.COMMISSION_BY).forEach(k=>COMMISSION_BY[k]=s.COMMISSION_BY[k]); }
   }
   let SYNC_ON = !!(SHEET_API_URL && SHEET_API_URL.indexOf("http")===0);
   let saveTimer=null, savePending=false;
@@ -2739,7 +3321,11 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   window.__esgSave = saveToSheet;
 
   // ---------------- Init ----------------
-  function startApp(){ buildWhoSelect(); renderHome(); setupReveal(); }
+  function startApp(){
+    // Mirror existing YTD revenue into SPM scorecards on load (Jobber imports keep them updated after).
+    try{ Object.keys(SPM_DATA).forEach(id=>{ if(typeof syncSpmRevenue==="function") syncSpmRevenue(id); }); }catch(_){}
+    buildWhoSelect(); renderHome(); setupReveal();
+  }
   loadFromSheet().then(()=>{ startApp(); });
 })();
 
