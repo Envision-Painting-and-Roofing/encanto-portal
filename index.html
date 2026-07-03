@@ -316,6 +316,14 @@
   .comm-rate{font-weight:800;color:var(--brand);}
   .comm-note{font-size:11.5px;color:var(--muted);font-style:italic;}
   .res{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1.5px solid var(--line);border-radius:11px;background:var(--paper);margin-bottom:9px;transition:all .12s;}
+  .dir-res .rmain{flex:1;min-width:0;}
+  .dir-contact{text-align:right;font-size:12.5px;flex:none;max-width:52%;overflow:hidden;}
+  .dir-contact a{word-break:break-all;}
+  @media(max-width:640px){
+    .dir-res{flex-wrap:wrap;}
+    .dir-res .rmain{flex:1 1 100%;}
+    .dir-contact{text-align:left;max-width:100%;flex:1 1 100%;margin-left:36px;margin-top:2px;}
+  }
   .res:hover{border-color:var(--brand);}
   .res .rico{width:34px;height:34px;border-radius:8px;background:var(--ink-soft);display:grid;place-items:center;font-size:16px;flex:none;}
   .res .rmain{flex:1;min-width:0;}
@@ -503,6 +511,10 @@
   .wk-pos{color:var(--green);font-weight:800;}
   .wk-neg{color:var(--red);font-weight:800;}
   .wk-foot{font-size:11.5px;color:var(--muted);margin-top:14px;background:var(--paper-tint);border-radius:8px;padding:10px 12px;}
+  .wk-tabs{display:inline-flex;gap:4px;background:var(--paper-tint);border:1px solid var(--line);border-radius:10px;padding:4px;margin:14px 0 4px;}
+  .wk-tab{border:none;background:none;color:var(--muted);font-weight:700;font-size:12.5px;padding:7px 16px;border-radius:7px;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;}
+  .wk-tab:hover{color:var(--ink);}
+  .wk-tab.active{background:var(--ink);color:#fff;}
 
   /* ===== Safety section ===== */
   .safety-card{border-left:5px solid #f0a830;}
@@ -849,15 +861,18 @@ const LOGO_DATA = "iVBORw0KGgoAAAANSUhEUgAAANgAAADICAIAAAAFlLghAAABCGlDQ1BJQ0MgU
 // Leave URL blank to run in file-only mode (no live sync).
 var SHEET_API_URL = "";        // e.g. https://script.google.com/macros/s/AKfy.../exec
 var SHEET_API_SECRET = "";     // must match SHARED_SECRET in the Apps Script
-let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Residential Estimator", "pass": "6944", "updated": "2026-06-27", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 10, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 2}}}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-06-27", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 41, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Residential Estimator", "pass": "15487", "updated": "2026-06-27", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 0, "revenue": 0, "readiness": 0, "customer": 5, "leadsBrought": 2, "leadsWon": 0}}}, {"id": "brian", "name": "Brian Brown", "role": "Residential Estimator", "pass": "1986", "updated": "2026-06-27", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 47, "revenue": 19643, "customer": 5, "leadsBrought": 2, "leadsWon": 5}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "4925", "updated": "2026-06-27", "data": {}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "2026", "updated": "2026-06-27", "data": {}, "briefingOnly": true}];
+let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Residential Estimator", "pass": "6944", "updated": "2026-07-03", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 10, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0, "leadsBrought": 4}}}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-07-03", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 41, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Residential Estimator", "pass": "15487", "updated": "2026-07-03", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 0, "revenue": 0, "readiness": 0, "customer": 5, "leadsBrought": 2, "leadsWon": 0}}}, {"id": "brian", "name": "Brian Brown", "role": "Residential Estimator", "pass": "1986", "updated": "2026-07-03", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 47, "revenue": 19643, "customer": 5, "leadsBrought": 2, "leadsWon": 5}, "July": {"closing": 25, "revenue": 1490, "leadsBrought": 4}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "1620", "updated": "2026-07-03", "data": {}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "2026", "updated": "2026-07-03", "data": {}, "briefingOnly": true}];
 let OTHER_REVENUE = 81000;
-let GOALS = { yearly: 2000000, monthly: 175000 };
+let GOALS = { yearly: 4000000, monthly: 175000 };
 // Next all-hands meeting (also the due date for briefings).
 var NEXT_MEETING = { date: "Friday, July 31, 2026", time: "9:00 AM \u2013 10:30 AM", place: "Dunn Edwards \u2014 Tempe" };
 // === EDIT ME: where the "Foremen" nav tab sends people (opens in a new tab) ===
 var FOREMEN_URL = "https://example.com";
 // 5-star reviews captured this week (shown on the Weekly Numbers Report; managed in Admin -> Reviews)
 var WEEKLY_REVIEWS = [];
+// This week's producer numbers (fed by Admin -> Imports -> Weekly report upload). Overrides each upload.
+// Shape: { weekEnding:"2026-07-31", producers:{ personId: revenueThisWeek, ... } }
+var WEEKLY_SNAPSHOT = { weekEnding:"2026-07-03", producers:{ brian:750 } };
 // Sales commission structure (editable in Admin -> People -> Commission). The DEFAULT applies to
 // any PM unless they have their own override in COMMISSION_BY[personId].
 var COMMISSION_DEFAULT = {
@@ -1218,10 +1233,14 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   // ===== Weekly Numbers Report (auto-computed from KPI/Jobber data) =====
   function weeklyReportData(){
     const ANNUAL_GOAL = (GOALS && GOALS.yearly) ? GOALS.yearly : 1500000;
-    // find the latest month that has any revenue data across the team
-    let curIdx=-1;
-    PEOPLE.forEach(p=>{ const d=normData(p.data); MONTHS.forEach((m,i)=>{ if(typeof d[m].revenue==="number" && d[m].revenue>0 && i>curIdx) curIdx=i; }); });
-    if(curIdx<0) curIdx=new Date().getMonth();
+    // Current month = the real calendar month (so a new month shows immediately, even with $0 so far).
+    // Only fall back to the latest month with data if the calendar month is somehow out of range.
+    let curIdx=new Date().getMonth();
+    if(curIdx<0 || curIdx>11){
+      curIdx=-1;
+      PEOPLE.forEach(p=>{ const d=normData(p.data); MONTHS.forEach((m,i)=>{ if(typeof d[m].revenue==="number" && d[m].revenue>0 && i>curIdx) curIdx=i; }); });
+      if(curIdx<0) curIdx=0;
+    }
     const curMonth=MONTHS[curIdx];
     const qStart=Math.floor(curIdx/3)*3;            // first month index of current quarter
     // per-producer current-month revenue (active people only)
@@ -1248,31 +1267,68 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     return {curMonth, producers, weekTotal, mtd, qtd, ytd, other, annualGoal:ANNUAL_GOAL, pace, varToPace, monthsElapsed};
   }
 
+  // Friday of the current week (if today is Sat/Sun, shows the Friday just passed; otherwise upcoming Fri)
+  function weekEndingFriday(base){
+    const d=base?new Date(base):new Date();
+    const day=d.getDay();               // 0=Sun..6=Sat
+    let add=(5-day);                    // days to Friday
+    if(day===6) add=-1;                 // Saturday -> yesterday
+    if(day===0) add=-2;                 // Sunday -> Friday before
+    const f=new Date(d); f.setDate(d.getDate()+add);
+    return f;
+  }
+  let weeklyView="month"; // "week" or "month"
   function renderWeeklyReport(){
     const box=$("#weeklyReport"); if(!box) return;
     const w=weeklyReportData();
     const today=new Date();
     const isFriday=today.getDay()===5;
-    const friendlyDate=today.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
+    // Always show the week-ending Friday date (not today's date)
+    const fri=weekEndingFriday();
+    const friendlyDate=fri.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
     const vClass=w.varToPace>=0?"wk-pos":"wk-neg";
     const vTxt=(w.varToPace>=0?"+":"\u2212")+fmtMoney(Math.abs(w.varToPace));
-    const row=(label,val,note)=>'<tr><td class="wk-pl">'+label+'</td><td class="wk-pv">'+fmtMoney(val)+'</td><td class="wk-pn">'+(note||"")+'</td></tr>';
     const pctOfGoal=Math.round(w.ytd/w.annualGoal*100);
+
+    // This-week producer numbers from the weekly snapshot (if uploaded)
+    const snap=(typeof WEEKLY_SNAPSHOT==="object"&&WEEKLY_SNAPSHOT)?WEEKLY_SNAPSHOT:{producers:{}};
+    const weekProducers=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly).map(p=>({
+      name:p.name, role:p.role||"", val:(snap.producers&&typeof snap.producers[p.id]==="number")?snap.producers[p.id]:0
+    })).sort((a,b)=>b.val-a.val);
+    const weekSum=weekProducers.reduce((a,b)=>a+b.val,0);
+    const hasWeek=weekSum>0 || (snap.producers&&Object.keys(snap.producers).length>0);
+
     box.className="card wk-card"+(isFriday?" wk-friday":"");
-    box.innerHTML=
+    let html=
       '<div class="wk-top">'+
         '<div><div class="wk-kicker">Envision Painting &amp; Roofing \u00b7 Ashton Holdings, LLC</div>'+
           '<div class="wk-title">Weekly Numbers Report</div>'+
-          '<div class="wk-week">Week ending '+friendlyDate+(isFriday?' \u00b7 <span class="wk-live">Updated for Friday</span>':'')+'</div></div>'+
+          '<div class="wk-week">Week ending '+friendlyDate+(isFriday?' \u00b7 <span class="wk-live">It\u2019s Friday</span>':'')+'</div></div>'+
         '<div class="wk-badge"><div class="wk-badge-v">'+pctOfGoal+'%</div><div class="wk-badge-l">of annual goal</div></div>'+
       '</div>'+
-      // by producer
-      '<div class="wk-sec-h">This period\u2019s revenue \u2014 by producer ('+w.curMonth+')</div>'+
-      '<table class="wk-table"><thead><tr><th>Producer</th><th>Role</th><th class="wk-r">Revenue</th></tr></thead><tbody>'+
-        (w.producers.length?w.producers.map(p=>'<tr><td class="wk-pl">'+esc(p.name)+'</td><td class="wk-pn">'+esc(p.role)+'</td><td class="wk-pv wk-r">'+fmtMoney(p.week)+'</td></tr>').join(''):'<tr><td colspan="3" class="wk-pn">No revenue recorded yet this period.</td></tr>')+
-        '<tr class="wk-total"><td>Total this period</td><td></td><td class="wk-r">'+fmtMoney(w.weekTotal)+'</td></tr>'+
-      '</tbody></table>'+
-      // cumulative
+      // view tabs
+      '<div class="wk-tabs">'+
+        '<button class="wk-tab'+(weeklyView==="week"?" active":"")+'" data-wkview="week">This Week</button>'+
+        '<button class="wk-tab'+(weeklyView==="month"?" active":"")+'" data-wkview="month">Month to Date</button>'+
+      '</div>';
+
+    if(weeklyView==="week"){
+      html+='<div class="wk-sec-h">This week\u2019s revenue \u2014 by producer (week ending '+friendlyDate+')</div>'+
+        '<table class="wk-table"><thead><tr><th>Producer</th><th>Role</th><th class="wk-r">Revenue</th></tr></thead><tbody>'+
+          (hasWeek?weekProducers.map(p=>'<tr><td class="wk-pl">'+esc(p.name)+'</td><td class="wk-pn">'+esc(p.role)+'</td><td class="wk-pv wk-r">'+fmtMoney(p.val)+'</td></tr>').join('')
+            :'<tr><td colspan="3" class="wk-pn">No weekly numbers uploaded yet. Add them in Admin \u2192 Imports \u2192 Weekly report.</td></tr>')+
+          '<tr class="wk-total"><td>Total this week</td><td></td><td class="wk-r">'+fmtMoney(weekSum)+'</td></tr>'+
+        '</tbody></table>';
+    } else {
+      html+='<div class="wk-sec-h">This period\u2019s revenue \u2014 by producer ('+w.curMonth+')</div>'+
+        '<table class="wk-table"><thead><tr><th>Producer</th><th>Role</th><th class="wk-r">Revenue</th></tr></thead><tbody>'+
+          (w.producers.length?w.producers.map(p=>'<tr><td class="wk-pl">'+esc(p.name)+'</td><td class="wk-pn">'+esc(p.role)+'</td><td class="wk-pv wk-r">'+fmtMoney(p.week)+'</td></tr>').join(''):'<tr><td colspan="3" class="wk-pn">No revenue recorded yet this period.</td></tr>')+
+          '<tr class="wk-total"><td>Total this period</td><td></td><td class="wk-r">'+fmtMoney(w.weekTotal)+'</td></tr>'+
+        '</tbody></table>';
+    }
+
+    html+=
+      // cumulative (always shown)
       '<div class="wk-sec-h">Cumulative totals</div>'+
       '<table class="wk-table"><thead><tr><th>Period</th><th class="wk-r">Approved revenue</th><th>Variance to pace</th></tr></thead><tbody>'+
         '<tr><td class="wk-pl">Month to date</td><td class="wk-pv wk-r">'+fmtMoney(w.mtd)+'</td><td class="wk-pn">'+w.curMonth+'</td></tr>'+
@@ -1280,7 +1336,6 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
         '<tr><td class="wk-pl">Year to date (2026)</td><td class="wk-pv wk-r">'+fmtMoney(w.ytd)+'</td><td class="wk-pn '+vClass+'">'+vTxt+' vs pace</td></tr>'+
         '<tr class="wk-total"><td>Annual goal (2026)</td><td class="wk-r">'+fmtMoney(w.annualGoal)+'</td><td class="wk-pn">'+pctOfGoal+'% reached</td></tr>'+
       '</tbody></table>'+
-      // 5-star reviews this week
       (function(){
         const list=(typeof WEEKLY_REVIEWS!=="undefined"&&Array.isArray(WEEKLY_REVIEWS))?WEEKLY_REVIEWS:[];
         const total=list.reduce((a,r)=>a+(typeof r.count==="number"?r.count:(parseInt(r.count)||0)),0);
@@ -1296,13 +1351,16 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
         '<div class="wk-pn" style="padding:2px 10px;">\u25a0 Review goal: every completed job should generate a 5-star Google review. If a crew lead has 0 \u2014 follow up.</div>';
         return h;
       })()+
-      '<div class="wk-foot">Auto-generated from the team\u2019s KPI data \u2014 numbers update as Jobber reports are imported. Reviews are entered in Admin. Goal pace = annual goal \u00d7 months elapsed \u00f7 12.</div>';
+      '<div class="wk-foot">This Week numbers come from the weekly report upload (separate from KPIs). Month/Quarter/Year totals are auto-computed from KPI data. Goal pace = annual goal \u00d7 months elapsed \u00f7 12.</div>';
+
+    box.innerHTML=html;
+    box.querySelectorAll(".wk-tab").forEach(b=>b.onclick=()=>{ weeklyView=b.dataset.wkview; renderWeeklyReport(); });
 
     // On Fridays, move the report (and its header) to the very top of the home section.
     const head=$("#weeklyHead"), hero=$("#sec-home .hero"), sec=$("#sec-home");
     if(isFriday && head && hero && sec){
-      sec.insertBefore(box, hero.nextSibling);
-      sec.insertBefore(head, box);
+      sec.insertBefore(head, sec.firstChild);
+      sec.insertBefore(box, head.nextSibling);
       head.querySelector(".lead").textContent="It\u2019s Friday";
     }
   }
@@ -1521,14 +1579,25 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   }
   function renderHomeLeaders(){
     const box=$("#homeLeaders"); if(!box) return;
-    const rows=PEOPLE.map(p=>{const d=normData(p.data);const lm=latestMonth(d);const s=lm?weightedScore(d,lm):null;return {name:p.name,score:s,month:lm};})
-      .filter(x=>x.score!==null).sort((a,b)=>b.score-a.score).slice(0,3);
-    if(!rows.length){ box.innerHTML='<p style="color:var(--muted);margin:0;">No scores yet this month.</p>'; return; }
+    const curMonth=MONTHS[new Date().getMonth()];
+    // Only active producers (skip inactive/hidden people like Tyler, and non-producers like Miranda)
+    const pool=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly);
+    // Anyone has data for the current month yet?
+    const curHasData=pool.some(p=>monthHasData(normData(p.data),curMonth));
+    const useMonth=curHasData?curMonth:null; // null => fall back to each person's latest month
+    const rows=pool.map(p=>{
+      const d=normData(p.data);
+      const m=useMonth||latestMonth(d);
+      const s=m?weightedScore(d,m):null;
+      return {name:p.name,score:s,month:m};
+    }).filter(x=>x.score!==null).sort((a,b)=>b.score-a.score).slice(0,3);
+    if(!rows.length){ box.innerHTML='<p style="color:var(--muted);margin:0;">No scores yet for '+curMonth+'. They\u2019ll appear as this month\u2019s numbers come in.</p>'; return; }
     const medal=["\ud83e\udd47","\ud83e\udd48","\ud83e\udd49"];
+    const subLabel=curHasData?(curMonth):("Latest");
     box.innerHTML=rows.map((row,i)=>
       '<div class="lb-row">'+
         '<div style="font-size:20px;width:30px;text-align:center;">'+medal[i]+'</div>'+
-        '<div style="flex:1;min-width:120px;"><div class="lb-name">'+esc(row.name)+'</div><div class="lb-sub">Latest: '+MABBR[row.month]+'</div></div>'+
+        '<div style="flex:1;min-width:120px;"><div class="lb-name">'+esc(row.name)+'</div><div class="lb-sub">'+(curHasData?curMonth:("Latest: "+MABBR[row.month]))+'</div></div>'+
         '<div class="lb-bar"><span style="width:0%" data-w="'+row.score+'"></span></div>'+
         '<div class="lb-score">'+row.score+'</div>'+
       '</div>'
@@ -1604,7 +1673,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     renderGoals(r);
 
     // leaderboard
-    const rows=PEOPLE.map(p=>{const d=normData(p.data);const lm=latestMonth(d);const s=lm?weightedScore(d,lm):null;return {name:p.name,role:p.role,score:s,month:lm};})
+    const rows=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly).map(p=>{const d=normData(p.data);const lm=latestMonth(d);const s=lm?weightedScore(d,lm):null;return {name:p.name,role:p.role,score:s,month:lm};})
       .sort((a,b)=>(b.score??-1)-(a.score??-1));
     const lb=$("#leaderboard");lb.innerHTML="";
     rows.forEach((row,i)=>{
@@ -1798,6 +1867,35 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       '<button class="ev-btn ghost" id="orCopy" style="margin-top:10px;">Copy all updates for publishing</button>'+
     '</div>';
 
+    // ---- Weekly report (SEPARATE from KPIs) — Jobber CSV upload or manual entry ----
+    (function(){
+      const fri=weekEndingFriday();
+      const friStr=fri.toISOString().slice(0,10);
+      const friendly=fri.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'});
+      const people=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly);
+      const snap=(WEEKLY_SNAPSHOT&&WEEKLY_SNAPSHOT.producers)?WEEKLY_SNAPSHOT.producers:{};
+      html+='<div class="card" style="margin-bottom:14px;">'+
+        '<h3 style="margin:0 0 4px;">🗓️ Weekly report \u2014 this week\u2019s revenue</h3>'+
+        '<p style="margin:0 0 6px;color:var(--muted);font-size:12.5px;">For <b>week ending '+esc(friendly)+'</b>. This feeds only the <b>This Week</b> view on the home report \u2014 it is <b>completely separate from KPIs</b> and does not change anyone\u2019s monthly/YTD numbers. Each save overrides the previous week.</p>'+
+        // Jobber CSV upload
+        '<div id="wkDrop" class="drop" style="margin:12px 0;"><input type="file" id="wkFile" accept=".csv" style="display:none;">'+
+          '<div class="drop-inner"><div style="font-size:22px;">\ud83d\udcc4</div><div><b>Upload Jobber CSV</b> \u2014 Salesperson Performance report<div style="font-size:11.5px;color:var(--muted);">Drop the file here or click to browse. We read each rep\u2019s revenue for this week.</div></div></div>'+
+        '</div>'+
+        '<div id="wkUpStatus" style="font-size:12.5px;font-weight:700;margin-bottom:10px;"></div>'+
+        '<p style="margin:14px 0 8px;font-size:12px;font-weight:700;color:var(--ink);">Or enter / adjust manually:</p>'+
+        '<table class="ev-table" style="width:100%;"><thead><tr><th>Producer</th><th>This week revenue ($)</th></tr></thead><tbody>'+
+          people.map(p=>'<tr><td><b>'+esc(p.name)+'</b><div style="font-size:11px;color:var(--muted);">'+esc(p.role||"")+'</div></td>'+
+            '<td><input class="wkin" data-wkid="'+p.id+'" type="number" min="0" value="'+esc(String(typeof snap[p.id]==="number"?snap[p.id]:""))+'" placeholder="0" style="width:130px;font-size:13px;padding:6px 9px;"></td></tr>').join('')+
+        '</tbody></table>'+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center;">'+
+          '<button class="ev-btn primary" id="wkSave">Save weekly numbers</button>'+
+          '<button class="ev-btn subtle" id="wkClear">Clear week</button>'+
+          '<span id="wkStatus" style="font-size:12.5px;color:var(--green);font-weight:700;"></span>'+
+        '</div>'+
+      '</div>';
+      window.__wkCtx={friStr:friStr};
+    })();
+
     panel.innerHTML=html;
 
     const msel=$("#impMonth"); if(msel) msel.onchange=e=>{impMonth=e.target.value;};
@@ -1816,6 +1914,46 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       updateModeHint();
     }
     wireModeButtons();
+
+    // Weekly report wiring (SEPARATE from KPIs — only touches WEEKLY_SNAPSHOT)
+    (function(){
+      const ctx=window.__wkCtx||{};
+      const save=$("#wkSave"), clr=$("#wkClear"), status=$("#wkStatus");
+      if(save) save.onclick=()=>{
+        const inputs=panel.querySelectorAll(".wkin");
+        const producers={};
+        let touched=0;
+        inputs.forEach(inp=>{
+          const id=inp.dataset.wkid;
+          const val=parseFloat(inp.value);
+          if(!isNaN(val) && val>0){ producers[id]=val; touched++; }
+        });
+        WEEKLY_SNAPSHOT={ weekEnding:ctx.friStr, producers:producers };
+        window.__esgSave&&window.__esgSave();
+        if(status){ status.textContent="\u2713 Saved to the This Week report ("+touched+" producer"+(touched===1?"":"s")+"). KPIs untouched."; setTimeout(()=>{status.textContent="";},4500); }
+        toast("Weekly report saved");
+      };
+      if(clr) clr.onclick=()=>{
+        if(!confirm("Clear this week\u2019s weekly-report numbers? (KPIs are not affected.)")) return;
+        WEEKLY_SNAPSHOT={ weekEnding:"", producers:{} };
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+      };
+      // Jobber CSV upload -> fills the manual inputs (does NOT save automatically, so you can review)
+      setupDrop("wkDrop","wkFile",(txt)=>{
+        const res=ingestTeamCSV(txt);
+        const st=$("#wkUpStatus"); if(!st) return;
+        if(res.error){ st.style.color="var(--red)"; st.textContent="\u26a0 "+res.error; return; }
+        let filled=0;
+        res.matched.forEach(m=>{
+          const inp=panel.querySelector('.wkin[data-wkid="'+m.person.id+'"]');
+          if(inp && m.revenue!=null){ inp.value=m.revenue; filled++; }
+        });
+        st.style.color="var(--green)";
+        const extra=res.unmatched&&res.unmatched.length?(" \u00b7 "+res.unmatched.length+" name(s) not matched"):"";
+        st.innerHTML="\u2713 Read "+filled+" producer"+(filled===1?"":"s")+" from the file"+extra+". Review below, then click <b>Save weekly numbers</b>.";
+      });
+    })();
     setupDrop("perfDrop","perfFile",(txt)=>renderPerfResults(ingestTeamCSV(txt)));
     setupDrop("leadsDrop","leadsFile",(txt)=>renderLeadsResults(ingestLeadsCSV(txt)));
 
@@ -1890,7 +2028,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       });
       out.data=data; return out;
     });
-    const snippet="/* Team data updated "+stamp+" \u2014 replace these lines near the top of the script, then commit */\nconst PEOPLE = "+JSON.stringify(clean)+";\nlet OTHER_REVENUE = "+JSON.stringify(OTHER_REVENUE)+";\nlet GOALS = "+JSON.stringify(GOALS)+";\nlet NICO_SPM = "+JSON.stringify(NICO_SPM)+";\nlet SPM_DATA = "+JSON.stringify(SPM_DATA)+";\nlet DIRECTORY = "+JSON.stringify(DIRECTORY)+";\nvar WEEKLY_REVIEWS = "+JSON.stringify(WEEKLY_REVIEWS)+";\nvar COMMISSION_DEFAULT = "+JSON.stringify(COMMISSION_DEFAULT)+";\nvar COMMISSION_BY = "+JSON.stringify(COMMISSION_BY)+";";
+    const snippet="/* Team data updated "+stamp+" \u2014 replace these lines near the top of the script, then commit */\nconst PEOPLE = "+JSON.stringify(clean)+";\nlet OTHER_REVENUE = "+JSON.stringify(OTHER_REVENUE)+";\nlet GOALS = "+JSON.stringify(GOALS)+";\nlet NICO_SPM = "+JSON.stringify(NICO_SPM)+";\nlet SPM_DATA = "+JSON.stringify(SPM_DATA)+";\nlet DIRECTORY = "+JSON.stringify(DIRECTORY)+";\nvar WEEKLY_REVIEWS = "+JSON.stringify(WEEKLY_REVIEWS)+";\nvar WEEKLY_SNAPSHOT = "+JSON.stringify(WEEKLY_SNAPSHOT)+";\nvar COMMISSION_DEFAULT = "+JSON.stringify(COMMISSION_DEFAULT)+";\nvar COMMISSION_BY = "+JSON.stringify(COMMISSION_BY)+";";
     showCopyBox(snippet);
   }
 
@@ -2911,8 +3049,8 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       list.innerHTML=Object.keys(groups).map(g=>
         '<div class="card" style="margin-bottom:12px;"><h3 style="margin:0 0 10px;">'+esc(g)+'</h3>'+
         groups[g].map(d=>
-          '<div class="res"><div class="rico">\ud83d\udc64</div><div class="rmain"><div class="rt">'+esc(d.name)+'</div><div class="rd">'+esc(d.role)+'</div></div>'+
-          '<div style="text-align:right;font-size:12.5px;">'+
+          '<div class="res dir-res"><div class="rico">\ud83d\udc64</div><div class="rmain"><div class="rt">'+esc(d.name)+'</div><div class="rd">'+esc(d.role)+'</div></div>'+
+          '<div class="dir-contact">'+
             (d.email?'<a class="rgo" href="mailto:'+esc(d.email)+'">'+esc(d.email)+'</a><br>':'')+
             (d.phone?'<a class="rgo" href="tel:'+esc(d.phone.replace(/[^0-9+]/g,""))+'" style="color:var(--muted);">'+esc(d.phone)+'</a>':(d.email?'':'<span style="color:var(--muted)">\u2014</span>'))+
           '</div></div>'
@@ -3261,6 +3399,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       SPM_DATA: SPM_DATA,
       DIRECTORY: DIRECTORY,
       WEEKLY_REVIEWS: WEEKLY_REVIEWS,
+      WEEKLY_SNAPSHOT: WEEKLY_SNAPSHOT,
       COMMISSION_DEFAULT: COMMISSION_DEFAULT,
       COMMISSION_BY: COMMISSION_BY
     };
@@ -3280,6 +3419,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     if(s.SPM_DATA&&typeof s.SPM_DATA==="object"){ SPM_DATA=s.SPM_DATA; if(!SPM_DATA.nico) SPM_DATA.nico=NICO_SPM; }
     if(Array.isArray(s.DIRECTORY)){ DIRECTORY.length=0; s.DIRECTORY.forEach(x=>DIRECTORY.push(x)); }
     if(Array.isArray(s.WEEKLY_REVIEWS)){ WEEKLY_REVIEWS.length=0; s.WEEKLY_REVIEWS.forEach(x=>WEEKLY_REVIEWS.push(x)); }
+    if(s.WEEKLY_SNAPSHOT&&typeof s.WEEKLY_SNAPSHOT==="object"){ WEEKLY_SNAPSHOT=s.WEEKLY_SNAPSHOT; }
     if(s.COMMISSION_DEFAULT&&typeof s.COMMISSION_DEFAULT==="object"){ COMMISSION_DEFAULT.offTopPct=s.COMMISSION_DEFAULT.offTopPct; COMMISSION_DEFAULT.tiers=s.COMMISSION_DEFAULT.tiers; COMMISSION_DEFAULT.notes=s.COMMISSION_DEFAULT.notes; }
     if(s.COMMISSION_BY&&typeof s.COMMISSION_BY==="object"){ Object.keys(COMMISSION_BY).forEach(k=>delete COMMISSION_BY[k]); Object.keys(s.COMMISSION_BY).forEach(k=>COMMISSION_BY[k]=s.COMMISSION_BY[k]); }
   }
