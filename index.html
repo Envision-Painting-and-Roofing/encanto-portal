@@ -515,6 +515,11 @@
   .wk-tab{border:none;background:none;color:var(--muted);font-weight:700;font-size:12.5px;padding:7px 16px;border-radius:7px;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;}
   .wk-tab:hover{color:var(--ink);}
   .wk-tab.active{background:var(--ink);color:#fff;}
+  /* dual scorecard tabs (Nico/Kevin) */
+  .dual-tabs{display:inline-flex;gap:5px;background:var(--paper-tint);border:1px solid var(--line);border-radius:12px;padding:5px;margin-bottom:18px;}
+  .dual-tab{border:none;background:none;color:var(--muted);font-weight:800;font-size:13.5px;padding:9px 20px;border-radius:9px;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;}
+  .dual-tab:hover{color:var(--ink);}
+  .dual-tab.active{background:var(--ink);color:#fff;box-shadow:0 3px 10px rgba(15,42,107,.2);}
 
   /* ===== Safety section ===== */
   .safety-card{border-left:5px solid #f0a830;}
@@ -861,31 +866,21 @@ const LOGO_DATA = "iVBORw0KGgoAAAANSUhEUgAAANgAAADICAIAAAAFlLghAAABCGlDQ1BJQ0MgU
 // Leave URL blank to run in file-only mode (no live sync).
 var SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxy6Owkzx8eK9Lpemekd9QairgkPShpY3jqOc3QDpWEjdVro_bJrxtDS3vKwtQ2G0pt/exec";
 var SHEET_API_SECRET = "Happy6944";     // must match SHARED_SECRET in the Apps Script
-let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Estimator", "pass": "6944", "updated": "2026-07-10", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 0, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0, "leadsBrought": 4}}}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-07-10", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 0, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Estimator", "pass": "15487", "updated": "2026-07-10", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 100, "revenue": 11930, "readiness": 0, "customer": 5, "leadsBrought": 2, "leadsWon": 0}}}, {"id": "brian", "name": "Brian Brown", "role": "General Manager", "pass": "1986", "updated": "2026-07-10", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 40, "revenue": 22733, "customer": 5, "leadsBrought": 2, "leadsWon": 5}, "July": {"closing": 25, "revenue": 1490, "leadsBrought": 4}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "1620", "updated": "2026-07-10", "data": {}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "2026", "updated": "2026-07-10", "data": {}, "briefingOnly": true}];
-let OTHER_REVENUE = 81000;
-let GOALS = { yearly: 4000000, monthly: 175000 };
+let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Estimator", "pass": "6944", "updated": "2026-07-10", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 0, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 8, "leadsWon": 2}, "July": {"closing": 11, "revenue": 24649, "margin": 42, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 4, "leadsWon": 1, "auto": {"closing": true, "revenue": true}}}, "hidden": false}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-07-10", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 0, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Estimator", "pass": "15487", "updated": "2026-07-10", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 100, "revenue": 11930, "readiness": 0, "customer": 5, "leadsBrought": 3, "leadsWon": 0}, "July": {"closing": 0, "revenue": 23430, "auto": {"closing": true, "revenue": true}}}}, {"id": "brian", "name": "Brian Brown", "role": "General Manager", "pass": "1986", "updated": "2026-07-10", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 40, "revenue": 22733, "customer": 5, "leadsBrought": 6, "leadsWon": 5}, "July": {"closing": 17, "revenue": 60159, "margin": 35, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 4, "leadsWon": 3, "auto": {"closing": true, "revenue": true}}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "1086", "updated": "2026-07-10", "data": {"July": {"closing": 100, "revenue": 17196, "auto": {"closing": true, "revenue": true}}, "June": {"leadsBrought": 1}}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "1420", "updated": "2026-07-10", "data": {"July": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}}, "briefingOnly": true}];
+let OTHER_REVENUE = 80000;
+let GOALS = {"yearly": 4000000, "monthly": 175000};
 // Next all-hands meeting (also the due date for briefings).
 var NEXT_MEETING = { date: "Friday, July 31, 2026", time: "9:00 AM \u2013 10:30 AM", place: "Dunn Edwards \u2014 Tempe" };
 // === EDIT ME: where the "Foremen" nav tab sends people (opens in a new tab) ===
 var FOREMEN_URL = "https://example.com";
 // 5-star reviews captured this week (shown on the Weekly Numbers Report; managed in Admin -> Reviews)
-var WEEKLY_REVIEWS = [];
+var WEEKLY_REVIEWS = [{"name": "JoseVargas", "count": 1, "platform": "Google", "notes": ""}, {"name": "Ebert VargasLizarraga", "count": 0, "platform": "Google", "notes": ""}, {"name": "MarioPerez", "count": 0, "platform": "Google", "notes": ""}, {"name": "GilbertoAlvarez", "count": 0, "platform": "Google", "notes": ""}, {"name": "Juan CarlosContreras", "count": 0, "platform": "Google", "notes": ""}, {"name": "RemoneHattar", "count": 1, "platform": "Google", "notes": ""}];
 // This week's producer numbers (fed by Admin -> Imports -> Weekly report upload). Overrides each upload.
 // Shape: { weekEnding:"2026-07-31", producers:{ personId: revenueThisWeek, ... } }
-var WEEKLY_SNAPSHOT = { weekEnding:"2026-07-10", producers:{} };
+var WEEKLY_SNAPSHOT = {"weekEnding": "2026-07-24", "producers": {"remone": 392, "brian": 1000}};
 // Sales commission structure (editable in Admin -> People -> Commission). The DEFAULT applies to
 // any PM unless they have their own override in COMMISSION_BY[personId].
-var COMMISSION_DEFAULT = {
-  offTopPct: 10,               // % deducted off gross before commission (Adjusted = Gross x (100-offTop)%)
-  tiers: [
-    {min:0,  max:4,   rate:45, label:"Base Rate", note:"Starting rate for all new representatives"},
-    {min:5,  max:9,   rate:50, label:"Tier 2",    note:"Unlocked after 5 jobs sold"},
-    {min:10, max:19,  rate:55, label:"Tier 3",    note:"Unlocked after 10 jobs sold"},
-    {min:20, max:29,  rate:60, label:"Tier 4",    note:"Unlocked after 20 jobs sold"},
-    {min:30, max:null,rate:65, label:"Max Rate",  note:"Commission cap — maximum rate achievable"}
-  ],
-  notes:"Rates apply to cumulative jobs sold (not per-period). Tiers are permanent — once reached, the rate never drops."
-};
+var COMMISSION_DEFAULT = {"offTopPct": 10, "tiers": [{"min": 0, "max": 4, "rate": 45, "label": "Base Rate", "note": "Starting rate for all newrepresentatives"}, {"min": 5, "max": 9, "rate": 50, "label": "Tier 2", "note": "Unlocked after 5 jobssold"}, {"min": 10, "max": 19, "rate": 55, "label": "Tier 3", "note": "Unlocked after 10 jobssold"}, {"min": 20, "max": 29, "rate": 60, "label": "Tier 4", "note": "Unlocked after 20 jobssold"}, {"min": 30, "max": null, "rate": 65, "label": "Max Rate", "note": "Commission cap \u2014 maximumrate achievable"}], "notes": "Rates apply to cumulative jobs sold (not per-period). Tiers arepermanent \u2014 once reached, the rate never drops."};
 // Per-person commission overrides, keyed by person id. Empty = everyone uses COMMISSION_DEFAULT.
 var COMMISSION_BY = {};
 // Company directory. Replace/extend from the spreadsheet you provide.
@@ -947,10 +942,7 @@ let NICO_SPM = {
   ]
 };
 // Senior PM scorecards, keyed by person id. Each person gets their own copy of the structure.
-let SPM_DATA = {
-  nico: NICO_SPM,
-  kevin: JSON.parse(JSON.stringify(NICO_SPM))
-};
+let SPM_DATA = {"nico": {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "Senior PM", "person": "Nico Chavez", "target": 1500000, "pct": 41.7}, {"role": "PMAssociate", "person": "Direct Report 1", "target": 500000, "pct": 13.9}, {"role": "PMAssociate", "person": "Direct Report 2", "target": 500000, "pct": 13.9}], "individual": [{"k": "PersonalRevenue Closed", "t": "$1,500,000 /yr", "target": 1500000, "actual": 242500, "money": true, "dir": "up"}, {"k": "Stretch RevenueGoal", "t": "$2,100,000 / yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "ClientRetention Rate", "t": "\u2265 90%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline ValueMaintained", "t": "3\u00d7 quota($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "\u226535%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100%weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "\u226520% of book", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team RevenueManaged", "t": "$2,800,000(stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1Revenue", "t": "$500,000minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 2Revenue", "t": "$500,000minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Team QuotaAttainment", "t": "\u2265 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "DealReview Cadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "TeamProposal Win Rate", "t": "\u2265 33%combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct Report Retention", "t": "100%(no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training & Development", "t": "\u2265 2programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance ReviewCompletion", "t": "100% on-time(Q1\u2013Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "\u2265 90%milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Client Satisfaction (CSAT)", "t": "\u22654.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score (NPS)", "t": "\u226550", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% ofprojects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope ChangeManagement", "t": "100% documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "BudgetVariance", "t": "\u2264 5% per project", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-SellIntroductions", "t": "\u2265 6 / yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive StakeholderReviews", "t": "Quarterly per keyaccount", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRMreview", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1coaching sessions", "who": "Nico + Each DR", "owner": "NicoChavez"}, {"cad": "Monthly", "act": "Revenue tracking vs targets", "who": "Nico +Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPI performancereview", "who": "Nico + Manager + HR", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Teamquota attainment summary", "who": "All 3 team members", "owner": "NicoChavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico + Manager +Leadership", "owner": "Leadership"}]}, "kevin": {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "Senior PM", "person": "Kevin Barnes", "target": 1500000, "pct": 41.7}, {"role": "PMAssociate", "person": "Direct Report 1", "target": 500000, "pct": 13.9}, {"role": "PMAssociate", "person": "Direct Report 2", "target": 500000, "pct": 13.9}], "individual": [{"k": "PersonalRevenue Closed", "t": "$1,500,000 /yr", "target": 1500000, "actual": 17196, "money": true, "dir": "up"}, {"k": "Stretch RevenueGoal", "t": "$2,100,000 / yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "ClientRetention Rate", "t": "\u2265 90%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline ValueMaintained", "t": "3\u00d7 quota($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "\u226535%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100%weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "\u226520% of book", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team RevenueManaged", "t": "$2,800,000(stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1Revenue", "t": "$500,000minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 2Revenue", "t": "$500,000minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Team QuotaAttainment", "t": "\u2265 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "DealReview Cadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "TeamProposal Win Rate", "t": "\u2265 33%combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct Report Retention", "t": "100%(no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training & Development", "t": "\u2265 2programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance ReviewCompletion", "t": "100% on-time(Q1\u2013Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "\u2265 90%milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Client Satisfaction (CSAT)", "t": "\u22654.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score (NPS)", "t": "\u226550", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% ofprojects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope ChangeManagement", "t": "100% documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "BudgetVariance", "t": "\u2264 5% per project", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-SellIntroductions", "t": "\u2265 6 / yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive StakeholderReviews", "t": "Quarterly per keyaccount", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRMreview", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1coaching sessions", "who": "Nico + Each DR", "owner": "NicoChavez"}, {"cad": "Monthly", "act": "Revenue tracking vs targets", "who": "Nico +Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPI performancereview", "who": "Nico + Manager + HR", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Teamquota attainment summary", "who": "All 3 team members", "owner": "NicoChavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico + Manager +Leadership", "owner": "Leadership"}]}};
 // Kevin's scorecard starts from the same template with cleared actuals & his own name.
 (function(){
   var k=SPM_DATA.kevin;
@@ -2117,10 +2109,32 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       // Miranda etc: only the fillable briefing, no scorecard.
       $("#kpiApp").innerHTML='<div class="ev-head"><div><div class="lead">Welcome</div><div class="h2" style="margin:0;">'+esc(person.name)+'</div><p style="color:var(--muted);font-size:13px;margin:6px 0 0;">'+esc(person.role)+'</p></div><button class="ev-btn ghost" id="kpiLogout">Log out</button></div>';
       const lo=$("#kpiApp").querySelector("#kpiLogout"); if(lo) lo.onclick=()=>{ kpiUnlocked=null; showKpiGate(); $("#kpiWho").value=""; };
-    } else if(SPM_DATA[person.id]) mountSeniorPm(person, { el: $("#kpiApp") });
+    } else if(SPM_DATA[person.id]){
+      mountDualScorecard(person, $("#kpiApp"));
+    }
     else mountKpiApp(person);
     if(BRIEFING_FOR[person.id]) mountBriefing(person, $("#kpiApp"));
   };
+
+  // For people who have BOTH an estimator scorecard and a Senior PM scorecard (Nico, Kevin):
+  // show a tab bar to switch between "My KPIs" and "Senior PM Scorecard".
+  let dualTab = {};
+  function mountDualScorecard(person, host){
+    const cur = dualTab[person.id] || "kpi";
+    host.innerHTML =
+      '<div class="dual-tabs">'+
+        '<button class="dual-tab'+(cur==="kpi"?" active":"")+'" data-dt="kpi">My KPIs</button>'+
+        '<button class="dual-tab'+(cur==="spm"?" active":"")+'" data-dt="spm">Senior PM Scorecard</button>'+
+      '</div>'+
+      '<div id="dualBody"></div>';
+    const body = host.querySelector("#dualBody");
+    if(cur==="spm") mountSeniorPm(person, { el: body });
+    else mountKpiApp(person, { el: body });
+    host.querySelectorAll(".dual-tab").forEach(b=>b.onclick=()=>{
+      dualTab[person.id] = b.dataset.dt;
+      mountDualScorecard(person, host);
+    });
+  }
   $("#kpiPass").addEventListener("keydown",e=>{if(e.key==="Enter")$("#kpiLoginBtn").click();});
 
   // Password show/hide eyes
@@ -2665,6 +2679,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     return '<div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">'+
       '<button class="ev-btn '+(adminEdit?'primary':'ghost')+'" id="adEdit">'+(adminEdit?'\ud83d\udd13 Editing':'\u270f\ufe0f Edit')+'</button>'+
       (adminEdit?'<button class="ev-btn primary" id="adPublish">Copy Admin config for publishing</button>':'')+
+      '<button class="ev-btn ghost" id="adExport">\u2b07\ufe0f Export current data</button>'+
       '<span style="font-size:11.5px;color:var(--muted);margin-left:auto;">'+(adminEdit?'Changes are local until you publish':'Read-only view')+'</span>'+
     '</div>';
   }
@@ -3156,9 +3171,12 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
 
   // ---- Reviews: 5-star reviews captured this week (feeds the Weekly Numbers Report) ----
   function reviewRoster(){
-    // Crew leads / foremen pulled from the directory (Roofing + Painting), so names stay in sync.
-    const names=DIRECTORY.filter(d=>d.dept==="Roofing"||d.dept==="Painting").map(d=>d.name);
-    // de-dupe and keep order
+    // Crew leads / foremen from the directory (Roofing + Painting)...
+    const crew=DIRECTORY.filter(d=>d.dept==="Roofing"||d.dept==="Painting").map(d=>d.name);
+    // ...plus active estimators/PMs (so Nico, Remone, etc. can be credited for reviews too).
+    const producers=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly).map(p=>p.name);
+    const names=crew.concat(producers);
+    // de-dupe, keep order
     return names.filter((n,i)=>names.indexOf(n)===i);
   }
   function reviewRow(name){
@@ -3345,6 +3363,31 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   function wireAdminTop(){
     const e=$("#adEdit");if(e)e.onclick=()=>{adminEdit=!adminEdit;renderAdmin();};
     const p=$("#adPublish");if(p)p.onclick=copyAdminConfig;
+    const x=$("#adExport");if(x)x.onclick=exportCurrentData;
+  }
+
+  // One-click export of ALL live data — copies to clipboard AND downloads a file.
+  function exportCurrentData(){
+    let blob;
+    try { blob = JSON.stringify(collectState()); }
+    catch(err){ toast("Export failed: "+err); return; }
+    // download as a file
+    try {
+      const a=document.createElement("a");
+      const stamp=new Date().toISOString().slice(0,10);
+      a.href=URL.createObjectURL(new Blob([blob],{type:"application/json"}));
+      a.download="envision-portal-data-"+stamp+".json";
+      document.body.appendChild(a); a.click(); a.remove();
+    } catch(_){}
+    // copy to clipboard
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(blob).then(
+        ()=>toast("Data copied to clipboard & downloaded \u2713"),
+        ()=>toast("Data downloaded (clipboard blocked)")
+      );
+    } else {
+      toast("Data downloaded \u2713");
+    }
   }
 
   function copyAdminConfig(){
