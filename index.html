@@ -520,6 +520,8 @@
   .dual-tab{border:none;background:none;color:var(--muted);font-weight:800;font-size:13.5px;padding:9px 20px;border-radius:9px;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;}
   .dual-tab:hover{color:var(--ink);}
   .dual-tab.active{background:var(--ink);color:#fff;box-shadow:0 3px 10px rgba(15,42,107,.2);}
+  .pipe-won{font-size:11px;font-weight:800;color:var(--green);background:var(--green-bg);border-radius:999px;padding:2px 9px;}
+  .pipe-open{font-size:11px;font-weight:800;color:var(--brand);background:var(--ink-soft);border-radius:999px;padding:2px 9px;}
 
   /* ===== Safety section ===== */
   .safety-card{border-left:5px solid #f0a830;}
@@ -660,7 +662,7 @@
     <div class="nav-brand">ENVISION<small>Painting | Roofing</small></div>
     <div class="nav-links" id="navLinks">
       <button class="nav-link active" data-sec="home">Home</button>
-      <button class="nav-link" data-sec="services">Services</button>
+      <button class="nav-link locked" data-sec="pipeline">Pipeline</button>
       <button class="nav-link" data-sec="performance">Performance</button>
       <button class="nav-link" data-sec="resources">Resources</button>
       <button class="nav-link" data-sec="directory">Directory</button>
@@ -732,19 +734,18 @@
   </section>
 
   <!-- ============ SERVICES ============ -->
-  <section class="section" id="sec-services">
-    <div class="sect-head"><div class="lead">What we do</div><div class="h2">Painting &amp; Roofing services</div></div>
-    <div class="grid g2">
-      <div class="card svc"><div class="ico">🎨</div><div><h3>Residential &amp; Commercial Painting</h3><p>Interior and exterior painting delivered to a complete-job standard — proper prep, clean lines, and a finish the customer is happy to refer.</p><ul class="pill-list"><li>Interior</li><li>Exterior</li><li>Cabinets</li><li>Color consults</li><li>Commercial</li></ul></div></div>
-      <div class="card svc"><div class="ico">🏠</div><div><h3>Roofing</h3><p>Repairs, replacements, and full roof systems — scoped accurately up front so the crew can start without chasing details.</p><ul class="pill-list"><li>Replacement</li><li>Repairs</li><li>Inspections</li><li>Storm damage</li><li>Gutters</li></ul></div></div>
+  <!-- ============ PIPELINE (locked) ============ -->
+  <section class="section" id="sec-pipeline">
+    <div id="pipeGate" class="gate">
+      <div class="lock">📊</div>
+      <h2>Project Pipeline</h2>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">Enter the password to view the pipeline.</p>
+      <div class="pw-wrap"><input type="password" id="pipePass" placeholder="Password" autocomplete="off"><button type="button" class="pw-eye" data-eye="pipePass" aria-label="Show password">👁</button></div>
+      <div class="lock-warn" id="pipeLockWarn"></div>
+      <div class="err" id="pipeErr"></div>
+      <button class="btn btn-primary" id="pipeLoginBtn">View pipeline</button>
     </div>
-
-    <div class="sect-head"><div class="lead">How we work</div><div class="h2">The estimator standard</div></div>
-    <div class="grid g3">
-      <div class="card"><h3>Sell it right</h3><p>Profitable, accurately scoped jobs that hold a minimum 35% gross margin and meet company pricing standards.</p></div>
-      <div class="card"><h3>Set it up right</h3><p>Every approved job ships to the Foreman complete — photos, scope, colors, materials, access, and notes — so work starts without a callback.</p></div>
-      <div class="card"><h3>Deliver it right</h3><p>Materials ordered within 48 hours, clear communication, and a customer experience that earns a 4.8+ rating.</p></div>
-    </div>
+    <div id="pipeApp" style="display:none;"></div>
   </section>
 
   <!-- ============ PERFORMANCE ============ -->
@@ -883,6 +884,10 @@ var WEEKLY_SNAPSHOT = {"weekEnding": "2026-07-24", "producers": {"remone": 392, 
 var COMMISSION_DEFAULT = {"offTopPct": 10, "tiers": [{"min": 0, "max": 4, "rate": 45, "label": "Base Rate", "note": "Starting rate for all newrepresentatives"}, {"min": 5, "max": 9, "rate": 50, "label": "Tier 2", "note": "Unlocked after 5 jobssold"}, {"min": 10, "max": 19, "rate": 55, "label": "Tier 3", "note": "Unlocked after 10 jobssold"}, {"min": 20, "max": 29, "rate": 60, "label": "Tier 4", "note": "Unlocked after 20 jobssold"}, {"min": 30, "max": null, "rate": 65, "label": "Max Rate", "note": "Commission cap \u2014 maximumrate achievable"}], "notes": "Rates apply to cumulative jobs sold (not per-period). Tiers arepermanent \u2014 once reached, the rate never drops."};
 // Per-person commission overrides, keyed by person id. Empty = everyone uses COMMISSION_DEFAULT.
 var COMMISSION_BY = {};
+// Project pipeline — replaced wholesale by the Jobber "One-off Jobs" import (Admin -> Imports).
+// Each project: {name, client, type, address, leadSource, value, start, close, status, salesId}
+var PIPELINE = { updated:"", projects:[] };
+var PIPELINE_PASS = "envision"; // password to view the Pipeline tab (change in Admin later if needed)
 // Company directory. Replace/extend from the spreadsheet you provide.
 // Fields: name, role, dept, email, phone
 let DIRECTORY = [{"name": "Brian Brown", "role": "General Manager", "dept": "Leadership", "email": "brian@envisionservicegroup.com", "phone": "623-210-7216"}, {"name": "Kevin Barnes", "role": "Director of Sales", "dept": "Leadership", "email": "kevin@envisionservicegroup.com", "phone": "480-255-2598"}, {"name": "Remone Hattar", "role": "PM \u2013 Painting & Roofing \u00b7 Estimator", "dept": "Estimating", "email": "remone@envisionpainting.com", "phone": "602-802-3639"}, {"name": "Miranda Griego", "role": "Office Manager", "dept": "Operations", "email": "miranda@envisionpainting.com", "phone": "480-798-6936"}, {"name": "Regina McDonald", "role": "Admin Assistant", "dept": "Operations", "email": "regina@envisionservicegroup.com", "phone": "708-768-4850"}, {"name": "Teresa Phillips", "role": "Bookkeeping", "dept": "Operations", "email": "teresa@keepbooksforyou.com", "phone": ""}, {"name": "Jose Vargas", "role": "PM \u2013 Roofing", "dept": "Roofing", "email": "snoopyjosedogg@hotmail.com", "phone": "480-667-9710"}, {"name": "Ebert Vargas Lizarraga", "role": "Foreman (Paint)", "dept": "Painting", "email": "ebert.lizarraga@gmail.com", "phone": "602-691-8394"}, {"name": "Mario Perez", "role": "Foreman (Paint) \u00b7 New Image", "dept": "Painting", "email": "anthony.rivers2069@gmail.com", "phone": "623-340-2800"}, {"name": "Gilberto Alvarez", "role": "Foreman (Paint) \u00b7 Gil Painting", "dept": "Painting", "email": "gilbertoar2028@gmail.com", "phone": "602-488-0645"}, {"name": "Juan Carlos Contreras", "role": "Foreman (Paint) \u00b7 Roll & Gun Painting Solutions", "dept": "Painting", "email": "rollandgunpaint@gmail.com", "phone": "480-427-1044"}];
@@ -1177,6 +1182,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   function go(sec){
     if(sec==="kpi" && !kpiUnlocked){ showKpiGate(); }
     if(sec==="admin" && !adminUnlocked){ showAdminGate(); }
+    if(sec==="pipeline"){ if(pipeUnlocked){ $("#pipeGate").style.display="none"; $("#pipeApp").style.display="block"; renderPipeline(); } else { showPipeGate(); } }
     $$(".nav-link").forEach(b=>b.classList.toggle("active",b.dataset.sec===sec));
     $$(".section").forEach(s=>s.classList.remove("active"));
     $("#sec-"+sec).classList.add("active");
@@ -1889,6 +1895,17 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       window.__wkCtx={friStr:friStr};
     })();
 
+    // ---- Pipeline import (Jobber "One-off Jobs" report) ----
+    html+='<div class="card" style="margin-bottom:14px;">'+
+      '<h3 style="margin:0 0 4px;">📊 Project Pipeline — Jobber import</h3>'+
+      '<p style="margin:0 0 12px;color:var(--muted);font-size:12.5px;">Upload the Jobber <b>One-off Jobs</b> report. It <b>replaces the entire pipeline</b> with the current list, routed to each person by salesperson name. Projects with a closed date show as <b>Won</b>, the rest as <b>Open</b>.</p>'+
+      '<div id="pipeDrop" class="drop"><input type="file" id="pipeFile" accept=".csv" style="display:none;">'+
+        '<div class="drop-inner"><div style="font-size:22px;">📄</div><div><b>Upload One-off Jobs CSV</b><div style="font-size:11.5px;color:var(--muted);">Drop the file here or click to browse.</div></div></div>'+
+      '</div>'+
+      '<div id="pipeUpStatus" style="font-size:12.5px;font-weight:700;margin-top:10px;"></div>'+
+      (PIPELINE&&PIPELINE.projects&&PIPELINE.projects.length?('<p style="margin:10px 0 0;font-size:12px;color:var(--muted);">Current pipeline: <b>'+PIPELINE.projects.length+'</b> projects'+(PIPELINE.updated?(', synced '+esc(PIPELINE.updated)):'')+'. <button class="copy-btn" id="pipeClear" style="color:var(--red);border-color:#f3c6c6;margin-left:8px;">Clear all</button></p>'):'')+
+    '</div>';
+
     panel.innerHTML=html;
 
     const msel=$("#impMonth"); if(msel) msel.onchange=e=>{impMonth=e.target.value;};
@@ -1949,6 +1966,23 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     })();
     setupDrop("perfDrop","perfFile",(txt)=>renderPerfResults(ingestTeamCSV(txt)));
     setupDrop("leadsDrop","leadsFile",(txt)=>renderLeadsResults(ingestLeadsCSV(txt)));
+
+    // Pipeline import wiring
+    setupDrop("pipeDrop","pipeFile",(txt)=>{
+      const res=ingestPipelineCSV(txt);
+      const st=$("#pipeUpStatus"); if(!st) return;
+      if(res.error){ st.style.color="var(--red)"; st.textContent="\u26a0 "+res.error; return; }
+      const stamp=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+      PIPELINE={ updated:stamp, projects:res.projects };
+      window.__esgSave&&window.__esgSave();
+      const matched=res.projects.filter(p=>p.salesId).length;
+      const un=res.projects.length-matched;
+      st.style.color="var(--green)";
+      st.innerHTML="\u2713 Pipeline replaced with <b>"+res.projects.length+"</b> projects ("+matched+" matched to people"+(un?", "+un+" unassigned":"")+"). View them on the Pipeline tab.";
+      toast("Pipeline synced: "+res.projects.length+" projects");
+      renderAdmin();
+    });
+    const pClr=$("#pipeClear"); if(pClr) pClr.onclick=()=>{ if(confirm("Clear the entire pipeline?")){ PIPELINE={updated:"",projects:[]}; window.__esgSave&&window.__esgSave(); renderAdmin(); } };
 
     function refreshOr(){ $("#orCurrent").textContent=fmtMoney(OTHER_REVENUE||0); const inp=$("#orAmount"); if(inp) inp.value=OTHER_REVENUE||""; }
     // Jobber upload -> total all unmatched (no-profile) people's revenue
@@ -2021,7 +2055,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       });
       out.data=data; return out;
     });
-    const snippet="/* Team data updated "+stamp+" \u2014 replace these lines near the top of the script, then commit */\nconst PEOPLE = "+JSON.stringify(clean)+";\nlet OTHER_REVENUE = "+JSON.stringify(OTHER_REVENUE)+";\nlet GOALS = "+JSON.stringify(GOALS)+";\nlet NICO_SPM = "+JSON.stringify(NICO_SPM)+";\nlet SPM_DATA = "+JSON.stringify(SPM_DATA)+";\nlet DIRECTORY = "+JSON.stringify(DIRECTORY)+";\nvar WEEKLY_REVIEWS = "+JSON.stringify(WEEKLY_REVIEWS)+";\nvar WEEKLY_SNAPSHOT = "+JSON.stringify(WEEKLY_SNAPSHOT)+";\nvar COMMISSION_DEFAULT = "+JSON.stringify(COMMISSION_DEFAULT)+";\nvar COMMISSION_BY = "+JSON.stringify(COMMISSION_BY)+";";
+    const snippet="/* Team data updated "+stamp+" \u2014 replace these lines near the top of the script, then commit */\nconst PEOPLE = "+JSON.stringify(clean)+";\nlet OTHER_REVENUE = "+JSON.stringify(OTHER_REVENUE)+";\nlet GOALS = "+JSON.stringify(GOALS)+";\nlet NICO_SPM = "+JSON.stringify(NICO_SPM)+";\nlet SPM_DATA = "+JSON.stringify(SPM_DATA)+";\nlet DIRECTORY = "+JSON.stringify(DIRECTORY)+";\nvar WEEKLY_REVIEWS = "+JSON.stringify(WEEKLY_REVIEWS)+";\nvar WEEKLY_SNAPSHOT = "+JSON.stringify(WEEKLY_SNAPSHOT)+";\nvar COMMISSION_DEFAULT = "+JSON.stringify(COMMISSION_DEFAULT)+";\nvar COMMISSION_BY = "+JSON.stringify(COMMISSION_BY)+";\nvar PIPELINE = "+JSON.stringify(PIPELINE)+";";
     showCopyBox(snippet);
   }
 
@@ -2095,6 +2129,124 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
 
   // ---------------- KPI gate ----------------
   function showKpiGate(){ $("#kpiGate").style.display="block"; $("#kpiApp").style.display="none"; }
+
+  // ---------------- Pipeline (locked) ----------------
+  let pipeUnlocked=false;
+  function showPipeGate(){ $("#pipeGate").style.display="block"; $("#pipeApp").style.display="none"; }
+  (function(){
+    const btn=$("#pipeLoginBtn"); if(!btn) return;
+    btn.onclick=()=>{
+      const v=($("#pipePass").value||"").trim();
+      if(v===PIPELINE_PASS){ pipeUnlocked=true; $("#pipeErr").textContent=""; $("#pipePass").value=""; $("#pipeGate").style.display="none"; $("#pipeApp").style.display="block"; renderPipeline(); }
+      else { $("#pipeErr").textContent="Incorrect password."; }
+    };
+    const pp=$("#pipePass"); if(pp) pp.addEventListener("keydown",e=>{ if(e.key==="Enter") btn.click(); });
+  })();
+
+  function pipeMoney(n){ return "$"+Math.round(n||0).toLocaleString(); }
+  function pipeMatchPerson(salesName){
+    if(!salesName) return null;
+    const s=salesName.toLowerCase().replace(/\s+/g," ").trim();
+    // match on first name or full-name fragment
+    let best=null;
+    PEOPLE.forEach(p=>{
+      const fn=(p.name||"").toLowerCase().split(" ")[0];
+      if(s.indexOf(p.name.toLowerCase())>-1 || (fn && s.indexOf(fn)>-1)) best=p;
+    });
+    return best;
+  }
+
+  function renderPipeline(){
+    const app=$("#pipeApp"); if(!app) return;
+    const projects=(PIPELINE&&Array.isArray(PIPELINE.projects))?PIPELINE.projects:[];
+    // group by person (only active producers get a tab; unmatched go to "Unassigned")
+    const producers=PEOPLE.filter(p=>!p.hidden && !p.briefingOnly);
+    const byPerson={};
+    producers.forEach(p=>byPerson[p.id]={name:p.name, rows:[]});
+    byPerson["__un"]={name:"Unassigned", rows:[]};
+    projects.forEach(pr=>{
+      const key=(pr.salesId && byPerson[pr.salesId])?pr.salesId:"__un";
+      byPerson[key].rows.push(pr);
+    });
+    // dashboard summary
+    function sum(rows,f){ return rows.reduce((a,r)=>a+(f(r)||0),0); }
+    const dashRows=producers.map(p=>{
+      const rows=byPerson[p.id].rows;
+      const open=rows.filter(r=>r.status!=="Won");
+      const openVal=sum(open,r=>r.value);
+      const wonVal=sum(rows.filter(r=>r.status==="Won"),r=>r.value);
+      return {name:p.name, count:open.length, openVal, wonVal, total:rows.length};
+    });
+    const totOpen=sum(dashRows,r=>r.openVal), totWon=sum(dashRows,r=>r.wonVal), totCount=sum(dashRows,r=>r.count);
+
+    let html='<div class="sect-head" style="margin-top:0;"><div class="lead">Sales pipeline</div><div class="h2">Project Pipeline</div></div>';
+    html+='<p style="color:var(--muted);font-size:12.5px;margin:-8px 0 16px;">'+(PIPELINE.updated?('Last synced from Jobber on '+esc(PIPELINE.updated)+' \u00b7 '):'')+projects.length+' project'+(projects.length===1?'':'s')+'. Updated by uploading the Jobber \u201cOne-off Jobs\u201d report in Admin \u2192 Imports.</p>';
+
+    // dashboard card
+    html+='<div class="card" style="margin-bottom:18px;"><h3 style="margin:0 0 12px;">\ud83d\udcc8 Pipeline summary by team member</h3>'+
+      '<table class="wk-table"><thead><tr><th>Team member</th><th class="wk-r">Open projects</th><th class="wk-r">Open pipeline</th><th class="wk-r">Won value</th></tr></thead><tbody>'+
+      dashRows.map(r=>'<tr><td class="wk-pl">'+esc(r.name)+'</td><td class="wk-r">'+r.count+'</td><td class="wk-pv wk-r">'+pipeMoney(r.openVal)+'</td><td class="wk-pv wk-r">'+pipeMoney(r.wonVal)+'</td></tr>').join('')+
+      '<tr class="wk-total"><td>Total</td><td class="wk-r">'+totCount+'</td><td class="wk-r">'+pipeMoney(totOpen)+'</td><td class="wk-r">'+pipeMoney(totWon)+'</td></tr>'+
+      '</tbody></table></div>';
+
+    // per-person tables
+    const order=producers.map(p=>p.id).concat(byPerson["__un"].rows.length?["__un"]:[]);
+    order.forEach(key=>{
+      const grp=byPerson[key]; if(!grp.rows.length && key!=="__un") { /* still show empty producer */ }
+      html+='<div class="card" style="margin-bottom:14px;"><h3 style="margin:0 0 4px;">'+esc(grp.name)+'</h3>';
+      if(!grp.rows.length){ html+='<p style="color:var(--muted);font-size:12.5px;margin:4px 0 0;">No projects.</p></div>'; return; }
+      html+='<div style="overflow-x:auto;"><table class="wk-table" style="min-width:720px;"><thead><tr>'+
+        '<th>Project</th><th>Client</th><th>Type</th><th>Address</th><th>Lead source</th><th class="wk-r">Value</th><th>Start</th><th>Status</th></tr></thead><tbody>'+
+        grp.rows.map(r=>'<tr>'+
+          '<td class="wk-pl">'+esc(r.name||"\u2014")+'</td>'+
+          '<td class="wk-pn">'+esc(r.client||"")+'</td>'+
+          '<td class="wk-pn">'+esc(r.type||"")+'</td>'+
+          '<td class="wk-pn">'+esc(r.address||"")+'</td>'+
+          '<td class="wk-pn">'+esc(r.leadSource||"")+'</td>'+
+          '<td class="wk-pv wk-r">'+pipeMoney(r.value)+'</td>'+
+          '<td class="wk-pn">'+esc(r.start||"\u2014")+'</td>'+
+          '<td>'+(r.status==="Won"?'<span class="pipe-won">Won</span>':'<span class="pipe-open">Open</span>')+'</td>'+
+        '</tr>').join('')+
+        '</tbody></table></div></div>';
+    });
+    app.innerHTML=html;
+  }
+
+  // Parse the Jobber "One-off Jobs" CSV into pipeline projects. Returns {projects, count}.
+  function ingestPipelineCSV(text){
+    const rows=parseCSV(text);
+    if(!rows.length) return {projects:[], count:0, error:"Empty file."};
+    const header=rows[0].map(h=>(h||"").trim());
+    const idx=name=>header.findIndex(h=>h.toLowerCase()===name.toLowerCase());
+    const iTitle=idx("Title"), iClient=idx("Client name"), iType=idx("Primary Project Type"),
+      iStreet=idx("Service street"), iCity=idx("Service city"), iLead=idx("Lead source"),
+      iTotal=idx("Total ($)"), iStart=idx("Scheduled start date"), iClose=idx("Closed date"),
+      iSales=idx("Salesperson");
+    const projects=[];
+    for(let r=1;r<rows.length;r++){
+      const row=rows[r]; if(!row || !row.length) continue;
+      const title=(row[iTitle]||"").trim();
+      const client=(row[iClient]||"").trim();
+      if(!title && !client) continue;
+      const salesName=(row[iSales]||"").trim();
+      const person=pipeMatchPerson(salesName);
+      const closeVal=(row[iClose]||"").trim();
+      const hasClose=closeVal && closeVal!=="-" && closeVal!=="";
+      const val=parseFloat((row[iTotal]||"0").toString().replace(/[^0-9.\-]/g,""))||0;
+      const addr=[(row[iStreet]||"").trim(),(row[iCity]||"").trim()].filter(Boolean).join(", ");
+      const startVal=(row[iStart]||"").trim();
+      projects.push({
+        name:title, client:client, type:(row[iType]||"").trim(),
+        address:addr, leadSource:(row[iLead]||"").trim(),
+        value:val, start:(startVal&&startVal!=="-")?startVal:"", close:hasClose?closeVal:"",
+        status:hasClose?"Won":"Open",
+        salesId:person?person.id:null, salesName:salesName
+      });
+    }
+    return {projects, count:projects.length};
+  }
+
+
   function buildWhoSelect(){const s=$("#kpiWho");s.innerHTML='<option value="">Select your name\u2026</option>'+PEOPLE.filter(p=>!p.hidden).map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join('');}
   $("#kpiLoginBtn").onclick=()=>{
     const id=$("#kpiWho").value, pass=$("#kpiPass").value;
@@ -2174,6 +2326,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   }
   setupLockWarn("kpiPass","kpiLockWarn");
   setupLockWarn("adminPass","adminLockWarn");
+  setupLockWarn("pipePass","pipeLockWarn");
 
   // ---------------- KPI app (per person) ----------------
     // ============ Senior PM scorecard (Nico) ============
@@ -3445,7 +3598,8 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       WEEKLY_REVIEWS: WEEKLY_REVIEWS,
       WEEKLY_SNAPSHOT: WEEKLY_SNAPSHOT,
       COMMISSION_DEFAULT: COMMISSION_DEFAULT,
-      COMMISSION_BY: COMMISSION_BY
+      COMMISSION_BY: COMMISSION_BY,
+      PIPELINE: PIPELINE
     };
   }
   // Apply a loaded blob into the live variables (mutate in place where needed).
@@ -3466,6 +3620,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     if(s.WEEKLY_SNAPSHOT&&typeof s.WEEKLY_SNAPSHOT==="object"){ WEEKLY_SNAPSHOT=s.WEEKLY_SNAPSHOT; }
     if(s.COMMISSION_DEFAULT&&typeof s.COMMISSION_DEFAULT==="object"){ COMMISSION_DEFAULT.offTopPct=s.COMMISSION_DEFAULT.offTopPct; COMMISSION_DEFAULT.tiers=s.COMMISSION_DEFAULT.tiers; COMMISSION_DEFAULT.notes=s.COMMISSION_DEFAULT.notes; }
     if(s.COMMISSION_BY&&typeof s.COMMISSION_BY==="object"){ Object.keys(COMMISSION_BY).forEach(k=>delete COMMISSION_BY[k]); Object.keys(s.COMMISSION_BY).forEach(k=>COMMISSION_BY[k]=s.COMMISSION_BY[k]); }
+    if(s.PIPELINE&&typeof s.PIPELINE==="object"){ PIPELINE=s.PIPELINE; }
   }
   let SYNC_ON = !!(SHEET_API_URL && SHEET_API_URL.indexOf("http")===0);
   let saveTimer=null, savePending=false;
