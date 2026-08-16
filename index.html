@@ -874,87 +874,95 @@ const LOGO_DATA = "iVBORw0KGgoAAAANSUhEUgAAANgAAADICAIAAAAFlLghAAABCGlDQ1BJQ0MgU
 // Leave URL blank to run in file-only mode (no live sync).
 var SHEET_API_URL = "https://script.google.com/macros/s/AKfycbxy6Owkzx8eK9Lpemekd9QairgkPShpY3jqOc3QDpWEjdVro_bJrxtDS3vKwtQ2G0pt/exec";
 var SHEET_API_SECRET = "Happy6944";     // must match SHARED_SECRET in the Apps Script
-let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Estimator", "pass": "6944", "updated": "2026-07-10", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 0, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 8, "leadsWon": 2}, "July": {"closing": 0, "revenue": 24649, "margin": 42, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 4, "leadsWon": 1, "auto": {"closing": true, "revenue": true}}}, "hidden": false}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-07-10", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 0, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Estimator", "pass": "8484", "updated": "2026-07-10", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 100, "revenue": 11930, "readiness": 0, "customer": 5, "leadsBrought": 3, "leadsWon": 0}, "July": {"closing": 67, "revenue": 48681, "auto": {"closing": true, "revenue": true}}}}, {"id": "brian", "name": "Brian Brown", "role": "General Manager", "pass": "1986", "updated": "2026-07-10", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 40, "revenue": 22733, "customer": 5, "leadsBrought": 6, "leadsWon": 5}, "July": {"closing": 30, "revenue": 69400, "margin": 35, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 4, "leadsWon": 3, "auto": {"closing": true, "revenue": true}}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "1620", "updated": "2026-07-10", "data": {"July": {"closing": 100, "revenue": 17196, "auto": {"closing": true, "revenue": true}}, "June": {"leadsBrought": 1}}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "1420", "updated": "2026-07-10", "data": {"July": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}}, "briefingOnly": true}];
-let OTHER_REVENUE = 80000;
+let PEOPLE = [{"id": "remone", "name": "Remone Hattar", "role": "Estimator", "pass": "6944", "updated": "2026-07-10", "data": {"April": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 7, "leadsWon": 0}, "May": {"closing": 0, "revenue": 0, "readiness": 100, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 0}, "June": {"closing": 0, "revenue": 5332, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}, "July": {"closing": 31, "revenue": 24649, "margin": 42, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 4, "leadsWon": 1}, "August": {"closing": 19, "revenue": 143563, "margin": 42, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 1}}, "hidden": false}, {"id": "tyler", "name": "Tyler Skowronski", "role": "Residential Estimator", "pass": "15488", "updated": "2026-07-10", "data": {"January": {"closing": 47, "revenue": 58741, "margin": 37.36, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 23, "leadsWon": 14}, "February": {"closing": 33, "revenue": 35713, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 21, "leadsWon": 6}, "March": {"closing": 41, "revenue": 30547, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 4}, "April": {"closing": 48, "revenue": 60820, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 6}, "May": {"closing": 21, "revenue": 20828, "readiness": 88, "customer": 5, "ready": [true, true, false, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 4}, "June": {"closing": 0, "revenue": 16138, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 2}, "July": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}, "August": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}}, "hidden": true}, {"id": "nico", "name": "Nico Chavez", "role": "Estimator", "pass": "8484", "updated": "2026-07-10", "data": {"January": {"closing": 0, "revenue": 0, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 0}, "February": {"closing": 43, "revenue": 39224, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 5, "leadsWon": 3}, "March": {"closing": 90, "revenue": 112162, "margin": 37.9, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 1, "leadsWon": 1}, "April": {"closing": 14, "revenue": 10192, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 1}, "May": {"closing": 67, "revenue": 45562, "margin": 32, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 3, "leadsWon": 3}, "June": {"closing": 100, "revenue": 11930, "readiness": 0, "customer": 5, "leadsBrought": 2, "leadsWon": 0}, "July": {"closing": 67, "revenue": 48681, "auto": {"closing": true, "revenue": true}}, "August": {"closing": 80, "revenue": 28378, "auto": {"closing": true, "revenue": true}, "leadsBrought": 2}}}, {"id": "brian", "name": "Brian Brown", "role": "General Manager", "pass": "1986", "updated": "2026-07-10", "data": {"January": {"closing": 42, "revenue": 43831, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 16, "leadsWon": 6}, "February": {"closing": 45, "revenue": 479693, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 15, "leadsWon": 10}, "March": {"closing": 26, "revenue": 178933, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 17, "leadsWon": 7}, "April": {"closing": 18, "revenue": 130589, "margin": 35, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 65, "leadsWon": 15}, "May": {"closing": 22, "revenue": 56265, "margin": 33, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 29, "leadsWon": 7}, "June": {"closing": 40, "revenue": 22733, "customer": 5, "leadsBrought": 2, "leadsWon": 5}, "July": {"closing": 39, "revenue": 199400, "margin": 39, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 6, "leadsWon": 3}, "August": {"closing": 41, "revenue": 56156, "margin": 40, "readiness": 100, "customer": 5, "ready": [true, true, true, true, true, true, true, true], "leadsBrought": 2}}}, {"id": "kevin", "name": "Kevin Barnes", "role": "Director of Sales", "pass": "1086", "updated": "2026-07-10", "data": {"July": {"closing": 100, "revenue": 17196, "auto": {"closing": true, "revenue": true}}, "June": {"leadsBrought": 2}, "August": {"closing": 100, "revenue": 1200, "auto": {"closing": true, "revenue": true}, "leadsBrought": 2}}}, {"id": "miranda", "name": "Miranda Griego", "role": "Office Manager", "pass": "1420", "updated": "2026-07-10", "data": {"July": {"closing": 0, "revenue": 0, "auto": {"closing": true, "revenue": true}}}, "briefingOnly": true}];
+let OTHER_REVENUE = 126097;
 let GOALS = {"yearly": 4000000, "monthly": 175000};
 // Next all-hands meeting (also the due date for briefings).
-var NEXT_MEETING = { date: "Friday, August 7, 2026", time: "9:00 AM \u2013 10:30 AM", place: "Dunn Edwards \u2014 Tempe", iso: "2026-08-07" };
+var NEXT_MEETING = {"date": "Friday, September 4, 2026", "time": "9:00 AM – 10:30 AM", "place": "Dunn Edwards — Tempe", "iso": "2026-09-04"};
 // === EDIT ME: where the "Foremen" nav tab sends people (opens in a new tab) ===
 var FOREMEN_URL = "https://example.com";
 // 5-star reviews captured this week (shown on the Weekly Numbers Report; managed in Admin -> Reviews)
-var WEEKLY_REVIEWS = [];
+var WEEKLY_REVIEWS = [{"name": "Jose Vargas", "count": 1, "platform": "Google", "notes": ""}, {"name": "Ebert Vargas Lizarraga", "count": 0, "platform": "Google", "notes": ""}, {"name": "Mario Perez", "count": 0, "platform": "Google", "notes": ""}, {"name": "Gilberto Alvarez", "count": 0, "platform": "Google", "notes": ""}, {"name": "Juan Carlos Contreras", "count": 0, "platform": "Google", "notes": ""}, {"name": "Remone Hattar", "count": 0, "platform": "Google", "notes": ""}, {"name": "Nico Chavez", "count": 0, "platform": "Google", "notes": ""}, {"name": "Brian Brown", "count": 0, "platform": "Google", "notes": ""}, {"name": "Kevin Barnes", "count": 0, "platform": "Google", "notes": ""}];
 // This week's producer numbers (fed by Admin -> Imports -> Weekly report upload). Overrides each upload.
 // Shape: { weekEnding:"2026-07-31", producers:{ personId: revenueThisWeek, ... } }
-var WEEKLY_SNAPSHOT = {"weekEnding": "2026-07-31", "producers": {"nico": 25251, "brian": 9241}};
+var WEEKLY_SNAPSHOT = {"weekEnding": "2026-08-08", "producers": {"remone": 132897, "nico": 24378, "brian": 13915}};
 // Sales commission structure (editable in Admin -> People -> Commission). The DEFAULT applies to
 // any PM unless they have their own override in COMMISSION_BY[personId].
-var COMMISSION_DEFAULT = {"offTopPct": 10, "tiers": [{"min": 0, "max": 4, "rate": 45, "label": "BaseRate", "note": "Starting rate for all new representatives"}, {"min": 5, "max": 9, "rate": 50, "label": "Tier2", "note": "Unlocked after 5 jobs sold"}, {"min": 10, "max": 19, "rate": 55, "label": "Tier 3", "note": "Unlocked after10 jobs sold"}, {"min": 20, "max": 29, "rate": 60, "label": "Tier 4", "note": "Unlocked after 20 jobssold"}, {"min": 30, "max": null, "rate": 65, "label": "Max Rate", "note": "Commission cap \u2014 maximum rateachievable"}], "notes": "Rates apply to cumulative jobs sold (not per-period). Tiers are permanent \u2014 oncereached, the rate never drops."};
+var COMMISSION_DEFAULT = {"offTopPct": 10, "tiers": [{"min": 0, "max": 4, "rate": 45, "label": "Base Rate", "note": "Starting rate for all new representatives"}, {"min": 5, "max": 9, "rate": 50, "label": "Tier 2", "note": "Unlocked after 5 jobs sold"}, {"min": 10, "max": 19, "rate": 55, "label": "Tier 3", "note": "Unlocked after 10 jobs sold"}, {"min": 20, "max": 29, "rate": 60, "label": "Tier 4", "note": "Unlocked after 20 jobs sold"}, {"min": 30, "max": null, "rate": 65, "label": "Max Rate", "note": "Commission cap — maximum rate achievable"}], "notes": "Rates apply to cumulative jobs sold (not per-period). Tiers are permanent — once reached, the rate never drops."};
 // Per-person commission overrides, keyed by person id. Empty = everyone uses COMMISSION_DEFAULT.
 var COMMISSION_BY = {};
 // Project pipeline — replaced wholesale by the Jobber "One-off Jobs" import (Admin -> Imports).
 // Each project: {name, client, type, address, leadSource, value, start, close, status, salesId}
-var PIPELINE = {"updated": "Jul 31,2026", "projects": [{"name": "test", "client": "Remone Test", "type": "None Selected", "address": "1234 WestAvenue A, Garland", "leadSource": "Building Connected", "value": 0.01, "start": "Jul 31,2026", "close": "", "status": "Open", "salesId": null, "salesName": ""}, {"name": "Interior", "client": "LarryGriffiths", "type": "Interior", "address": "16624 East Palisades Boulevard, FountainHills", "leadSource": "Google", "value": 2188, "start": "", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Underlayment replacement", "client": "Anita Hillhouse", "type": "NoneSelected", "address": "459 W. Larona Ln, Tempe", "leadSource": "", "value": 14750, "start": "Oct 26,2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "ExteriorPainting", "client": "Anita Hillhouse", "type": "None Selected", "address": "459 W. Larona Ln,Tempe", "leadSource": "", "value": 4985, "start": "Nov 02,2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Flat roof Coating +Drywall repairs", "client": "David Morton", "type": "None Selected", "address": "10549 East Arrowvale Drive,Sun Lakes", "leadSource": "", "value": 2291, "start": "Aug 04,2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Mock Up- Maxwellon 66th", "client": "Imperial Contracting LLC", "type": "None Selected", "address": "6611 East MayoBoulevard, Phoenix", "leadSource": "DunnEdwards", "value": 6500, "start": "", "close": "", "status": "Open", "salesId": "brian", "salesName": "BrianBrown"}, {"name": "Anthony Dettra Roof Replacement (EDUARDO INSURANCE JOB)", "client": "AnthonyDettra", "type": "None Selected", "address": "7781 East 38th Street, Tucson", "leadSource": "DoorKnocking", "value": 24251.37, "start": "", "close": "", "status": "Open", "salesId": "nico", "salesName": "NicoChavez / Roofing"}, {"name": "Interior Repaint", "client": "Ali Pfaadt", "type": "None Selected", "address": "5301East Vista Rica Street, ParadiseValley", "leadSource": "Referral", "value": 541, "start": "", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Exterior Painting", "client": "Paul Griffin", "type": "NoneSelected", "address": "10617 West La Reata Avenue,Avondale", "leadSource": "Referral", "value": 4963.53, "start": "Aug 17,2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Tilerepairs", "client": "Phaedra Earhart", "type": "None Selected", "address": "3892 East Sundance Avenue,Gilbert", "leadSource": "", "value": 450, "start": "", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Ridge Vent Add On", "client": "Claire Krejci", "type": "None Selected", "address": "3230North Ellis Street, Chandler", "leadSource": "Door Knocking", "value": 1000, "start": "Jul 29, 2026", "close": "Jul30, 2026", "status": "Won", "salesId": "nico", "salesName": "Nico Chavez / Roofing"}, {"name": "SelectiveInterior/Exterior", "client": "Patti / Richard (Rick) Brown", "type": "None Selected", "address": "7425 EastGainey Ranch Road Unit # 24, Scottsdale", "leadSource": "Other", "value": 1688, "start": "Aug 01,2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "ExteriorRepair", "client": "Nancy Cummings", "type": "None Selected", "address": "4641 E. Caron St.,Phoenix", "leadSource": "", "value": 392, "start": "Aug 21,2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Claire KrejciFlat Roof Replacement", "client": "Claire Krejci", "type": "None Selected", "address": "3230 North Ellis Street,Chandler", "leadSource": "Door Knocking", "value": 3000, "start": "Jul 29, 2026", "close": "Jul 30,2026", "status": "Won", "salesId": "nico", "salesName": "Nico Chavez /Roofing"}, {"name": "Exterior", "client": "Shawn White", "type": "None Selected", "address": "3036 East UtopiaRoad lot 54, Phoenix", "leadSource": "Email", "value": 2294, "start": "Aug 24,2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Perimeterwall", "client": "Mario Ben-David", "type": "None Selected", "address": "2233 South Don Luis,Mesa", "leadSource": "", "value": 1000, "start": "Jul 31,2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Partial InteriorPainting", "client": "Buck & Rider", "type": "None Selected", "address": "4225 East Camelback Road,Phoenix", "leadSource": "", "value": 985, "start": "Jul 22, 2026", "close": "Jul 22,2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Villa AntanoWall", "client": "Ginger Vosburgh", "type": "None Selected", "address": "7765 E. Montebello Street,Scottsdale", "leadSource": "", "value": 527, "start": "", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}]};
+var PIPELINE = {"updated": "Aug 16, 2026", "projects": [{"name": "Shingle roof Replacement (INSURANCE)", "client": "Michael Enwiller", "type": "None Selected", "address": "544 South Pioneer, Mesa", "leadSource": "Door Knocking", "value": 18000, "start": "Aug 27, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior", "client": "John/Nicole Miller", "type": "None Selected", "address": "6438 E Jensen St, Mesa", "leadSource": "Google", "value": 2242.8, "start": "Aug 18, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Shingle roof replacement", "client": "Anni Eliot", "type": "None Selected", "address": "4215 West Carol Avenue, Phoenix", "leadSource": "Referral", "value": 11538.46, "start": "Aug 18, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior Painting", "client": "Mark Stewart", "type": "None Selected", "address": "2650 East Michelle Way, Gilbert", "leadSource": "Referral", "value": 4896, "start": "Aug 24, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Partial Interior Painting", "client": "Brian Cahill", "type": "Interior", "address": "1716 N. Spencer, Mesa", "leadSource": "Repeat", "value": 150, "start": "Aug 21, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Processing for for wisetak", "client": "Lisa Sulzer", "type": "None Selected", "address": "6601 West Cheryl Drive, Glendale", "leadSource": "Referral", "value": 370, "start": "Aug 08, 2026", "close": "Aug 08, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Roof Repair", "client": "Megan Mckinney", "type": "None Selected", "address": "23437 East Cactus Forest Road, Florence", "leadSource": "Referral", "value": 1200, "start": "Aug 10, 2026", "close": "Aug 10, 2026", "status": "Won", "salesId": "kevin", "salesName": "Kevin Barnes"}, {"name": "Exterior Painting", "client": "Lisa Sulzer", "type": "Exterior", "address": "6601 West Cheryl Drive, Glendale", "leadSource": "Referral", "value": 4415, "start": "Aug 12, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Roof Replacement- Shingle", "client": "Lisa Sulzer", "type": "None Selected", "address": "6601 West Cheryl Drive, Glendale", "leadSource": "Referral", "value": 10650, "start": "Aug 11, 2026", "close": "Aug 12, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Heritage HOA Exterior repaint", "client": "Ed  Hillyard", "type": "None Selected", "address": "12630 West Seneca Drive, Sun City West", "leadSource": "Dunn Edwards", "value": 131957, "start": "Jan 04, 2027", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Justin Magnus Roof Replacement (EDUARDO INSURANCE JOB)", "client": "Justin  Magnus", "type": "None Selected", "address": "2232 West Tanque Verde Drive, Chandler", "leadSource": "Door Knocking", "value": 14380.05, "start": "Aug 13, 2026", "close": "Aug 13, 2026", "status": "Won", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "test", "client": "Remone Test", "type": "None Selected", "address": "1234 West Avenue A, Garland", "leadSource": "Building Connected", "value": 0.01, "start": "Jul 31, 2026", "close": "Jul 31, 2026", "status": "Won", "salesId": null, "salesName": ""}, {"name": "Interior", "client": "Larry Griffiths", "type": "Interior", "address": "16624 East Palisades Boulevard, Fountain Hills", "leadSource": "Google", "value": 2188, "start": "Aug 17, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Underlayment replacement", "client": "Anita Hillhouse", "type": "None Selected", "address": "459 W. Larona Ln, Tempe", "leadSource": "", "value": 14750, "start": "Oct 26, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior Painting", "client": "Anita Hillhouse", "type": "None Selected", "address": "459 W. Larona Ln, Tempe", "leadSource": "", "value": 4985, "start": "Nov 02, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Flat roof Coating + Drywall repairs", "client": "David  Morton", "type": "None Selected", "address": "10549 East Arrowvale Drive, Sun Lakes", "leadSource": "", "value": 2291, "start": "Aug 04, 2026", "close": "Aug 05, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior Repaint", "client": "Ali Pfaadt", "type": "None Selected", "address": "5301 East Vista Rica Street, Paradise Valley", "leadSource": "Referral", "value": 541, "start": "Aug 06, 2026", "close": "Aug 07, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Exterior Painting", "client": "Paul Griffin", "type": "None Selected", "address": "10617 West La Reata Avenue, Avondale", "leadSource": "Referral", "value": 4963.53, "start": "Aug 17, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Tile repairs", "client": "Phaedra Earhart", "type": "None Selected", "address": "3892 East Sundance Avenue, Gilbert", "leadSource": "", "value": 450, "start": "Sep 02, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Ridge Vent Add On", "client": "Claire Krejci", "type": "None Selected", "address": "3230 North Ellis Street, Chandler", "leadSource": "Door Knocking", "value": 1000, "start": "Jul 29, 2026", "close": "Jul 30, 2026", "status": "Won", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "Selective Interior/Exterior", "client": "Patti / Richard (Rick) Brown", "type": "None Selected", "address": "7425 East Gainey Ranch Road Unit # 24, Scottsdale", "leadSource": "Other", "value": 1688, "start": "Aug 01, 2026", "close": "Aug 01, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Exterior Repair", "client": "Nancy Cummings", "type": "None Selected", "address": "4641 E. Caron St., Phoenix", "leadSource": "", "value": 392, "start": "Aug 21, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Claire Krejci Flat Roof Replacement", "client": "Claire Krejci", "type": "None Selected", "address": "3230 North Ellis Street, Chandler", "leadSource": "Door Knocking", "value": 3000, "start": "Jul 29, 2026", "close": "Jul 30, 2026", "status": "Won", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "Exterior", "client": "Shawn White", "type": "None Selected", "address": "3036 East Utopia Road lot 54, Phoenix", "leadSource": "Email", "value": 2294, "start": "Aug 24, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Perimeter wall", "client": "Mario Ben-David", "type": "None Selected", "address": "2233 South Don Luis, Mesa", "leadSource": "", "value": 1000, "start": "Jul 31, 2026", "close": "Aug 01, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Partial Interior Painting", "client": "Buck & Rider", "type": "None Selected", "address": "4225 East Camelback Road, Phoenix", "leadSource": "", "value": 985, "start": "Jul 22, 2026", "close": "Jul 22, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Villa Antano Wall", "client": "Ginger Vosburgh", "type": "None Selected", "address": "7765 E. Montebello Street, Scottsdale", "leadSource": "", "value": 527, "start": "Aug 07, 2026", "close": "Aug 07, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Trim Paint", "client": "Sherry Templin", "type": "None Selected", "address": "8877 East Topeka Drive, Scottsdale", "leadSource": "", "value": 388, "start": "Jul 24, 2026", "close": "Jul 24, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Selective Interior", "client": "Ali Pfaadt", "type": "None Selected", "address": "5301 East Vista Rica Street, Paradise Valley", "leadSource": "Referral", "value": 1968, "start": "Jul 21, 2026", "close": "Jul 23, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Interior Turnover- Unit 143", "client": "MBK", "type": "None Selected", "address": "Sky Ridge 1445 Willis Rd, Gilbert", "leadSource": "Referral", "value": 950, "start": "Jul 24, 2026", "close": "Jul 26, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Wall Protection VEG ER FOR PETS", "client": "Embree Group - Georgetown", "type": "None Selected", "address": "14890 West McDowell Road, Goodyear", "leadSource": "Building Connected", "value": 4747, "start": "Nov 04, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Foam Removal and Reinstall", "client": "Thomas Ambrose", "type": "None Selected", "address": "7326 E Montebello Ave, Scottsdale", "leadSource": "", "value": 17196.33, "start": "Oct 15, 2026", "close": "", "status": "Open", "salesId": "kevin", "salesName": "Kevin Barnes"}, {"name": "Full roof replacement- (Nico C) Insurance", "client": "Claire Krejci", "type": "None Selected", "address": "3230 North Ellis Street, Chandler", "leadSource": "Door Knocking", "value": 14078.09, "start": "Jul 29, 2026", "close": "Jul 30, 2026", "status": "Won", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "Walk deck repairs and re coach", "client": "Shuo Zhao", "type": "None Selected", "address": "781 W. Hackberry Dr., Chandler", "leadSource": "", "value": 1000, "start": "Jul 14, 2026", "close": "Jul 14, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Roof repairs", "client": "Ryan Anderson", "type": "None Selected", "address": "2539 W Jacinto Cir, Mesa", "leadSource": "", "value": 1773, "start": "Jul 13, 2026", "close": "Jul 13, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Kevin Quick Shingle Full Replacement (INSURANCE JOB)", "client": "Kevin Quick", "type": "None Selected", "address": "2206 West Colt Road, Chandler", "leadSource": "Door Knocking", "value": 11930.05, "start": "Jul 23, 2026", "close": "Jul 23, 2026", "status": "Won", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "Interior back wall", "client": "Caroline Moore- Villa Antano wall", "type": "None Selected", "address": "7812 East Montebello Avenue, Scottsdale", "leadSource": "", "value": 595, "start": "Jul 11, 2026", "close": "Jul 11, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior Painting- Unit Turnover 112- 2 bedroom", "client": "MBK", "type": "None Selected", "address": "Sky Ridge 1445 Willis Rd, Gilbert", "leadSource": "Referral", "value": 2495, "start": "Jul 16, 2026", "close": "Jul 18, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior", "client": "Jay Tillett", "type": "None Selected", "address": "4037 S Summer Ct, Gilbert", "leadSource": "", "value": 4215, "start": "Aug 26, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Porch Painting", "client": "Sonya Holycross", "type": "None Selected", "address": "16119 Cholla Drive, Fountain Hills", "leadSource": "Google", "value": 1561.13, "start": "Jul 07, 2026", "close": "Jul 07, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior", "client": "Sachin Narain", "type": "None Selected", "address": "2968 Appalosa Road, Gilbert", "leadSource": "Google", "value": 4303, "start": "Jul 27, 2026", "close": "Jul 30, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Interior Perimeter wall painting- Villa Antano", "client": "Ken Kramer- Villa Antano Wall", "type": "None Selected", "address": "7764 East San Miguel Avenue, Scottsdale", "leadSource": "Dunn Edwards", "value": 745, "start": "Jul 06, 2026", "close": "Jul 10, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior Painting #3310", "client": "Project One - Nationwide Vision/ Eye Glass Partners", "type": "None Selected", "address": "1820 North 75th Avenue suit 102, Phoenix", "leadSource": "Other", "value": 3076, "start": "Jul 11, 2026", "close": "Jul 13, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior", "client": "Marie Willis", "type": "None Selected", "address": "4672 North 30th Drive, Phoenix", "leadSource": "", "value": 2952, "start": "Jul 15, 2026", "close": "Jul 17, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Gate Painting", "client": "Shawn White", "type": "None Selected", "address": "2362 West Marconi Avenue, Phoenix", "leadSource": "Email", "value": 455, "start": "Jul 01, 2026", "close": "Jul 07, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Interior Painting", "client": "Carriage Manor Resort", "type": "None Selected", "address": "7750 East Broadway Road, Mesa", "leadSource": "", "value": 79500, "start": "Jul 27, 2026", "close": "Aug 14, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Insurance Roof Replacement", "client": "Juan Jaregui", "type": "None Selected", "address": "8119 North 57th Drive, Glendale", "leadSource": "Door Knocking", "value": 28508.31, "start": "Aug 25, 2026", "close": "", "status": "Open", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "Roof Coating", "client": "William (Bill)  Harbecke", "type": "None Selected", "address": "9502 North 50th Place, Paradise Valley", "leadSource": "Google", "value": 6500, "start": "Jun 24, 2026", "close": "Jul 10, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Rv Gate", "client": "Shawn White", "type": "None Selected", "address": "2362 West Marconi Avenue, Phoenix", "leadSource": "Email", "value": 595, "start": "Jun 30, 2026", "close": "Jul 07, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Exterior", "client": "Anne Baker", "type": "None Selected", "address": "10541 East Cosmos Circle, Scottsdale", "leadSource": "", "value": 8419, "start": "Jul 27, 2026", "close": "Aug 14, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Arroyo Verde HOA- Exterior Painting", "client": "Arroyo Verde HOA", "type": "None Selected", "address": "6419 North 77th Place, Scottsdale", "leadSource": "Referral", "value": 122961, "start": "Aug 11, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior", "client": "Danielle Vo", "type": "Interior", "address": "3460 East Bart Street, Gilbert", "leadSource": "Google", "value": 1881, "start": "Aug 19, 2026", "close": "", "status": "Open", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Exterior", "client": "Fountain Plaza", "type": "None Selected", "address": "610 North Gilbert Road Suite 100, Gilbert", "leadSource": "", "value": 594, "start": "Jul 03, 2026", "close": "Jul 07, 2026", "status": "Won", "salesId": "tyler", "salesName": "Tyler Skowronski"}, {"name": "Epoxy floor", "client": "Ingos Tasty Food", "type": "None Selected", "address": "4502 North 40th Street, Phoenix", "leadSource": "Referral", "value": 3776.92, "start": "Jul 09, 2026", "close": "Jul 24, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior", "client": "Frank Cremisino", "type": "Exterior", "address": "1245 North Stadem Drive, Tempe", "leadSource": "", "value": 27852, "start": "Jul 13, 2026", "close": "Jul 20, 2026", "status": "Won", "salesId": "remone", "salesName": "Remone Hattar"}, {"name": "Exterior Painting", "client": "Brian Cahill", "type": "None Selected", "address": "1716 N. Spencer, Mesa", "leadSource": "Repeat", "value": 5675, "start": "Jul 06, 2026", "close": "Jul 08, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Heritage- Fitness center (Interior Painting)", "client": "Imperial Contracting LLC", "type": "None Selected", "address": "275 West Juniper Avenue, Gilbert", "leadSource": "Dunn Edwards", "value": 6350, "start": "Jul 06, 2026", "close": "Jul 13, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior Painting", "client": "Irene Merola", "type": "None Selected", "address": "15911 East Eagle Rock Drive, Fountain Hills", "leadSource": "", "value": 6649.5, "start": "Jul 08, 2026", "close": "Jul 24, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Roof Painting", "client": "Irene Merola", "type": "None Selected", "address": "15911 East Eagle Rock Drive, Fountain Hills", "leadSource": "", "value": 6560.5, "start": "Jul 08, 2026", "close": "Jul 24, 2026", "status": "Won", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior", "client": "Guy Baumler", "type": "None Selected", "address": "5763 West Shannon Street, Chandler", "leadSource": "", "value": 6530, "start": "Jun 17, 2026", "close": "Aug 05, 2026", "status": "Won", "salesId": "tyler", "salesName": "Tyler Skowronski"}, {"name": "Full Roof Replacement - Shingle (INSURANCE JOB)", "client": "Michael & Christina Duran", "type": "None Selected", "address": "9220 North 88th Avenue, Peoria", "leadSource": "Door Knocking", "value": 23561.51, "start": "Aug 20, 2026", "close": "", "status": "Open", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}, {"name": "Metal Roof Install- Maxwell on 66th **** WE ARE USING THIS ONE!!!", "client": "Imperial Contracting LLC", "type": "None Selected", "address": "6611 East Mayo Boulevard, Phoenix", "leadSource": "Dunn Edwards", "value": 145000, "start": "Oct 05, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior Painting- Maxwell on 66th", "client": "Imperial Contracting LLC", "type": "None Selected", "address": "6611 East Mayo Boulevard, Phoenix", "leadSource": "Dunn Edwards", "value": 322000, "start": "Aug 25, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior Painting", "client": "Sean Bulmann", "type": "None Selected", "address": "6213 West Saguaro Park Lane, Glendale", "leadSource": "Referral", "value": 21369, "start": "Aug 03, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Interior Painting- Commercial", "client": "Asset Stream Mgmt and/or PRS Properties", "type": "None Selected", "address": "7119 North 67th Avenue, Glendale", "leadSource": "", "value": 12910.32, "start": "Jul 28, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Exterior Painting- Commercial", "client": "Asset Stream Mgmt and/or PRS Properties", "type": "None Selected", "address": "7119 North 67th Avenue, Glendale", "leadSource": "", "value": 12389, "start": "Jul 28, 2026", "close": "", "status": "Open", "salesId": "brian", "salesName": "Brian Brown"}, {"name": "Metal Roof repair- Retail", "client": "Robert Hunter", "type": "None Selected", "address": "10134 West Denham Drive, Sun City", "leadSource": "", "value": 14724.89, "start": "Aug 17, 2026", "close": "", "status": "Open", "salesId": "nico", "salesName": "Nico    Chavez / Roofing"}]};
 var PIPELINE_PASS = "envision"; // password to view the Pipeline tab (change in Admin later if needed)
 // Company directory. Replace/extend from the spreadsheet you provide.
 // Fields: name, role, dept, email, phone
-let DIRECTORY = [{"name": "Brian Brown", "role": "GeneralManager", "dept": "Leadership", "email": "brian@envisionservicegroup.com", "phone": "623-210-7216"}, {"name": "Kevin Barnes", "role": "Director ofSales", "dept": "Leadership", "email": "kevin@envisionservicegroup.com", "phone": "480-255-2598"}, {"name": "Remone Hattar", "role": "PM \u2013 Painting & Roofing \u00b7Estimator", "dept": "Estimating", "email": "remone@envisionpainting.com", "phone": "602-802-3639"}, {"name": "Miranda Griego", "role": "OfficeManager", "dept": "Operations", "email": "miranda@envisionpainting.com", "phone": "480-798-6936"}, {"name": "Regina McDonald", "role": "AdminAssistant", "dept": "Operations", "email": "regina@envisionservicegroup.com", "phone": "708-768-4850"}, {"name": "TeresaPhillips", "role": "Bookkeeping", "dept": "Operations", "email": "teresa@keepbooksforyou.com", "phone": ""}, {"name": "Jose Vargas", "role": "PM \u2013Roofing", "dept": "Roofing", "email": "snoopyjosedogg@hotmail.com", "phone": "480-667-9710"}, {"name": "Ebert Vargas Lizarraga", "role": "Foreman(Paint)", "dept": "Painting", "email": "ebert.lizarraga@gmail.com", "phone": "602-691-8394"}, {"name": "MarioPerez", "role": "Foreman (Paint) \u00b7 NewImage", "dept": "Painting", "email": "anthony.rivers2069@gmail.com", "phone": "623-340-2800"}, {"name": "Gilberto Alvarez", "role": "Foreman (Paint) \u00b7 GilPainting", "dept": "Painting", "email": "gilbertoar2028@gmail.com", "phone": "602-488-0645"}];
+let DIRECTORY = [{"name": "Brian Brown", "role": "General Manager", "dept": "Leadership", "email": "brian@envisionservicegroup.com", "phone": "623-210-7216"}, {"name": "Kevin Barnes", "role": "Director of Sales", "dept": "Leadership", "email": "kevin@envisionservicegroup.com", "phone": "480-255-2598"}, {"name": "Remone Hattar", "role": "PM – Painting & Roofing · Estimator", "dept": "Estimating", "email": "remone@envisionpainting.com", "phone": "602-802-3639"}, {"name": "Miranda Griego", "role": "Office Manager", "dept": "Operations", "email": "miranda@envisionpainting.com", "phone": "480-798-6936"}, {"name": "Teresa Phillips", "role": "Bookkeeping", "dept": "Operations", "email": "teresa@keepbooksforyou.com", "phone": ""}, {"name": "Jose Vargas", "role": "PM – Roofing", "dept": "Roofing", "email": "snoopyjosedogg@hotmail.com", "phone": "480-667-9710"}, {"name": "Ebert Vargas Lizarraga", "role": "Foreman (Paint)", "dept": "Painting", "email": "ebert.lizarraga@gmail.com", "phone": "602-691-8394"}, {"name": "Mario Perez", "role": "Foreman (Paint) · New Image", "dept": "Painting", "email": "anthony.rivers2069@gmail.com", "phone": "623-340-2800"}, {"name": "Gilberto Alvarez", "role": "Senior Foreman (Paint) · Gil Painting", "dept": "Painting", "email": "gilbertoar2028@gmail.com", "phone": "602-488-0645"}];
+// Org chart — flat list so it's editable in Admin. Each node: {id, role, name, sub, cls, crews, parent}.
+// "parent" is another node's id, or null for top-level. "cls" points at an ORG_GROUPS id (or "" for default white).
+let ORG_NODES = [
+  {id:"pete",     role:"Founder",           name:"Pete Schnepp",     sub:"",                             cls:"founder", parent:null,   crews:[]},
+  {id:"brian",    role:"General Manager",   name:"Brian Brown",      sub:"Operations · People · P&L",    cls:"gm",      parent:"pete", crews:[]},
+  {id:"marketing",role:"Marketing",         name:"Marketing",        sub:"Brand · Leads · Digital",      cls:"",        parent:"brian",crews:[]},
+  {id:"remone",   role:"Estimator",         name:"Remone Hattar",    sub:"PM · Painting & Roofing",      cls:"sales",   parent:"brian",crews:[]},
+  {id:"foremen",  role:"Painting",          name:"Painting Foremen", sub:"Crews by foreman",             cls:"paint",   parent:"remone",crews:[]},
+  {id:"ebert",    role:"Foreman",           name:"Ebert Vargas",     sub:"",                             cls:"paint",   parent:"foremen",crews:["Paint 1","Paint 2"]},
+  {id:"mario",    role:"Foreman",           name:"Mario Perez",      sub:"",                             cls:"paint",   parent:"foremen",crews:["Paint 1","Paint 2","Paint 3"]},
+  {id:"gilberto", role:"Foreman",           name:"Gilberto Alvarez", sub:"",                             cls:"paint",   parent:"foremen",crews:["Paint 1–6"]},
+  {id:"kevin",    role:"Director of Sales", name:"Kevin Barnes",     sub:"",                             cls:"sales",   parent:"brian",crews:[]},
+  {id:"nico",     role:"Sr. PM · Roofing",  name:"Nico Chavez",      sub:"Field Ops · QC · Crews",       cls:"",        parent:"brian",crews:[]},
+  {id:"jose",     role:"PM · Roofing",      name:"Jose Vargas",      sub:"",                             cls:"",        parent:"nico", crews:["Shingle 1","Shingle 2","Shingle 3","Tile 1","Tile 2","Repair"]},
+  {id:"miranda",  role:"Office Manager",    name:"Miranda Griego",   sub:"Scheduling · Billing · HR",    cls:"",        parent:"pete", crews:[]}
+];
+// Color groups for the org chart. Each: {id, label, bg (CSS background), topAccent (optional top-border
+// color), text (optional role-label color)}. Fully editable in Admin → Org Chart → Groups; a node's "cls"
+// points at one of these ids (or "" for plain white/default).
+let ORG_GROUPS = [
+  {id:"founder", label:"Founder",    bg:"",                                          topAccent:"#f0a830", text:"",        border:""},
+  {id:"gm",      label:"GM",         bg:"linear-gradient(135deg,#eef4fc,#e3edfa)",  topAccent:"",        text:"",        border:""},
+  {id:"sales",   label:"Leadership", bg:"linear-gradient(135deg,#eef4fc,#e6eefb)",  topAccent:"",        text:"",        border:""},
+  {id:"paint",   label:"Painting",   bg:"#eef7ee",                                  topAccent:"",        text:"#3a8a3a", border:"#cfe6cf"}
+];
+// Build {id: {...node, children:[]}} plus the list of top-level (parent-less) nodes.
+function buildOrgTree(){
+  const byId={};
+  ORG_NODES.forEach(n=>{ byId[n.id]={...n, children:[]}; });
+  const roots=[];
+  ORG_NODES.forEach(n=>{
+    const node=byId[n.id];
+    if(n.parent && byId[n.parent]){ byId[n.parent].children.push(node); }
+    else { roots.push(node); }
+  });
+  return {byId, roots};
+}
+// All descendant ids of a node (used to stop someone being set as their own manager's manager).
+function orgDescendants(id){
+  const kids=ORG_NODES.filter(n=>n.parent===id).map(n=>n.id);
+  let all=kids.slice();
+  kids.forEach(k=>{ all=all.concat(orgDescendants(k)); });
+  return all;
+}
+// Swap a node with the sibling above/below it (dir: -1 up, +1 down) — changes display order under the same manager.
+function orgMoveSibling(id, dir){
+  const n=ORG_NODES.find(x=>x.id===id); if(!n) return false;
+  const sibIds=ORG_NODES.filter(x=>x.parent===n.parent).map(x=>x.id);
+  const pos=sibIds.indexOf(id), swapPos=pos+dir;
+  if(swapPos<0||swapPos>=sibIds.length) return false;
+  const otherId=sibIds[swapPos];
+  const i1=ORG_NODES.findIndex(x=>x.id===id), i2=ORG_NODES.findIndex(x=>x.id===otherId);
+  const tmp=ORG_NODES[i1]; ORG_NODES[i1]=ORG_NODES[i2]; ORG_NODES[i2]=tmp;
+  return true;
+}
+// Move a node up one level: it now reports to its manager's manager instead of its manager.
+function orgPromote(id){
+  const n=ORG_NODES.find(x=>x.id===id); if(!n||!n.parent) return false;
+  const p=ORG_NODES.find(x=>x.id===n.parent); if(!p) return false;
+  n.parent=p.parent; return true;
+}
 // Nico Chavez — Senior PM scorecard (separate from estimator KPIs). Editable actuals.
-let NICO_SPM = {
-  teamGoal: 2800000, floor: 2500000,
-  roles: [
-    {role:"Senior PM", person:"Nico Chavez", target:1500000, pct:41.7},
-    {role:"PM Associate", person:"Direct Report 1", target:500000, pct:13.9},
-    {role:"PM Associate", person:"Direct Report 2", target:500000, pct:13.9}
-  ],
-  // each metric: target text, a numeric target+actual where it makes sense, dir = "up" (higher is better) or "down"
-  individual: [
-    {k:"Personal Revenue Closed", t:"$1,500,000 / yr", target:1500000, actual:null, money:true, dir:"up"},
-    {k:"Stretch Revenue Goal", t:"$2,100,000 / yr", target:2100000, actual:null, money:true, dir:"up"},
-    {k:"Client Retention Rate", t:"\u2265 90%", target:90, actual:null, unit:"%", dir:"up"},
-    {k:"Pipeline Value Maintained", t:"3\u00d7 quota ($4.5M+)", target:4500000, actual:null, money:true, dir:"up"},
-    {k:"Proposal Win Rate", t:"\u2265 35%", target:35, actual:null, unit:"%", dir:"up"},
-    {k:"CRM Hygiene (up-to-date)", t:"100% weekly", target:100, actual:null, unit:"%", dir:"up"},
-    {k:"Upsell / Expansion Revenue", t:"\u2265 20% of book", target:20, actual:null, unit:"%", dir:"up"}
-  ],
-  team: [
-    {k:"Team Revenue Managed", t:"$2,800,000 (stretch)", target:2800000, actual:null, money:true, dir:"up"},
-    {k:"Direct Report 1 Revenue", t:"$500,000 minimum", target:500000, actual:null, money:true, dir:"up"},
-    {k:"Direct Report 2 Revenue", t:"$500,000 minimum", target:500000, actual:null, money:true, dir:"up"},
-    {k:"Team Quota Attainment", t:"\u2265 100% of $2.5M floor", target:100, actual:null, unit:"%", dir:"up"},
-    {k:"1-on-1 Coaching Sessions", t:"Weekly per direct report", target:null, actual:null, dir:"up"},
-    {k:"Deal Review Cadence", t:"Bi-weekly pipeline review", target:null, actual:null, dir:"up"},
-    {k:"Team Proposal Win Rate", t:"\u2265 33% combined", target:33, actual:null, unit:"%", dir:"up"},
-    {k:"Direct Report Retention", t:"100% (no attrition)", target:100, actual:null, unit:"%", dir:"up"},
-    {k:"Training & Development", t:"\u2265 2 programs / yr per rep", target:2, actual:null, dir:"up"},
-    {k:"Performance Review Completion", t:"100% on-time (Q1\u2013Q4)", target:100, actual:null, unit:"%", dir:"up"}
-  ],
-  quarterly: [
-    {q:"Q1", nico:375000, eachDR:125000, team:250000, total:750000, nicoActual:null, teamActual:null},
-    {q:"Q2", nico:375000, eachDR:125000, team:250000, total:750000, nicoActual:null, teamActual:null},
-    {q:"Q3", nico:375000, eachDR:125000, team:250000, total:750000, nicoActual:null, teamActual:null},
-    {q:"Q4", nico:375000, eachDR:125000, team:250000, total:750000, nicoActual:null, teamActual:null}
-  ],
-  operational: [
-    {k:"Project Delivery On-Time", t:"\u2265 90% milestones", target:90, actual:null, unit:"%", dir:"up"},
-    {k:"Client Satisfaction (CSAT)", t:"\u2265 4.5 / 5.0", target:4.5, actual:null, dir:"up"},
-    {k:"Net Promoter Score (NPS)", t:"\u2265 50", target:50, actual:null, dir:"up"},
-    {k:"Issue Escalation Rate", t:"< 5% of projects", target:5, actual:null, unit:"%", dir:"down"},
-    {k:"Scope Change Management", t:"100% documented", target:100, actual:null, unit:"%", dir:"up"},
-    {k:"Budget Variance", t:"\u2264 5% per project", target:5, actual:null, unit:"%", dir:"down"},
-    {k:"Cross-Sell Introductions", t:"\u2265 6 / yr", target:6, actual:null, dir:"up"},
-    {k:"Executive Stakeholder Reviews", t:"Quarterly per key account", target:null, actual:null, dir:"up"}
-  ],
-  review: [
-    {cad:"Weekly", act:"Pipeline & CRM review", who:"Nico + Direct Reports", owner:"Nico Chavez"},
-    {cad:"Weekly", act:"1-on-1 coaching sessions", who:"Nico + Each DR", owner:"Nico Chavez"},
-    {cad:"Monthly", act:"Revenue tracking vs targets", who:"Nico + Manager", owner:"Nico's Manager"},
-    {cad:"Quarterly", act:"Formal KPI performance review", who:"Nico + Manager + HR", owner:"Nico's Manager"},
-    {cad:"Quarterly", act:"Team quota attainment summary", who:"All 3 team members", owner:"Nico Chavez"},
-    {cad:"Annually", act:"Full KPI & compensation review", who:"Nico + Manager + Leadership", owner:"Leadership"}
-  ]
-};
+let NICO_SPM = {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "Senior PM", "person": "Nico Chavez", "target": 1500000, "pct": 41.7}, {"role": "PM Associate", "person": "Direct Report 1", "target": 500000, "pct": 13.9}, {"role": "PM Associate", "person": "Direct Report 2", "target": 500000, "pct": 13.9}], "individual": [{"k": "Personal Revenue Closed", "t": "$1,500,000 / yr", "target": 1500000, "actual": 219070, "money": true, "dir": "up"}, {"k": "Stretch Revenue Goal", "t": "$2,100,000 / yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "Client Retention Rate", "t": "≥ 90%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline Value Maintained", "t": "3× quota ($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "≥ 35%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100% weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "≥ 20% of book", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team Revenue Managed", "t": "$2,800,000 (stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 2 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Team Quota Attainment", "t": "≥ 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1 Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "Deal Review Cadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "Team Proposal Win Rate", "t": "≥ 33% combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct Report Retention", "t": "100% (no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training & Development", "t": "≥ 2 programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance Review Completion", "t": "100% on-time (Q1–Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "≥ 90% milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Client Satisfaction (CSAT)", "t": "≥ 4.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score (NPS)", "t": "≥ 50", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% of projects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope Change Management", "t": "100% documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Budget Variance", "t": "≤ 5% per project", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-Sell Introductions", "t": "≥ 6 / yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive Stakeholder Reviews", "t": "Quarterly per key account", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRM review", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1 coaching sessions", "who": "Nico + Each DR", "owner": "Nico Chavez"}, {"cad": "Monthly", "act": "Revenue tracking vs targets", "who": "Nico + Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPI performance review", "who": "Nico + Manager + HR", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Team quota attainment summary", "who": "All 3 team members", "owner": "Nico Chavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico + Manager + Leadership", "owner": "Leadership"}]};
 // Senior PM scorecards, keyed by person id. Each person gets their own copy of the structure.
-let SPM_DATA = {"nico": {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "Senior PM", "person": "Nico Chavez", "target": 1500000, "pct": 41.7}, {"role": "PMAssociate", "person": "Direct Report 1", "target": 500000, "pct": 13.9}, {"role": "PM Associate", "person": "DirectReport 2", "target": 500000, "pct": 13.9}], "individual": [{"k": "Personal Revenue Closed", "t": "$1,500,000 /yr", "target": 1500000, "actual": 267751, "money": true, "dir": "up"}, {"k": "Stretch Revenue Goal", "t": "$2,100,000 /yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "Client Retention Rate", "t": "\u226590%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline Value Maintained", "t": "3\u00d7 quota($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "\u226535%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100%weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "\u2265 20% ofbook", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team Revenue Managed", "t": "$2,800,000(stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report2 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "TeamQuota Attainment", "t": "\u2265 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "Deal ReviewCadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "Team Proposal WinRate", "t": "\u2265 33% combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct ReportRetention", "t": "100% (no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training &Development", "t": "\u2265 2 programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance ReviewCompletion", "t": "100% on-time(Q1\u2013Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "\u2265 90% milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "ClientSatisfaction (CSAT)", "t": "\u2265 4.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score(NPS)", "t": "\u2265 50", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% ofprojects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope Change Management", "t": "100%documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Budget Variance", "t": "\u2264 5% perproject", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-Sell Introductions", "t": "\u2265 6 /yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive Stakeholder Reviews", "t": "Quarterly per keyaccount", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRMreview", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1 coachingsessions", "who": "Nico + Each DR", "owner": "Nico Chavez"}, {"cad": "Monthly", "act": "Revenue tracking vstargets", "who": "Nico + Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPIperformance review", "who": "Nico + Manager + HR", "owner": "Nico'sManager"}, {"cad": "Quarterly", "act": "Team quota attainment summary", "who": "All 3 teammembers", "owner": "Nico Chavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico +Manager +Leadership", "owner": "Leadership"}]}, "kevin": {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "SeniorPM", "person": "Kevin Barnes", "target": 1500000, "pct": 41.7}, {"role": "PM Associate", "person": "Direct Report1", "target": 500000, "pct": 13.9}, {"role": "PM Associate", "person": "Direct Report2", "target": 500000, "pct": 13.9}], "individual": [{"k": "Personal Revenue Closed", "t": "$1,500,000 /yr", "target": 1500000, "actual": 17196, "money": true, "dir": "up"}, {"k": "Stretch Revenue Goal", "t": "$2,100,000 /yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "Client Retention Rate", "t": "\u226590%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline Value Maintained", "t": "3\u00d7 quota($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "\u226535%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100%weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "\u2265 20% ofbook", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team Revenue Managed", "t": "$2,800,000(stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report2 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "TeamQuota Attainment", "t": "\u2265 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "Deal ReviewCadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "Team Proposal WinRate", "t": "\u2265 33% combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct ReportRetention", "t": "100% (no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training &Development", "t": "\u2265 2 programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance ReviewCompletion", "t": "100% on-time(Q1\u2013Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "\u2265 90% milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "ClientSatisfaction (CSAT)", "t": "\u2265 4.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score(NPS)", "t": "\u2265 50", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% ofprojects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope Change Management", "t": "100%documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Budget Variance", "t": "\u2264 5% perproject", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-Sell Introductions", "t": "\u2265 6 /yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive Stakeholder Reviews", "t": "Quarterly per keyaccount", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRMreview", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1 coachingsessions", "who": "Nico + Each DR", "owner": "Nico Chavez"}, {"cad": "Monthly", "act": "Revenue tracking vstargets", "who": "Nico + Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPIperformance review", "who": "Nico + Manager + HR", "owner": "Nico'sManager"}, {"cad": "Quarterly", "act": "Team quota attainment summary", "who": "All 3 teammembers", "owner": "Nico Chavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico +Manager + Leadership", "owner": "Leadership"}]}};
+let SPM_DATA = {"nico": {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "Senior PM", "person": "Nico Chavez", "target": 1500000, "pct": 41.7}, {"role": "PM Associate", "person": "Direct Report 1", "target": 500000, "pct": 13.9}, {"role": "PM Associate", "person": "Direct Report 2", "target": 500000, "pct": 13.9}], "individual": [{"k": "Personal Revenue Closed", "t": "$1,500,000 / yr", "target": 1500000, "actual": 296129, "money": true, "dir": "up"}, {"k": "Stretch Revenue Goal", "t": "$2,100,000 / yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "Client Retention Rate", "t": "≥ 90%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline Value Maintained", "t": "3× quota ($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "≥ 35%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100% weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "≥ 20% of book", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team Revenue Managed", "t": "$2,800,000 (stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 2 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Team Quota Attainment", "t": "≥ 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1 Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "Deal Review Cadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "Team Proposal Win Rate", "t": "≥ 33% combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct Report Retention", "t": "100% (no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training & Development", "t": "≥ 2 programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance Review Completion", "t": "100% on-time (Q1–Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "≥ 90% milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Client Satisfaction (CSAT)", "t": "≥ 4.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score (NPS)", "t": "≥ 50", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% of projects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope Change Management", "t": "100% documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Budget Variance", "t": "≤ 5% per project", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-Sell Introductions", "t": "≥ 6 / yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive Stakeholder Reviews", "t": "Quarterly per key account", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRM review", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1 coaching sessions", "who": "Nico + Each DR", "owner": "Nico Chavez"}, {"cad": "Monthly", "act": "Revenue tracking vs targets", "who": "Nico + Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPI performance review", "who": "Nico + Manager + HR", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Team quota attainment summary", "who": "All 3 team members", "owner": "Nico Chavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico + Manager + Leadership", "owner": "Leadership"}]}, "kevin": {"teamGoal": 2800000, "floor": 2500000, "roles": [{"role": "Senior PM", "person": "Kevin Barnes", "target": 1500000, "pct": 41.7}, {"role": "PM Associate", "person": "Direct Report 1", "target": 500000, "pct": 13.9}, {"role": "PM Associate", "person": "Direct Report 2", "target": 500000, "pct": 13.9}], "individual": [{"k": "Personal Revenue Closed", "t": "$1,500,000 / yr", "target": 1500000, "actual": 38396, "money": true, "dir": "up"}, {"k": "Stretch Revenue Goal", "t": "$2,100,000 / yr", "target": 2100000, "actual": null, "money": true, "dir": "up"}, {"k": "Client Retention Rate", "t": "≥ 90%", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Pipeline Value Maintained", "t": "3× quota ($4.5M+)", "target": 4500000, "actual": null, "money": true, "dir": "up"}, {"k": "Proposal Win Rate", "t": "≥ 35%", "target": 35, "actual": null, "unit": "%", "dir": "up"}, {"k": "CRM Hygiene (up-to-date)", "t": "100% weekly", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Upsell / Expansion Revenue", "t": "≥ 20% of book", "target": 20, "actual": null, "unit": "%", "dir": "up"}], "team": [{"k": "Team Revenue Managed", "t": "$2,800,000 (stretch)", "target": 2800000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 1 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Direct Report 2 Revenue", "t": "$500,000 minimum", "target": 500000, "actual": null, "money": true, "dir": "up"}, {"k": "Team Quota Attainment", "t": "≥ 100% of $2.5M floor", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "1-on-1 Coaching Sessions", "t": "Weekly per direct report", "target": null, "actual": null, "dir": "up"}, {"k": "Deal Review Cadence", "t": "Bi-weekly pipeline review", "target": null, "actual": null, "dir": "up"}, {"k": "Team Proposal Win Rate", "t": "≥ 33% combined", "target": 33, "actual": null, "unit": "%", "dir": "up"}, {"k": "Direct Report Retention", "t": "100% (no attrition)", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Training & Development", "t": "≥ 2 programs / yr per rep", "target": 2, "actual": null, "dir": "up"}, {"k": "Performance Review Completion", "t": "100% on-time (Q1–Q4)", "target": 100, "actual": null, "unit": "%", "dir": "up"}], "quarterly": [{"q": "Q1", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q2", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q3", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}, {"q": "Q4", "nico": 375000, "eachDR": 125000, "team": 250000, "total": 750000, "nicoActual": null, "teamActual": null}], "operational": [{"k": "Project Delivery On-Time", "t": "≥ 90% milestones", "target": 90, "actual": null, "unit": "%", "dir": "up"}, {"k": "Client Satisfaction (CSAT)", "t": "≥ 4.5 / 5.0", "target": 4.5, "actual": null, "dir": "up"}, {"k": "Net Promoter Score (NPS)", "t": "≥ 50", "target": 50, "actual": null, "dir": "up"}, {"k": "Issue Escalation Rate", "t": "< 5% of projects", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Scope Change Management", "t": "100% documented", "target": 100, "actual": null, "unit": "%", "dir": "up"}, {"k": "Budget Variance", "t": "≤ 5% per project", "target": 5, "actual": null, "unit": "%", "dir": "down"}, {"k": "Cross-Sell Introductions", "t": "≥ 6 / yr", "target": 6, "actual": null, "dir": "up"}, {"k": "Executive Stakeholder Reviews", "t": "Quarterly per key account", "target": null, "actual": null, "dir": "up"}], "review": [{"cad": "Weekly", "act": "Pipeline & CRM review", "who": "Nico + Direct Reports", "owner": "Nico Chavez"}, {"cad": "Weekly", "act": "1-on-1 coaching sessions", "who": "Nico + Each DR", "owner": "Nico Chavez"}, {"cad": "Monthly", "act": "Revenue tracking vs targets", "who": "Nico + Manager", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Formal KPI performance review", "who": "Nico + Manager + HR", "owner": "Nico's Manager"}, {"cad": "Quarterly", "act": "Team quota attainment summary", "who": "All 3 team members", "owner": "Nico Chavez"}, {"cad": "Annually", "act": "Full KPI & compensation review", "who": "Nico + Manager + Leadership", "owner": "Leadership"}]}};
 // Kevin's scorecard starts from the same template with cleared actuals & his own name.
 (function(){
   var k=SPM_DATA.kevin;
@@ -1417,30 +1425,26 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   }
   function renderOrgChart(){
     const box=$("#orgChart"); if(!box) return;
-    // Vertical indented tree. Each node: {role,name,sub,cls,crews,children}
-    const TREE={role:"Founder",name:"Pete Schnepp",cls:"founder",children:[
-      {role:"General Manager",name:"Brian Brown",sub:"Operations · People · P&L",cls:"gm",children:[
-        {role:"Marketing",name:"Marketing",sub:"Brand · Leads · Digital"},
-        {role:"Director of Sales",name:"Kevin Barnes",cls:"sales",children:[
-          {role:"Office Manager",name:"Miranda Griegos",sub:"Scheduling · Billing · HR"},
-          {role:"PM · Painting & Roofing · Estimator",name:"Remone Hattar",sub:"PM · Estimating · Technology"},
-          {role:"Painting Estimator",name:"TBD",sub:"Residential · Light Commercial"},
-          {role:"Sr. PM · Roofing",name:"Nico Chavez",sub:"Field Ops · QC · Crews",children:[
-            {role:"PM · Roofing",name:"Jose Vargas",crews:["Shingle 1","Shingle 2","Shingle 3","Tile 1","Tile 2","Repair"]}
-          ]},
-          {role:"Painting",name:"Painting Foremen",sub:"Crews by foreman",cls:"paint",children:[
-            {role:"Foreman",name:"Ebert Vargas",cls:"paint",crews:["Paint 1","Paint 2"]},
-            {role:"Foreman",name:"Mario Perez",cls:"paint",crews:["Paint 1","Paint 2","Paint 3"]},
-            {role:"Foreman",name:"Gilberto Alvarez",cls:"paint",crews:["Paint 1–6"]}
-          ]}
-        ]}
-      ]}
-    ]};
+    // Vertical indented tree, built from the editable ORG_NODES list (Admin → Org Chart).
+    // Each rendered node: {role,name,sub,cls,crews,children}
+    const {byId, roots}=buildOrgTree();
+    let TREE;
+    if(roots.length===1){ TREE=roots[0]; }
+    else if(roots.length>1){ TREE={role:"",name:"Team",cls:"",children:roots}; }
+    else { TREE={role:"",name:"No org data yet — add people in Admin → Org Chart.",cls:"",children:[]}; }
 
     function nodeHtml(n){
+      const g=ORG_GROUPS.find(x=>x.id===n.cls);
+      let style="";
+      if(g){
+        if(g.bg) style+="background:"+g.bg+";";
+        if(g.topAccent) style+="border-top:3px solid "+g.topAccent+";";
+        if(g.border) style+="border-color:"+g.border+";";
+      }
+      const roleStyle=(g&&g.text)?(' style="color:'+g.text+';"'):'';
       const paint=(n.cls==="paint");
-      let h='<div class="vnode'+(n.cls?" "+n.cls:"")+'">'+
-        '<div class="vrole">'+n.role+'</div>'+
+      let h='<div class="vnode"'+(style?' style="'+style+'"':'')+'>'+
+        '<div class="vrole"'+roleStyle+'>'+n.role+'</div>'+
         '<div class="vname">'+n.name+'</div>'+
         (n.sub?'<div class="vsub">'+n.sub+'</div>':'')+
       '</div>';
@@ -1457,33 +1461,34 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     }
 
     // ----- Tab subtrees -----
-    const brian   = TREE.children[0];
-    const kevin   = brian.children.find(c=>c.name==="Kevin Barnes");
-    const nico    = kevin.children.find(c=>c.name==="Nico Chavez");
-    const foremen = kevin.children.find(c=>c.name==="Painting Foremen");
+    const brian   = byId["brian"];
+    const remone  = byId["remone"];
+    const kevin   = byId["kevin"];
+    const nico    = byId["nico"];
+    const miranda = byId["miranda"];
+    const foremen = byId["foremen"];
 
-    // Leadership = the command line: Pete -> Brian -> (Marketing, Kevin) with managers as Kevin's reports (no deep field crews)
-    const leadership={role:TREE.role,name:TREE.name,cls:TREE.cls,children:[
-      {role:brian.role,name:brian.name,sub:brian.sub,cls:brian.cls,children:[
-        {role:"Marketing",name:"Marketing",sub:"Brand · Leads · Digital"},
-        {role:kevin.role,name:kevin.name,cls:kevin.cls,children:[
-          {role:"Office Manager",name:"Miranda Griegos",sub:"Scheduling · Billing · HR"},
-          {role:"PM · Painting & Roofing · Estimator",name:"Remone Hattar",sub:"PM · Estimating · Technology"},
-          {role:"Painting Estimator",name:"TBD",sub:"Residential · Light Commercial"},
-          {role:nico.role,name:nico.name,sub:nico.sub},
-          {role:foremen.role,name:foremen.name,sub:foremen.sub,cls:foremen.cls}
-        ]}
-      ]}
-    ]};
+    // Leadership = the command line: Pete -> (Brian's branch, Miranda) — Kevin/Nico report to Brian, Miranda reports directly to Pete (no deep field crews)
+    const brianChildren=[{role:"Marketing",name:"Marketing",sub:"Brand · Leads · Digital"}];
+    if(remone) brianChildren.push({role:remone.role,name:remone.name,sub:remone.sub,cls:remone.cls,children: foremen?[{role:foremen.role,name:foremen.name,sub:foremen.sub,cls:foremen.cls}]:[]});
+    if(kevin) brianChildren.push({role:kevin.role,name:kevin.name,cls:kevin.cls});
+    if(nico) brianChildren.push({role:nico.role,name:nico.name,sub:nico.sub});
+    const rootChildren=[];
+    if(brian) rootChildren.push({role:brian.role,name:brian.name,sub:brian.sub,cls:brian.cls,children:brianChildren});
+    if(miranda) rootChildren.push({role:miranda.role,name:miranda.name,sub:miranda.sub});
+    const leadership={role:TREE.role,name:TREE.name,cls:TREE.cls,children:rootChildren};
 
     const TABS=[
       {id:"full", label:"Full Org", root:TREE},
-      {id:"lead", label:"Leadership", root:leadership},
-      {id:"roof", label:"Roofing", root:nico},
-      {id:"paint", label:"Painting", root:foremen}
+      {id:"lead", label:"Leadership", root:leadership}
     ];
+    if(nico) TABS.push({id:"roof", label:"Roofing", root:nico});
+    if(foremen) TABS.push({id:"paint", label:"Painting", root:foremen});
 
-    const legend='<div class="org-legend"><span><span class="org-dot" style="background:#dcebfb;"></span> Leadership</span><span><span class="org-dot" style="background:#fff;border:1px solid var(--line);"></span> Roofing</span><span><span class="org-dot" style="background:#eef7ee;border:1px solid #cfe6cf;"></span> Painting</span></div>';
+    const legendGroups=ORG_GROUPS.filter(g=>g.id!=="founder"&&g.id!=="gm");
+    const legend='<div class="org-legend">'+legendGroups.map(g=>
+      '<span><span class="org-dot" style="background:'+(g.bg||'#fff')+';border:1px solid '+(g.border||'var(--line)')+';"></span> '+esc(g.label)+'</span>'
+    ).join('')+'</div>';
     box.innerHTML='<div class="org-tabs" id="orgTabs">'+
         TABS.map((t,i)=>'<button class="org-tab'+(i===0?" active":"")+'" data-tab="'+t.id+'">'+t.label+'</button>').join('')+
       '</div>'+
@@ -1525,11 +1530,10 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     const drop='<div class="org-drop"></div>';
     const crews=(items,paint)=>'<div class="org-crews">'+items.map(c=>'<span class="org-crew'+(paint?" paint":"")+'">'+c+'</span>').join('')+'</div>';
 
-    // management columns hanging off the Director of Sales bus
+    // management columns hanging off Remone (Owner · Estimator)
     const mgmt=[
+      {col:node("Director of Sales","Kevin Barnes","","sales")},
       {col:node("Office Manager","Miranda Griegos","Scheduling · Billing · HR")},
-      {col:node("PM · Painting & Roofing · Estimator","Remone Hattar","PM · Estimating · Technology")},
-      {col:node("Painting Estimator","TBD","Residential · Light Commercial")},
       // Nico branch: Sr PM -> Jose Vargas -> roofing crews
       {col:node("Sr. PM · Roofing","Nico Chavez","Field Ops · QC · Crews")+drop+
         node("PM · Roofing","Jose Vargas","")+
@@ -1551,7 +1555,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
         '<div class="org-child">'+node("Marketing","Marketing","Brand · Leads · Digital")+'</div>'+
       '</div>'+
       drop+
-      node("Director of Sales","Kevin Barnes","","sales")+drop+
+      node("Owner · Estimator","Remone Hattar","PM · Estimating · Technology","sales")+drop+
       // management bus
       '<div class="org-children" style="--busL:9%;--busR:9%;">'+
         mgmt.map(m=>'<div class="org-child">'+m.col+'</div>').join('')+
@@ -2786,46 +2790,18 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   $("#adminPass").addEventListener("keydown",e=>{if(e.key==="Enter")$("#adminLoginBtn").click();});
 
   // Password book — your own entries. NOTE: visible in page source once published.
-  let PASSBOOK=[
-    {label:"Password Sheet",user:"",pass:"",notes:"",link:"https://docs.google.com/spreadsheets/d/18kFXVtemSfrm5xma8-7fvd_0hPOo036saNsD-zJLKZw/edit?usp=sharing"},
-  ];
+  let PASSBOOK=[{"label": "Password Sheet", "user": "", "pass": "", "notes": "", "link": "https://docs.google.com/spreadsheets/d/18kFXVtemSfrm5xma8-7fvd_0hPOo036saNsD-zJLKZw/edit?usp=sharing"}];
   // Folders you create, each holding document links.
-  let FOLDERS=[
-    {name:"Job Documentation",docs:[
-      {t:"Job photos (CompanyCam)",link:"#"},
-    ]},
-    {name:"Company Shared Drive",docs:[
-      {t:"Contracts & templates",link:"#"},
-      {t:"Branding assets",link:"#"},
-    ]},
-  ];
+  let FOLDERS=[{"name": "Job Documentation", "docs": [{"t": "Job photos (CompanyCam)", "link": "#"}]}, {"name": "Company Shared Drive", "docs": [{"t": "Contracts & templates", "link": "#"}, {"t": "Branding assets", "link": "#"}]}];
   // Training videos (public to watch; admins add/edit). Paste a YouTube, Vimeo, or
   // Google Drive link and it embeds a player.
-  let TRAINING=[
-    {title:"Welcome to Envision",desc:"Start here — who we are and how we work.",url:""},
-  ];
+  let TRAINING=[{"title": "Welcome to Envision", "desc": "Start here — who we are and how we work.", "url": ""}];
   // The remaining simple link-list tabs.
-  let ADMIN_SECTIONS=[
-    {id:"documents",label:"Documents",icon:"\ud83d\udcc4",items:[
-      {t:"KPI Scorecard (Nico)",d:"",link:"https://docs.google.com/document/d/1fSxATH2yUfTi62kbrqHBkd2EUXtCSzKCmQmpqTfXqkE/edit?usp=sharing"},
-      {t:"Office Manager SOP",d:"Minimum margins & approval rules",link:"#"},
-      {t:"ESG_Inbound_Call_Script",d:"Contact one script",link:"https://docs.google.com/document/d/1CA2lta-qP0RMBO1Xq0eiI7-pE51V3Ov711PTqoncM8o/edit?usp=sharing"},
-      {t:"PAINTING FOREMAN",d:"STANDARD OPERATING PROCEDURE (SOP)",link:"https://docs.google.com/document/d/1YdR5GpsAOlfcelSG36h-9qeMoF3gA4xOb2ZGxdbOKdc/edit?usp=sharing"},
-    ]},
-    {id:"imports",label:"Imports",icon:"\u2b07\ufe0f",items:[
-      {t:"Jobber \u2014 Salesperson Performance",d:"Closing ratio & revenue per estimator",link:"#"},
-      {t:"Jobber \u2014 Quotes report",d:"Per-quote detail for closing math",link:"#"},
-      {t:"Jobber \u2014 Visits report",d:"Scheduled & completed visits",link:"#"},
-    ]},
-    {id:"resources",label:"Resources",icon:"\ud83e\udded",items:[
-      {t:"Supplier list",d:"Paint & roofing material vendors",link:"#"},
-      {t:"Subcontractor contacts",d:"Approved crews",link:"#"},
-      {t:"Marketing assets",d:"Logos, yard signs, vehicle wraps",link:"#"},
-    ]},
-  ];
+  let ADMIN_SECTIONS=[{"id": "documents", "label": "Documents", "icon": "📄", "items": [{"t": "KPI Scorecard (Nico)", "d": "", "link": "https://docs.google.com/document/d/1fSxATH2yUfTi62kbrqHBkd2EUXtCSzKCmQmpqTfXqkE/edit?usp=sharing"}, {"t": "Office Manager SOP", "d": "Minimum margins & approval rules", "link": "#"}, {"t": "ESG_Inbound_Call_Script", "d": "Contact one script", "link": "https://docs.google.com/document/d/1CA2lta-qP0RMBO1Xq0eiI7-pE51V3Ov711PTqoncM8o/edit?usp=sharing"}, {"t": "PAINTING FOREMAN", "d": "STANDARD OPERATING PROCEDURE (SOP)", "link": "https://docs.google.com/document/d/1YdR5GpsAOlfcelSG36h-9qeMoF3gA4xOb2ZGxdbOKdc/edit?usp=sharing"}]}, {"id": "imports", "label": "Imports", "icon": "⬇️", "items": [{"t": "Jobber — Salesperson Performance", "d": "Closing ratio & revenue per estimator", "link": "#"}, {"t": "Jobber — Quotes report", "d": "Per-quote detail for closing math", "link": "#"}, {"t": "Jobber — Visits report", "d": "Scheduled & completed visits", "link": "#"}]}, {"id": "resources", "label": "Resources", "icon": "🧭", "items": [{"t": "Supplier list", "d": "Paint & roofing material vendors", "link": "#"}, {"t": "Subcontractor contacts", "d": "Approved crews", "link": "#"}, {"t": "Marketing assets", "d": "Logos, yard signs, vehicle wraps", "link": "#"}]}];
   // Tab order shown in Admin (folders & passwords are special-rendered).
   const ADMIN_TABS=[
     {id:"people",label:"People",icon:"\ud83d\udc65"},
+    {id:"orgchart",label:"Org Chart",icon:"\ud83e\udded"},
     {id:"goals",label:"Goals",icon:"\ud83d\udcc8"},
     {id:"imports",label:"Imports",icon:"\u2b07\ufe0f"},
     {id:"reviews",label:"Reviews",icon:"\u2b50"},
@@ -2850,6 +2826,12 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     {id:"commission",label:"Commission",icon:"\ud83d\udcb0"},
   ];
   let peopleSub="profiles";
+  // sub-tabs inside the Org Chart group
+  const ORGCHART_SUBS=[
+    {id:"nodes",label:"People",icon:"\ud83d\udc64"},
+    {id:"groups",label:"Groups",icon:"\ud83c\udfa8"},
+  ];
+  let orgSub="nodes";
 
 
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
@@ -2886,6 +2868,14 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     }
     // ----- GOALS -----
     if(adminCur==="goals"){ renderAdminGoals(panel); return; }
+    // ----- ORG CHART group (People / Groups) -----
+    if(adminCur==="orgchart"){
+      panel.appendChild(subBar(ORGCHART_SUBS, orgSub, id=>{orgSub=id;renderAdmin();}));
+      const sub=el("div"); panel.appendChild(sub);
+      if(orgSub==="groups"){ renderOrgGroupsAdmin(sub); }
+      else { renderOrgAdmin(sub); }
+      return;
+    }
     // ----- IMPORTS -----
     if(adminCur==="imports"){ renderImports(panel); return; }
     // ----- REVIEWS -----
@@ -3088,6 +3078,164 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       panel.querySelectorAll("[data-deld]").forEach(b=>b.onclick=()=>{DIRECTORY.splice(+b.dataset.deld,1);window.__esgSave&&window.__esgSave();renderAdmin();});
       const add=$("#dirAdd"); if(add) add.onclick=()=>{DIRECTORY.push({name:"New person",role:"",dept:"Team",email:"",phone:""});window.__esgSave&&window.__esgSave();renderAdmin();};
     }
+  }
+
+  // ---- Admin: editable org chart (Home page org chart reads live from ORG_NODES) ----
+  function renderOrgAdmin(panel){
+    let html=adminToolbar();
+    html+='<div class="card"><h3 style="margin:0 0 4px;">🧭 Org chart — People</h3>'+
+      '<p style="margin:0 0 12px;color:var(--muted);font-size:12.5px;">Edit names, titles, sub-labels, who reports to whom, and their color group. Use the arrows to reorder people under the same manager, or bump someone up a level. Changes update the Org Chart on the Home page right away. '+(adminEdit?'':'Turn on <b>Edit</b> (top) to change these.')+'</p>';
+    if(adminEdit){
+      html+='<table class="ev-table"><thead><tr><th></th><th>Name</th><th>Title</th><th>Sub-label</th><th>Reports to</th><th>Group</th><th></th></tr></thead><tbody>';
+      ORG_NODES.forEach((n,i)=>{
+        const excluded=new Set([n.id].concat(orgDescendants(n.id)));
+        const options=['<option value=""'+(!n.parent?' selected':'')+'>— Top level —</option>']
+          .concat(ORG_NODES.filter(o=>!excluded.has(o.id)).map(o=>'<option value="'+esc(o.id)+'"'+(n.parent===o.id?' selected':'')+'>'+esc(o.name)+'</option>'));
+        const groupOpts=['<option value=""'+((n.cls||"")===""?' selected':'')+'>Default</option>']
+          .concat(ORG_GROUPS.map(g=>'<option value="'+esc(g.id)+'"'+(n.cls===g.id?' selected':'')+'>'+esc(g.label)+'</option>')).join('');
+        const sibs=ORG_NODES.filter(x=>x.parent===n.parent).map(x=>x.id);
+        const pos=sibs.indexOf(n.id);
+        const canUp=pos>0, canDown=pos<sibs.length-1, canPromote=!!n.parent;
+        html+='<tr>'+
+          '<td style="white-space:nowrap;">'+
+            '<button class="copy-btn" data-up="'+i+'" title="Move up" '+(canUp?'':'disabled')+' style="padding:3px 7px;margin-right:2px;">↑</button>'+
+            '<button class="copy-btn" data-down="'+i+'" title="Move down" '+(canDown?'':'disabled')+' style="padding:3px 7px;margin-right:2px;">↓</button>'+
+            '<button class="copy-btn" data-promote="'+i+'" title="Move up a level (reports to the next manager up)" '+(canPromote?'':'disabled')+' style="padding:3px 7px;">⤴</button>'+
+          '</td>'+
+          '<td><input data-o="'+i+'" data-f="name" value="'+esc(n.name||"")+'" style="width:130px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><input data-o="'+i+'" data-f="role" value="'+esc(n.role||"")+'" style="width:150px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><input data-o="'+i+'" data-f="sub" value="'+esc(n.sub||"")+'" style="width:160px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><select data-o="'+i+'" data-f="parent" style="font-size:12.5px;padding:5px 7px;">'+options.join('')+'</select></td>'+
+          '<td><select data-o="'+i+'" data-f="cls" style="font-size:12.5px;padding:5px 7px;">'+groupOpts+'</select></td>'+
+          '<td><button class="copy-btn" data-delo="'+i+'" style="color:var(--red);border-color:#f3c6c6;">Del</button></td>'+
+        '</tr>';
+      });
+      html+='</tbody></table><button class="ev-btn ghost" id="orgAdd" style="margin-top:10px;">+ Add person</button>';
+    } else {
+      html+='<table class="ev-table"><thead><tr><th>Name</th><th>Title</th><th>Reports to</th></tr></thead><tbody>'+
+        ORG_NODES.map(n=>{
+          const mgr=ORG_NODES.find(o=>o.id===n.parent);
+          return '<tr><td>'+esc(n.name)+'</td><td>'+esc(n.role)+'</td><td>'+(mgr?esc(mgr.name):'—')+'</td></tr>';
+        }).join('')+
+        '</tbody></table>';
+    }
+    html+='<div style="margin-top:12px;"><button class="ev-btn primary" id="orgCopy">Copy all updates for publishing</button></div></div>';
+    panel.innerHTML=html;
+    wireAdminTop();
+    const cp=$("#orgCopy"); if(cp) cp.onclick=copyOrgChart;
+    if(adminEdit){
+      panel.querySelectorAll("input[data-o]").forEach(inp=>inp.onchange=e=>{
+        const i=+e.target.dataset.o, f=e.target.dataset.f;
+        ORG_NODES[i][f]=e.target.value;
+        window.__esgSave&&window.__esgSave();
+        renderOrgChart();
+      });
+      panel.querySelectorAll("select[data-o]").forEach(sel=>sel.onchange=e=>{
+        const i=+e.target.dataset.o, f=e.target.dataset.f;
+        ORG_NODES[i][f]= (f==="parent") ? (e.target.value||null) : e.target.value;
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();     // rebuild dropdowns (descendant sets may have changed)
+        renderOrgChart();
+      });
+      panel.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{
+        orgMoveSibling(ORG_NODES[+b.dataset.up].id, -1);
+        window.__esgSave&&window.__esgSave();
+        renderAdmin(); renderOrgChart();
+      });
+      panel.querySelectorAll("[data-down]").forEach(b=>b.onclick=()=>{
+        orgMoveSibling(ORG_NODES[+b.dataset.down].id, 1);
+        window.__esgSave&&window.__esgSave();
+        renderAdmin(); renderOrgChart();
+      });
+      panel.querySelectorAll("[data-promote]").forEach(b=>b.onclick=()=>{
+        orgPromote(ORG_NODES[+b.dataset.promote].id);
+        window.__esgSave&&window.__esgSave();
+        renderAdmin(); renderOrgChart();
+      });
+      panel.querySelectorAll("[data-delo]").forEach(b=>b.onclick=()=>{
+        const i=+b.dataset.delo;
+        const node=ORG_NODES[i];
+        if(!confirm("Delete "+node.name+"? Anyone reporting to them moves up to their manager.")) return;
+        ORG_NODES.forEach(n=>{ if(n.parent===node.id) n.parent=node.parent; });
+        ORG_NODES.splice(i,1);
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+        renderOrgChart();
+      });
+      const add=$("#orgAdd"); if(add) add.onclick=()=>{
+        const id="n"+Date.now();
+        ORG_NODES.push({id:id, role:"New role", name:"New person", sub:"", cls:"", parent:(ORG_NODES[0]?ORG_NODES[0].id:null), crews:[]});
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+        renderOrgChart();
+      };
+    }
+  }
+
+  // ---- Admin: editable color groups for the org chart ----
+  function renderOrgGroupsAdmin(panel){
+    let html=adminToolbar();
+    html+='<div class="card"><h3 style="margin:0 0 4px;">🎨 Org chart — Groups</h3>'+
+      '<p style="margin:0 0 12px;color:var(--muted);font-size:12.5px;">Add, rename, recolor, or remove the color groups people can be assigned to on the org chart (in the People tab\u2019s Group column). Use any CSS color or gradient for Background. '+(adminEdit?'':'Turn on <b>Edit</b> (top) to change these.')+'</p>';
+    if(adminEdit){
+      html+='<table class="ev-table"><thead><tr><th>Swatch</th><th>Label</th><th>Background</th><th>Top accent</th><th>Text color</th><th></th></tr></thead><tbody>';
+      ORG_GROUPS.forEach((g,i)=>{
+        const swatchStyle="background:"+(g.bg||"#fff")+";"+(g.topAccent?"border-top:3px solid "+g.topAccent+";":"")+"border:1px solid "+(g.border||"#dfe6ee")+";";
+        html+='<tr>'+
+          '<td><span style="display:inline-block;width:28px;height:20px;border-radius:5px;'+swatchStyle+'"></span></td>'+
+          '<td><input data-g="'+i+'" data-f="label" value="'+esc(g.label||"")+'" style="width:110px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><input data-g="'+i+'" data-f="bg" value="'+esc(g.bg||"")+'" placeholder="#eef4fc or a gradient" style="width:190px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><input data-g="'+i+'" data-f="topAccent" value="'+esc(g.topAccent||"")+'" placeholder="optional" style="width:110px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><input data-g="'+i+'" data-f="text" value="'+esc(g.text||"")+'" placeholder="optional" style="width:110px;font-size:12.5px;padding:5px 7px;"></td>'+
+          '<td><button class="copy-btn" data-delg="'+i+'" style="color:var(--red);border-color:#f3c6c6;">Del</button></td>'+
+        '</tr>';
+      });
+      html+='</tbody></table><button class="ev-btn ghost" id="orgGroupAdd" style="margin-top:10px;">+ Add group</button>';
+    } else {
+      html+='<table class="ev-table"><thead><tr><th>Swatch</th><th>Label</th></tr></thead><tbody>'+
+        ORG_GROUPS.map(g=>{
+          const swatchStyle="background:"+(g.bg||"#fff")+";"+(g.topAccent?"border-top:3px solid "+g.topAccent+";":"")+"border:1px solid "+(g.border||"#dfe6ee")+";";
+          return '<tr><td><span style="display:inline-block;width:28px;height:20px;border-radius:5px;'+swatchStyle+'"></span></td><td>'+esc(g.label)+'</td></tr>';
+        }).join('')+
+        '</tbody></table>';
+    }
+    html+='<div style="margin-top:12px;"><button class="ev-btn primary" id="orgGroupCopy">Copy all updates for publishing</button></div></div>';
+    panel.innerHTML=html;
+    wireAdminTop();
+    const cp=$("#orgGroupCopy"); if(cp) cp.onclick=copyOrgChart;
+    if(adminEdit){
+      panel.querySelectorAll("input[data-g]").forEach(inp=>inp.onchange=e=>{
+        const i=+e.target.dataset.g, f=e.target.dataset.f;
+        ORG_GROUPS[i][f]=e.target.value;
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+        renderOrgChart();
+      });
+      panel.querySelectorAll("[data-delg]").forEach(b=>b.onclick=()=>{
+        const i=+b.dataset.delg;
+        const g=ORG_GROUPS[i];
+        if(!confirm('Delete the "'+g.label+'" group? People using it will fall back to the default (white) look.')) return;
+        ORG_NODES.forEach(n=>{ if(n.cls===g.id) n.cls=""; });
+        ORG_GROUPS.splice(i,1);
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+        renderOrgChart();
+      });
+      const add=$("#orgGroupAdd"); if(add) add.onclick=()=>{
+        const id="g"+Date.now();
+        ORG_GROUPS.push({id:id, label:"New group", bg:"#eef4fc", topAccent:"", text:"", border:""});
+        window.__esgSave&&window.__esgSave();
+        renderAdmin();
+        renderOrgChart();
+      };
+    }
+  }
+
+  function copyOrgChart(){
+    const today=new Date();
+    const stamp=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+    const snippet="/* Org chart updated "+stamp+" \u2014 replace the whole  let ORG_NODES = [ ... ];  and  let ORG_GROUPS = [ ... ];  blocks near the top of the script, then commit */\nlet ORG_NODES = "+JSON.stringify(ORG_NODES,null,2)+";\nlet ORG_GROUPS = "+JSON.stringify(ORG_GROUPS,null,2)+";";
+    showCopyBox(snippet);
   }
 
   function renderAdminTraining(panel){
@@ -3670,6 +3818,8 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       NICO_SPM: NICO_SPM,
       SPM_DATA: SPM_DATA,
       DIRECTORY: DIRECTORY,
+      ORG_NODES: ORG_NODES,
+      ORG_GROUPS: ORG_GROUPS,
       WEEKLY_REVIEWS: WEEKLY_REVIEWS,
       WEEKLY_SNAPSHOT: WEEKLY_SNAPSHOT,
       COMMISSION_DEFAULT: COMMISSION_DEFAULT,
@@ -3693,6 +3843,8 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     if(s.NICO_SPM&&typeof s.NICO_SPM==="object") NICO_SPM=s.NICO_SPM;
     if(s.SPM_DATA&&typeof s.SPM_DATA==="object"){ SPM_DATA=s.SPM_DATA; if(!SPM_DATA.nico) SPM_DATA.nico=NICO_SPM; }
     if(Array.isArray(s.DIRECTORY)){ DIRECTORY.length=0; s.DIRECTORY.forEach(x=>DIRECTORY.push(x)); }
+    if(Array.isArray(s.ORG_NODES) && s.ORG_NODES.length){ ORG_NODES.length=0; s.ORG_NODES.forEach(x=>ORG_NODES.push(x)); }
+    if(Array.isArray(s.ORG_GROUPS) && s.ORG_GROUPS.length){ ORG_GROUPS.length=0; s.ORG_GROUPS.forEach(x=>ORG_GROUPS.push(x)); }
     if(Array.isArray(s.WEEKLY_REVIEWS)){ WEEKLY_REVIEWS.length=0; s.WEEKLY_REVIEWS.forEach(x=>WEEKLY_REVIEWS.push(x)); }
     if(s.WEEKLY_SNAPSHOT&&typeof s.WEEKLY_SNAPSHOT==="object"){ WEEKLY_SNAPSHOT=s.WEEKLY_SNAPSHOT; }
     if(s.COMMISSION_DEFAULT&&typeof s.COMMISSION_DEFAULT==="object"){ COMMISSION_DEFAULT.offTopPct=s.COMMISSION_DEFAULT.offTopPct; COMMISSION_DEFAULT.tiers=s.COMMISSION_DEFAULT.tiers; COMMISSION_DEFAULT.notes=s.COMMISSION_DEFAULT.notes; }
