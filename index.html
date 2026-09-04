@@ -2062,7 +2062,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       const stamp=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
       PIPELINE={ updated:stamp, projects:res.projects };
       const pendResult=applyPipelinePending();
-      window.__esgSave&&window.__esgSave();
+      (window.__esgSaveNow||window.__esgSave)&&(window.__esgSaveNow||window.__esgSave)();
       const matched=res.projects.filter(p=>p.salesId).length;
       const un=res.projects.length-matched;
       st.style.color="var(--green)";
@@ -2072,7 +2072,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       toast("Pipeline synced: "+res.projects.length+" projects");
       renderAdmin();
     });
-    const pClr=$("#pipeClear"); if(pClr) pClr.onclick=()=>{ if(confirm("Clear the entire pipeline?")){ PIPELINE={updated:"",projects:[]}; window.__esgSave&&window.__esgSave(); renderAdmin(); } };
+    const pClr=$("#pipeClear"); if(pClr) pClr.onclick=()=>{ if(confirm("Clear the entire pipeline?")){ PIPELINE={updated:"",projects:[]}; (window.__esgSaveNow||window.__esgSave)&&(window.__esgSaveNow||window.__esgSave)(); renderAdmin(); } };
 
     function refreshOr(){ $("#orCurrent").textContent=fmtMoney(OTHER_REVENUE||0); const inp=$("#orAmount"); if(inp) inp.value=OTHER_REVENUE||""; }
     // Jobber upload -> total all unmatched (no-profile) people's revenue
@@ -4040,6 +4040,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   }
   // expose for save hooks
   window.__esgSave = saveToSheet;
+  window.__esgSaveNow = function(){ try{ clearTimeout(saveTimer); }catch(_){ } doSave(); };
 
   // ---------------- Init ----------------
   function startApp(){
