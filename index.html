@@ -1129,6 +1129,57 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
   // ---------------- KPI model ----------------
   const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
   const MABBR={January:"Jan",February:"Feb",March:"Mar",April:"Apr",May:"May",June:"Jun",July:"Jul",August:"Aug",September:"Sep",October:"Oct",November:"Nov",December:"Dec"};
+  // ---- Pipeline-fed revenue: "won but not yet paid" this month ----
+  function pipeMonthOf(str){
+    if(!str) return null;
+    const d=new Date(str);
+    if(!isNaN(d.getTime())) return MONTHS[d.getMonth()];
+    const s=String(str).toLowerCase();
+    for(const full of MONTHS){ if(s.indexOf(MABBR[full].toLowerCase())>=0) return full; }
+    return null;
+  }
+  function pipelinePendingFor(personId, month){
+    if(!PIPELINE||!Array.isArray(PIPELINE.projects)) return 0;
+    let sum=0;
+    PIPELINE.projects.forEach(pr=>{
+      if(pr.status!=="Won") return;
+      if(pr.salesId!==personId) return;
+      if(pipeMonthOf(pr.close)!==month) return;
+      sum+=Number(pr.value)||0;
+    });
+    return Math.round(sum);
+  }
+  function combinedRevenue(person, month){
+    const d=person&&person.data?person.data:{};
+    const rec=d[month]||{};
+    const total=(typeof rec.revenue==="number")?rec.revenue:0;
+    const pending=(typeof rec.pendingRev==="number")?rec.pendingRev:0;
+    return { paid: total-pending, pending, total };
+  }
+  // Fold each person's pipeline "won-not-paid" into their revenue for every month.
+  // Idempotent: strip any previously-folded pendingRev to recover paid base, then
+  // re-add fresh pending. Re-importing never stacks; paid always takes priority.
+  function applyPipelinePending(){
+    let total=0, people=0;
+    PEOPLE.forEach(p=>{
+      if(!p.data) return;
+      let personAdded=0;
+      MONTHS.forEach(m=>{
+        const rec=p.data[m]; if(!rec) return;
+        const prevPending=(typeof rec.pendingRev==="number")?rec.pendingRev:0;
+        const paidBase=(typeof rec.revenue==="number")?(rec.revenue-prevPending):0;
+        const pending=pipelinePendingFor(p.id, m);
+        if(pending>0 || prevPending>0){
+          rec.revenue = paidBase + pending;
+          rec.pendingRev = pending;
+        }
+        personAdded+=pending;
+      });
+      if(personAdded>0){ total+=personAdded; people++; }
+      if(SPM_DATA[p.id]) syncSpmRevenue(p.id);
+    });
+    return { total: Math.round(total), people };
+  }
   const READY_ITEMS=["Photos uploaded to CompanyCam","Complete scope of work","Colors selected","Material list completed","Customer contact information","Access instructions","HOA requirements (if applicable)","Special notes for the Foreman"];
   // Smooth piecewise-linear scorer: interpolates between [value, score] anchor
   // points so scores spread across the full range instead of jumping in big steps.
@@ -1763,8 +1814,11 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       if(!p.data[month]) p.data[month]={};
       if(m.closing!==null){p.data[month].closing=clampVal("closing",m.closing);}
       if(m.revenue!==null){
-        const cur=(typeof p.data[month].revenue==="number")?p.data[month].revenue:0;
-        p.data[month].revenue = adding ? (cur + m.revenue) : m.revenue;
+        const rec=p.data[month];
+        const pend=(typeof rec.pendingRev==="number")?rec.pendingRev:0;
+        const curPaid=(typeof rec.revenue==="number")?(rec.revenue-pend):0;
+        const newPaid = adding ? (curPaid + m.revenue) : m.revenue;
+        rec.revenue = newPaid + pend;
       }
       if(!p.data[month].auto) p.data[month].auto={};
       p.data[month].auto.closing=true; p.data[month].auto.revenue=true;
@@ -1892,6 +1946,11 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
           '<div class="drop-inner"><div style="font-size:22px;">\ud83d\udcc4</div><div><b>Upload Jobber CSV</b> \u2014 Salesperson Performance report<div style="font-size:11.5px;color:var(--muted);">Drop the file here or click to browse. We read each rep\u2019s revenue for this week.</div></div></div>'+
         '</div>'+
         '<div id="wkUpStatus" style="font-size:12.5px;font-weight:700;margin-bottom:10px;"></div>'+
+        // One-off Jobs upload (created this week)
+        '<div id="wkOneDrop" class="drop" style="margin:12px 0;"><input type="file" id="wkOneFile" accept=".csv" style="display:none;">'+
+          '<div class="drop-inner"><div style="font-size:22px;">\ud83d\uddd3\ufe0f</div><div><b>Upload Jobber CSV</b> \u2014 One-off Jobs report<div style="font-size:11.5px;color:var(--muted);">Sums each rep\u2019s jobs <b>created</b> during this week (Sat\u2013Fri) by created date.</div></div></div>'+
+        '</div>'+
+        '<div id="wkOneUpStatus" style="font-size:12.5px;font-weight:700;margin-bottom:10px;"></div>'+
         '<p style="margin:14px 0 8px;font-size:12px;font-weight:700;color:var(--ink);">Or enter / adjust manually:</p>'+
         '<table class="ev-table" style="width:100%;"><thead><tr><th>Producer</th><th>This week revenue ($)</th></tr></thead><tbody>'+
           people.map(p=>'<tr><td><b>'+esc(p.name)+'</b><div style="font-size:11px;color:var(--muted);">'+esc(p.role||"")+'</div></td>'+
@@ -1909,7 +1968,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     // ---- Pipeline import (Jobber "One-off Jobs" report) ----
     html+='<div class="card" style="margin-bottom:14px;">'+
       '<h3 style="margin:0 0 4px;">📊 Project Pipeline — Jobber import</h3>'+
-      '<p style="margin:0 0 12px;color:var(--muted);font-size:12.5px;">Upload the Jobber <b>One-off Jobs</b> report. It <b>replaces the entire pipeline</b> with the current list, routed to each person by salesperson name. Projects with a closed date show as <b>Won</b>, the rest as <b>Open</b>.</p>'+
+      '<p style="margin:0 0 12px;color:var(--muted);font-size:12.5px;">Upload the Jobber <b>One-off Jobs</b> report. It <b>replaces the entire pipeline</b> with the current list, routed to each person by salesperson name. Projects with a closed date show as <b>Closed</b>, the rest as <b>Open</b>.</p>'+
       '<div id="pipeDrop" class="drop"><input type="file" id="pipeFile" accept=".csv" style="display:none;">'+
         '<div class="drop-inner"><div style="font-size:22px;">📄</div><div><b>Upload One-off Jobs CSV</b><div style="font-size:11.5px;color:var(--muted);">Drop the file here or click to browse.</div></div></div>'+
       '</div>'+
@@ -1974,6 +2033,22 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
         const extra=res.unmatched&&res.unmatched.length?(" \u00b7 "+res.unmatched.length+" name(s) not matched"):"";
         st.innerHTML="\u2713 Read "+filled+" producer"+(filled===1?"":"s")+" from the file"+extra+". Review below, then click <b>Save weekly numbers</b>.";
       });
+      // One-off Jobs -> created-this-week per person
+      setupDrop("wkOneDrop","wkOneFile",(txt)=>{
+        const st=$("#wkOneUpStatus"); if(!st) return;
+        const res=ingestWeeklyOneOff(txt, (ctx&&ctx.friStr)?ctx.friStr:weekEndingFriday().toISOString().slice(0,10));
+        if(res.error){ st.style.color="var(--red)"; st.textContent="\u26a0 "+res.error; return; }
+        let filled=0;
+        // clear existing inputs first so this reflects only this week's created jobs
+        panel.querySelectorAll(".wkin").forEach(inp=>{ inp.value=""; });
+        Object.keys(res.perPerson).forEach(id=>{
+          const inp=panel.querySelector('.wkin[data-wkid="'+id+'"]');
+          if(inp){ inp.value=Math.round(res.perPerson[id]); filled++; }
+        });
+        st.style.color="var(--green)";
+        const un=res.unmatched&&res.unmatched.length?(" \u00b7 "+res.unmatched.length+" not matched"):"";
+        st.innerHTML="\u2713 "+res.count+" job"+(res.count===1?"":"s")+" created this week ("+fmtMoney(res.total)+") across "+filled+" rep"+(filled===1?"":"s")+un+". Review below, then <b>Save weekly numbers</b>.";
+      });
     })();
     setupDrop("perfDrop","perfFile",(txt)=>renderPerfResults(ingestTeamCSV(txt)));
     setupDrop("leadsDrop","leadsFile",(txt)=>renderLeadsResults(ingestLeadsCSV(txt)));
@@ -1985,11 +2060,14 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       if(res.error){ st.style.color="var(--red)"; st.textContent="\u26a0 "+res.error; return; }
       const stamp=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
       PIPELINE={ updated:stamp, projects:res.projects };
+      const pendResult=applyPipelinePending();
       window.__esgSave&&window.__esgSave();
       const matched=res.projects.filter(p=>p.salesId).length;
       const un=res.projects.length-matched;
       st.style.color="var(--green)";
-      st.innerHTML="\u2713 Pipeline replaced with <b>"+res.projects.length+"</b> projects ("+matched+" matched to people"+(un?", "+un+" unassigned":"")+"). View them on the Pipeline tab.";
+      st.innerHTML="\u2713 Pipeline replaced with <b>"+res.projects.length+"</b> projects ("+matched+" matched to people"+(un?", "+un+" unassigned":"")+"). "+
+        (pendResult.total>0?("Added <b>"+fmtMoney(pendResult.total)+"</b> in won-but-unpaid revenue across "+pendResult.people+" people into their KPIs. "):"")+
+        "View them on the Pipeline tab.";
       toast("Pipeline synced: "+res.projects.length+" projects");
       renderAdmin();
     });
@@ -2195,7 +2273,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
 
     // dashboard card
     html+='<div class="card" style="margin-bottom:18px;"><h3 style="margin:0 0 12px;">\ud83d\udcc8 Pipeline summary by team member</h3>'+
-      '<table class="wk-table"><thead><tr><th>Team member</th><th class="wk-r">Open projects</th><th class="wk-r">Open pipeline</th><th class="wk-r">Won value</th></tr></thead><tbody>'+
+      '<table class="wk-table"><thead><tr><th>Team member</th><th class="wk-r">Open projects</th><th class="wk-r">Open pipeline</th><th class="wk-r">Closed value</th></tr></thead><tbody>'+
       dashRows.map(r=>'<tr><td class="wk-pl">'+esc(r.name)+'</td><td class="wk-r">'+r.count+'</td><td class="wk-pv wk-r">'+pipeMoney(r.openVal)+'</td><td class="wk-pv wk-r">'+pipeMoney(r.wonVal)+'</td></tr>').join('')+
       '<tr class="wk-total"><td>Total</td><td class="wk-r">'+totCount+'</td><td class="wk-r">'+pipeMoney(totOpen)+'</td><td class="wk-r">'+pipeMoney(totWon)+'</td></tr>'+
       '</tbody></table></div>';
@@ -2216,7 +2294,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
           '<td class="wk-pn">'+esc(r.leadSource||"")+'</td>'+
           '<td class="wk-pv wk-r">'+pipeMoney(r.value)+'</td>'+
           '<td class="wk-pn">'+esc(r.start||"\u2014")+'</td>'+
-          '<td>'+(r.status==="Won"?'<span class="pipe-won">Won</span>':'<span class="pipe-open">Open</span>')+'</td>'+
+          '<td>'+(r.status==="Won"?'<span class="pipe-won">Closed</span>':'<span class="pipe-open">Open</span>')+'</td>'+
         '</tr>').join('')+
         '</tbody></table></div></div>';
     });
@@ -2232,6 +2310,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     const iTitle=idx("Title"), iClient=idx("Client name"), iType=idx("Primary Project Type"),
       iStreet=idx("Service street"), iCity=idx("Service city"), iLead=idx("Lead source"),
       iTotal=idx("Total ($)"), iStart=idx("Scheduled start date"), iClose=idx("Closed date"),
+      iCreated=idx("Created date"),
       iSales=idx("Salesperson");
     const projects=[];
     for(let r=1;r<rows.length;r++){
@@ -2242,19 +2321,48 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
       const salesName=(row[iSales]||"").trim();
       const person=pipeMatchPerson(salesName);
       const closeVal=(row[iClose]||"").trim();
-      const hasClose=closeVal && closeVal!=="-" && closeVal!=="";
+      const createdVal=(iCreated>=0?(row[iCreated]||"").trim():"");
+      const hasCreated=createdVal && createdVal!=="-" && createdVal!=="";
+      // "Sold" date = Created date (day the quote/job was approved). This drives the
+      // revenue month, regardless of scheduled start. Fall back to Closed date if a
+      // report has no Created column.
+      const soldVal = hasCreated ? createdVal : ((closeVal && closeVal!=="-")?closeVal : "");
+      const hasSold = !!soldVal;
       const val=parseFloat((row[iTotal]||"0").toString().replace(/[^0-9.\-]/g,""))||0;
       const addr=[(row[iStreet]||"").trim(),(row[iCity]||"").trim()].filter(Boolean).join(", ");
       const startVal=(row[iStart]||"").trim();
       projects.push({
         name:title, client:client, type:(row[iType]||"").trim(),
         address:addr, leadSource:(row[iLead]||"").trim(),
-        value:val, start:(startVal&&startVal!=="-")?startVal:"", close:hasClose?closeVal:"",
-        status:hasClose?"Won":"Open",
+        value:val, start:(startVal&&startVal!=="-")?startVal:"", close:hasSold?soldVal:"",
+        status:hasSold?"Won":"Open",
         salesId:person?person.id:null, salesName:salesName
       });
     }
     return {projects, count:projects.length};
+  }
+
+  // Parse the Jobber One-off Jobs report and sum each person's CREATED value for
+  // one week (Sat -> the given week-ending Friday). Feeds the Weekly Numbers report.
+  function ingestWeeklyOneOff(text, friEndISO){
+    const parsed=ingestPipelineCSV(text);
+    if(parsed.error) return {error:parsed.error};
+    const fri=new Date(friEndISO+"T23:59:59");
+    const sat=new Date(fri); sat.setDate(fri.getDate()-6); sat.setHours(0,0,0,0);
+    const perPerson={}; const unmatched=[]; let count=0, total=0;
+    (parsed.projects||[]).forEach(pr=>{
+      // "close" holds the created/sold date (set by ingestPipelineCSV)
+      if(!pr.close) return;
+      const d=new Date(pr.close);
+      if(isNaN(d.getTime())) return;
+      if(d<sat || d>fri) return;            // outside this week
+      const val=Number(pr.value)||0;
+      count++; total+=val;
+      if(pr.salesId){ perPerson[pr.salesId]=(perPerson[pr.salesId]||0)+val; }
+      else unmatched.push(pr.salesName||pr.name||"(unknown)");
+    });
+    return { perPerson, unmatched, count, total,
+      weekStart:sat.toISOString().slice(0,10), weekEnd:friEndISO };
   }
 
 
@@ -2666,6 +2774,7 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
             '<li><span>Consistently sells profitable work</span></li><li><span>Maintains a minimum 35% gross margin</span></li><li><span>Creates complete job packages for Foremen</span></li><li><span>Delivers an excellent customer experience</span></li><li><span>Helps Envision grow profitably</span></li></ul></div>'+
         '</div>'+
       '</div>'+
+      '<div class="ev-section-title">My Pipeline \u2014 '+person.name+'</div><div id="ekPipeline"></div>'+
       '<div class="ev-section-title">Season Summary \u2014 '+person.name+', 2026</div><div id="ekSummary"></div>';
 
     const q=s=>app.querySelector(s);
@@ -2694,6 +2803,17 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
         c.innerHTML='<div class="kpi-top"><div><div class="kpi-name">'+k.name+'</div><div class="kpi-goal">Goal: '+k.goal+'</div><div class="kpi-formula">'+k.formula+'</div></div><div class="kpi-weight">'+k.weight+'%</div></div>'+
           '<div class="kpi-value-row"><span class="ev-unit">'+(k.money?"$":"")+'</span><input class="kpi-input'+(isAuto?" auto":"")+'" type="number" step="any" inputmode="decimal" min="0"'+(typeof k.max==="number"?' max="'+k.max+'"':'')+' value="'+(has?v:"")+'" placeholder="\u2014" data-kpi="'+k.id+'"'+(EDIT_MODE?"":" readonly")+'><span class="ev-unit">'+(k.unit==="$"?"":k.unit)+'</span></div>'+
           '<div class="ev-autotag'+(isAuto?" show":"")+'">From Jobber import</div><span class="ev-status '+tc+'">'+tl+'</span>'+trendBadge(k,v)+'<div class="ev-bar"><span style="width:'+pct+'%"></span></div>';
+        if(k.id==="revenue"){
+          const pend=(typeof data[current].pendingRev==="number")?data[current].pendingRev:0;
+          const paid=(typeof v==="number"?v:0)-pend;
+          const sub=el("div","kpi-subline");
+          sub.style.cssText="margin-top:8px;font-size:12px;line-height:1.5;border-top:1px solid var(--line,#e6e6e6);padding-top:7px;";
+          sub.innerHTML=
+            '<div style="display:flex;justify-content:space-between;"><span style="color:var(--muted)">Sold &middot; created this month</span><b style="color:var(--green,#2e8b57)">'+fmtMoney(pend)+'</b></div>'+
+            '<div style="display:flex;justify-content:space-between;"><span style="color:var(--muted)">Closed &middot; paid out</span><b style="color:var(--ink)">'+fmtMoney(paid)+'</b></div>'+
+            '<div style="display:flex;justify-content:space-between;border-top:1px dashed var(--line,#e6e6e6);margin-top:4px;padding-top:4px;"><span style="color:var(--muted)">Total this month</span><b style="color:var(--ink)">'+fmtMoney(paid+pend)+'</b></div>';
+          c.appendChild(sub);
+        }
         w.appendChild(c);
       });
       w.querySelectorAll("input.kpi-input").forEach(inp=>inp.addEventListener("change",e=>{if(!EDIT_MODE)return;const id=e.target.dataset.kpi;const raw=e.target.value.trim();if(raw===""){delete data[current][id];}else{let n=parseFloat(raw);if(!isNaN(n)){n=clampVal(id,n);data[current][id]=n;e.target.value=n;}}delete data[current].auto[id];syncBack();renderTabs();renderOverall();renderCards();renderSummary();}));
@@ -2736,7 +2856,44 @@ var NICO_KPI_PDF = "JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1l
     }
     if(app._timer)clearInterval(app._timer);
     app._timer=setInterval(()=>{ if(document.body.contains(app)&&app.querySelector("#ekTCount")) renderTimer(); },1000);
-    function renderAll(){renderTabs();renderOverall();renderCards();renderReady();renderSummary();renderTimer();applyView();}
+    function renderPipelinePanel(){
+      const host=q("#ekPipeline"); if(!host) return;
+      const projects=(PIPELINE&&Array.isArray(PIPELINE.projects))?PIPELINE.projects.filter(pr=>pr.salesId===person.id):[];
+      if(!projects.length){
+        host.innerHTML='<div class="ev-panel" style="color:var(--muted);font-size:13px;">No pipeline projects assigned yet. Upload the Jobber One-off Jobs report in Admin \u2192 Imports.</div>';
+        return;
+      }
+      // Sort: sold/created first, then open; each by value desc
+      const sorted=projects.slice().sort((a,b)=>{
+        const aw=a.status==="Won"?0:1, bw=b.status==="Won"?0:1;
+        if(aw!==bw) return aw-bw;
+        return (Number(b.value)||0)-(Number(a.value)||0);
+      });
+      const soldVal=sorted.filter(p=>p.status==="Won").reduce((s,p)=>s+(Number(p.value)||0),0);
+      const openVal=sorted.filter(p=>p.status!=="Won").reduce((s,p)=>s+(Number(p.value)||0),0);
+      let h='<div class="ev-panel" style="padding:0;overflow:hidden;">'+
+        '<div style="display:flex;gap:18px;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid var(--line);font-size:12.5px;">'+
+          '<span><b style="color:var(--green,#2e8b57)">'+fmtMoney(soldVal)+'</b> <span style="color:var(--muted)">sold (created)</span></span>'+
+          '<span><b style="color:var(--brand)">'+fmtMoney(openVal)+'</b> <span style="color:var(--muted)">open</span></span>'+
+          '<span><b>'+sorted.length+'</b> <span style="color:var(--muted)">projects</span></span>'+
+        '</div>'+
+        '<div style="overflow-x:auto;"><table class="wk-table" style="margin:0;font-size:12.5px;"><thead><tr>'+
+          '<th>Project</th><th>Client</th><th class="wk-r">Value</th><th>Status</th><th>Date</th></tr></thead><tbody>';
+      sorted.forEach(pr=>{
+        const isSold=pr.status==="Won";
+        const date=pr.close||pr.start||"\u2014";
+        h+='<tr>'+
+          '<td>'+esc(pr.name||"\u2014")+'</td>'+
+          '<td style="color:var(--muted)">'+esc(pr.client||"\u2014")+'</td>'+
+          '<td class="wk-r">'+fmtMoney(Number(pr.value)||0)+'</td>'+
+          '<td>'+(isSold?'<span class="pipe-won">Closed</span>':'<span class="pipe-open">Open</span>')+'</td>'+
+          '<td style="color:var(--muted);white-space:nowrap;">'+esc(date)+'</td>'+
+        '</tr>';
+      });
+      h+='</tbody></table></div></div>';
+      host.innerHTML=h;
+    }
+    function renderAll(){renderTabs();renderOverall();renderCards();renderReady();renderSummary();renderPipelinePanel();renderTimer();applyView();}
 
     function parsePaste(text){const nums=text.split(/[\n,\t;]+/).map(s=>s.trim());const order=["closing","revenue","margin","readiness","customer"];const out={};order.forEach((id,i)=>{const raw=nums[i];if(raw===undefined||raw===""||raw==="-")return;let n=parseFloat(String(raw).replace(/[$,%\u2605\s]/g,""));if(!isNaN(n))out[id]=clampVal(id,n);});return out;}
     function cleanForPublish(){const out={};MONTHS.forEach(m=>{const src=data[m]||{};const o={};KPIS.forEach(k=>{if(typeof src[k.id]==="number")o[k.id]=src[k.id];});if(src.ready&&src.ready.some(Boolean))o.ready=src.ready.slice();if(typeof src.leadsBrought==="number")o.leadsBrought=src.leadsBrought;if(typeof src.leadsWon==="number")o.leadsWon=src.leadsWon;if(Object.keys(o).length)out[m]=o;});return out;}
