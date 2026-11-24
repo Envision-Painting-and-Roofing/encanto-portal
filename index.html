@@ -263,9 +263,9 @@ const EXTRAS = {
 // Published schedule (what residents see)
 const PUBLISHED = {
   start:'2026-11-28', lotsPerBlock:4, daysPerBlock:1.5, crews:1,
-  workDays:[1,2,3,4,5,6], daysOff:['2026-12-25','2027-01-01'],
+  workDays:[1,2,3,4,5,6], daysOff:['2026-12-24','2026-12-25','2026-12-31','2027-01-01'],
   order:'E F D C A B J I K L N M O P Q R T S H G', target:'24-27',
-  extras:{club:{when:'end',days:1},wall:{when:'end',days:1}},
+  extras:{club:{when:'end',days:1},wall:{when:'date',date:'2027-02-15',days:1}},
   repairs:{12:'Drywall repair',33:'Wood eave falling, re-nail',38:'Drywall repair',47:'Drywall repair',59:'Drywall repair'},
   repairLead:2, repairExtra:0
 };
@@ -298,7 +298,7 @@ function buildSchedule(cfg){
   // where each common-area day lands
   const after={};
   Object.keys(EXTRAS).forEach(id=>{
-    const x=(cfg.extras||{})[id]; if(!x||x.when==='none') return;
+    const x=(cfg.extras||{})[id]; if(!x||x.when==='none'||x.when==='date') return;
     const s=x.when==='end'?nSlots-1:(lastSlot[x.when]??nSlots-1);
     (after[s]=after[s]||[]).push({id,days:Math.max(0.5,Number(x.days)||1)});
   });
@@ -325,8 +325,17 @@ function buildSchedule(cfg){
   }
   const byExtra={};
   extras.forEach(x=>{Object.assign(x,span(x.s,x.e));byExtra[x.id]=x;});
+  // common-area work on a set date, outside the unit timeline
+  let datedDays=0;
+  Object.keys(EXTRAS).forEach(id=>{
+    const x=(cfg.extras||{})[id]; if(!x||x.when!=='date'||!/^\d{4}-\d{2}-\d{2}$/.test(x.date||'')) return;
+    const n=Math.max(1,Math.ceil(Number(x.days)||1)), st=parseDate(x.date), en=new Date(st); let k=1;
+    while(k<n){en.setDate(en.getDate()+1); if(wd.has(en.getDay())&&!off.has(key(en))) k++;}
+    const o={id,name:EXTRAS[id].name,s:1e6,e:1e6,start:st,end:en,startLate:false,endEarly:false,fixed:true};
+    extras.push(o); byExtra[id]=o; datedDays+=n;
+  });
   // weeks (Mon to Sun) by start date
-  const items=[...blocks,...extras].sort((a,b)=>a.s-b.s);
+  const items=[...blocks,...extras].sort((a,b)=>a.start-b.start||a.s-b.s);
   const weekKeys=[...new Set(items.map(b=>mondayOf(b.start)))].sort();
   const weeks=weekKeys.map((k,i)=>({k,i,color:WEEK_COLORS[i%WEEK_COLORS.length],items:[]}));
   const wmap=Object.fromEntries(weeks.map(w=>[w.k,w]));
@@ -340,7 +349,8 @@ function buildSchedule(cfg){
   const repByLot=Object.fromEntries(repairs.map(r=>[r.lot,r]));
   const first=items[0].start, last=items[items.length-1].end;
   const calDays=Math.round((last-first)/86400000)+1;
-  return {cfg,seq,blocks,extras,items,byLot,byExtra,weeks,totalDays,first,last,calDays,L,D,C,bOrder,rep,repairs,repByLot,repLead,repExtra};
+  const homesDone=blocks.reduce((m,b)=>b.end>m?b.end:m,blocks[0].end);
+  return {cfg,seq,blocks,extras,items,byLot,byExtra,weeks,totalDays:totalDays+datedDays,homesDone,first,last,calDays,L,D,C,bOrder,rep,repairs,repByLot,repLead,repExtra};
 }
 
 function rangeText(b){
@@ -466,8 +476,9 @@ function lotRanges(lots){
 
 function drawWeeks(){
   document.getElementById('lede').textContent=
-    'Exterior repaint of all 116 homes and the common areas, starting '+fmt(SCHED.first,{weekday:'long',month:'long',day:'numeric'})+
-    ' and finishing around '+fmt(SCHED.last,{weekday:'long',month:'long',day:'numeric'})+'. Find your home to see your dates.';
+    'Exterior repaint of all 116 homes, starting '+fmt(SCHED.first,{weekday:'long',month:'long',day:'numeric'})+
+    '. Homes are done around '+fmt(SCHED.homesDone,{weekday:'long',month:'long',day:'numeric'})+
+    (key(SCHED.last)!==key(SCHED.homesDone)?', and common-area work wraps up around '+fmt(SCHED.last,{weekday:'long',month:'long',day:'numeric'}):'')+'. Find your home to see your dates.';
   document.getElementById('weeksub').textContent='Crews start at the top left, work across the top, down the east side, along the bottom, and back up the west side.';
   document.getElementById('weeks').innerHTML=SCHED.weeks.map(w=>{
     const s=w.items[0].start, e=w.items[w.items.length-1].end;
@@ -480,7 +491,7 @@ function drawWeeks(){
 }
 
 /* ---------- planner ---------- */
-const PKEY='epth-planner-v3';
+const PKEY='epth-planner-v5';
 function loadPlanner(){
   const base=JSON.parse(JSON.stringify(PUBLISHED));
   try{const s=localStorage.getItem(PKEY);if(s){const o=JSON.parse(s);return Object.assign(base,o,{extras:Object.assign(base.extras,o.extras||{})});}}catch(e){}
@@ -507,16 +518,18 @@ function fillExtras(){
   const ids=String(PCFG.order).toUpperCase().split(/[^A-Z]+/).filter(x=>BMAP[x]);
   document.getElementById('s-extras').innerHTML=Object.keys(EXTRAS).map(id=>{
     const x=PCFG.extras[id]||{when:'none',days:1};
-    const opts=[['none','Not included'],['end','At the end']].concat(ids.map(b=>[b,'After Bldg '+b]));
+    const opts=[['none','Not included'],['end','At the end'],['date','On a set date']].concat(ids.map(b=>[b,'After Bldg '+b]));
     return '<label>'+EXTRAS[id].name+'<select data-x="'+id+'" data-f="when">'+opts.map(o=>'<option value="'+o[0]+'"'+(x.when===o[0]?' selected':'')+'>'+o[1]+'</option>').join('')+'</select></label>'+
-           '<label>Days for '+EXTRAS[id].short.toLowerCase()+'<input type="number" min="0.5" step="0.5" data-x="'+id+'" data-f="days" value="'+x.days+'"></label>';
+           '<label>Days for '+EXTRAS[id].short.toLowerCase()+'<input type="number" min="0.5" step="0.5" data-x="'+id+'" data-f="days" value="'+x.days+'"></label>'+
+           '<label>Set date (for “On a set date”)<input type="date" data-x="'+id+'" data-f="date" value="'+(x.date||'')+'"></label>';
   }).join('');
 }
 function readSettings(e){
   const extras={};
   Object.keys(EXTRAS).forEach(id=>{
     extras[id]={when:document.querySelector('[data-x="'+id+'"][data-f="when"]').value,
-                days:+document.querySelector('[data-x="'+id+'"][data-f="days"]').value||1};
+                days:+document.querySelector('[data-x="'+id+'"][data-f="days"]').value||1,
+                date:document.querySelector('[data-x="'+id+'"][data-f="date"]').value};
   });
   PCFG={
     start:document.getElementById('s-start').value||PUBLISHED.start,
